@@ -1,0 +1,7 @@
+apps:
+  - name     : api
+    script   : ./server/app.js
+    watch    : ["build.txt", "../build.txt"]
+    watch_options:
+      usePolling: true
+      interval: 1000

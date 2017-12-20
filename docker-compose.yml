@@ -1,0 +1,26 @@
+postgres_aisales:
+  image: "postgres:9.5"
+  container_name: "postgres_aisales"
+  hostname: postgres_aisales
+  volumes:
+    - ./pgdata:/var/lib/postgresql/data
+  expose:
+    - 5432
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres_testing
+web_aisales:
+  image: "node:8.9.1"
+  container_name: "web_aisales"
+  working_dir: /home/node/app
+  external_links:
+    - postgres_aisales
+  environment:
+    - NODE_ENV=testing
+    - VIRTUAL_HOST=aisales.d7.aisnovations.com
+    - VIRTUAL_PORT=8000
+  volumes:
+    - ./:/home/node/app
+  expose:
+    - 8000
+  command: "npm run server:testing"
