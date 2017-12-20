@@ -1,6 +1,55 @@
-<div class="home">
-	<h1>Imperial Tobacco home page</h1>
-	<h3>Hello, {{user.username}}</h3>
+<!-- <link rel="stylesheet" href="main-chat.component.css">
 
-	<button (click)="onLogOut()" mat-raised-button color="primary">Logout</button>
-</div>
+<body style="margin: 0; font-family: 'Roboto', sans-serif; color: rgb(75, 58, 58);"> -->
+
+	<div id="main-wrapper">
+		<div id="left-menu">
+			<div class="name">PRICE BOX DISPLAY</div>
+			<div class="user">
+				<div class="user-wrapper">
+					<span>Admin</span>
+					<span>Administrator</span>
+				</div>
+				<span></span>
+			</div>
+			<div class="menu">
+				<div class="menu-buttons">
+					<button mat-button>Home</button>
+					<button (click)="onLogOut()" mat-button>Logout</button>
+				</div>
+			</div>
+			<div class="footer"></div>
+		</div>
+	
+		<div class="center-wrapper">
+			<header></header>
+			<div class="picker">
+				<div class="picker-inputs">
+					<mat-form-field>
+						<mat-select placeholder="Choose">
+							<mat-option value="JR Cigars">JR Cigars</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<mat-form-field>
+						<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+				</div>
+
+				<button mat-raised-button color="primary">Submit</button>
+
+			</div>
+			<div class="field">
+				<!-- <h1>Imperial Tobacco home page</h1>
+				<h3>Hello, {{user.username}}</h3> -->
+			</div>
+		</div>
+	</div>
+	
+
+
+
+
+<!-- </body> -->

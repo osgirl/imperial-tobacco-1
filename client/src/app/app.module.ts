@@ -28,9 +28,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogModule, MatDialog, MatDialogRef, MatNativeDateModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
 
 
@@ -59,7 +61,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 		ReactiveFormsModule,
 		MatListModule,
 		MatCardModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		MatDatepickerModule,
+		MatNativeDateModule
 	],
 	declarations: [
 		AppComponent,
