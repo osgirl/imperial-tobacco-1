@@ -19,16 +19,25 @@ export class MainComponent {
 	}
 	
 
-	constructor() {}
+	constructor(private accountService: AccountService,
+		private router: Router,
+		public snackBar: MatSnackBar) {}
 	
 
 	onLogOut() {
-		// this.accountService.logOut().then((res: any) => {
-		// 	if (res.success) {
-		// 		this.router.navigate(['/auth']);
-		// 	} else {
-		// 		this.openSnackBar(res.msg);
-		// 	}
-		// });
+		this.accountService.logOut().then((res: any) => {
+			if (res.success) {
+				this.router.navigate(['/auth']);
+			} else {
+				this.openSnackBar(res.msg);
+			}
+		});
+	}
+
+	openSnackBar(msg: string) {
+		this.snackBar.open(msg, '', {
+			duration: 3000,
+			verticalPosition: 'top'
+		});
 	}
 }

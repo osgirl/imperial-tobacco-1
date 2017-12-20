@@ -3,60 +3,14 @@
     "isProd": "false",
     "host": "http://localhost:8080",
     "port": "3000",
-    "sync": "false",
-    "testEmailRecepients": "nastia.15@inbox.ru",
-    "fromEmail": "Aisales Smith 👻 <foo@blurdybloop.com>",
+    "username": "admin",
+    "password": "admin",
     "db": {
         "user": "postgres",
         "host": "localhost",
         "database": "aisales",
         "password": "12345",
         "port": "5432"
-    },
-    "vk": {
-        "clientID": "6241270",
-        "clientSecret": "tzHYK4wsvHN10J7mur7G",
-        "callbackURL": "http://localhost:8080/auth/vkontakte/callback"
-    },
-    "facebook": {
-        "clientID": "296431980857078",
-        "clientSecret": "7a317d23b1505574ab2553e1c29783cb",
-        "callbackURL": "http://localhost:8080/auth/facebook/callback"
-    },
-    "linkedIn": {
-        "clientID": "86brdl3biarln2",
-        "clientSecret": "EAxnZWCTsMYdqzlR",
-        "callbackURL": "http://localhost:8080/auth/linkedin/callback"
-    },
-    "smtp": {
-        "host": "smtp.gmail.com",
-        "port": "587",
-        "secure": "false",
-        "auth": {
-            "user": "aisales.smith.testacc@gmail.com",
-            "pass": "aisalessmith1120"
-        }
-    },
-    "bot": {
-        // "secret": "$ecret1",
-        "url": "https://upwork.aisales.aisnovations.com",
-        // "seneca": {
-        //     "active": "false",
-        //     "type": "tcp",
-        //     "host": "127.0.0.1",
-        //     "port": "8085"
-        // }
-        "sync": "false",
-		"syncInterval": "60000",
-		"syncKey": "test"
-    },
-    "upwork": {
-        "accounts": [
-            {
-                "name": "AIS",
-                "id": "648017980555083776"
-            }
-        ]
     },
     "sessionSecret": "Killer Is Jim"
 }
