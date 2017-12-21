@@ -41,4 +41,15 @@ export class AccountService {
 		});
 	}
 
+	getAllPlatforms() {
+		return this.http.get('/getAllPlatforms', {}).toPromise().then(res => {
+			return res.json()
+		});
+	}
+
+	getBrandsByFilter(platform: string, month: number) {
+		return this.http.get(`/getBrandsByFilter?platform=${platform}&month=${month}`, {}).toPromise().then(res => {
+			return res.json()
+		});
+	}
 }

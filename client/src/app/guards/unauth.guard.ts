@@ -10,11 +10,6 @@ export class UnauthGuard implements CanActivate {
 	async canActivate() {
 		let body = await this.accountService.isAuth();
 
-		if (!body.isAuth) {
-			return true;
-		} else {
-			this.router.navigate(['/auth']);
-			return false;
-		}
+		return !body.isAuth;
 	}
 }

@@ -60,5 +60,20 @@ module.exports = function (router) {
 		res.sendFile('error.html', { root: './server/views' });
 	});
 
+	router.get('/getAllPlatforms', async function (req, res, next) {
+		let platforms = await new AccountLogic(new AccountRep(req.db)).getAllPlatforms();
+		
+		res.json(platforms);
+	});
+
+	router.get('/getBrandsByFilter', async function (req, res, next) {
+		let platform = req.query.platform;
+		let month = req.query.month;
+
+		let brands = await new AccountLogic(new AccountRep(req.db)).getBrandsByFilter(platform, month);
+		
+		res.json(brands);
+	});
+	
 	return router;
 };

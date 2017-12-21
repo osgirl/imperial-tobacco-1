@@ -1,55 +1,84 @@
-<!-- <link rel="stylesheet" href="main-chat.component.css">
-
-<body style="margin: 0; font-family: 'Roboto', sans-serif; color: rgb(75, 58, 58);"> -->
-
-	<div id="main-wrapper">
-		<div id="left-menu">
-			<div class="name">PRICE BOX DISPLAY</div>
-			<div class="user">
-				<div class="user-wrapper">
-					<span>Admin</span>
-					<span>Administrator</span>
-				</div>
-				<span></span>
+<div id="main-wrapper">
+	<div id="left-menu">
+		<div class="name">PRICE BOX DISPLAY</div>
+		<div class="user">
+			<div class="user-wrapper">
+				<span>Admin</span>
+				<span>Administrator</span>
 			</div>
-			<div class="menu">
-				<div class="menu-buttons">
-					<button mat-button>Home</button>
-					<button (click)="onLogOut()" mat-button>Logout</button>
-				</div>
-			</div>
-			<div class="footer"></div>
+			<span></span>
 		</div>
-	
-		<div class="center-wrapper">
-			<header></header>
-			<div class="picker">
-				<div class="picker-inputs">
-					<mat-form-field>
-						<mat-select placeholder="Choose">
-							<mat-option value="JR Cigars">JR Cigars</mat-option>
-						</mat-select>
-					</mat-form-field>
-
-					<mat-form-field>
-						<input matInput [matDatepicker]="picker" placeholder="Choose a date">
-						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-						<mat-datepicker #picker></mat-datepicker>
-					</mat-form-field>
-				</div>
-
-				<button mat-raised-button color="primary">Submit</button>
-
+		<div class="menu">
+			<div class="menu-buttons">
+				<button mat-button (click)="home()">Home</button>
+				<button (click)="onLogOut()" mat-button>Logout</button>
 			</div>
-			<div class="field">
-				<!-- <h1>Imperial Tobacco home page</h1>
-				<h3>Hello, {{user.username}}</h3> -->
+		</div>
+		<div class="footer"></div>
+	</div>
+
+	<div class="center-wrapper">
+		<header></header>
+
+		<div class="picker" *ngIf="!showTable">
+			<div class="picker-inputs">
+				<mat-form-field>
+					<mat-select placeholder="Choose platform" [(value)]="selectedPlatform">
+						<mat-option>--</mat-option>
+						<mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-select placeholder="Choose month" [(value)]="selectedMonth">
+						<mat-option>--</mat-option>
+						<mat-option *ngFor="let month of months" [value]="month.index">{{month.viewValue}}</mat-option>
+					</mat-select>
+				</mat-form-field>
 			</div>
+
+			<button mat-raised-button color="primary" (click)="submit()">Submit</button>
+
+		</div>
+
+		<div class="tags" *ngIf="showTable">
+			<mat-form-field floatPlaceholder="never">
+				<mat-chip-list #chipList>
+					<mat-chip *ngFor="let value of statusSelected" (remove)="removeStatus(value)">
+						{{value}} <mat-icon matChipRemove>cancel</mat-icon>
+					</mat-chip>
+				</mat-chip-list>
+
+				<input #statusInput 
+				matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
+				
+				<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event); statusInput.value=''">
+					<mat-option *ngFor="let brand of filteredBrands | filter: statusInput.value: filteredBrands" [value]="brand.name">
+						<span>{{ brand.name }}</span>
+					</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
+		</div>
+
+		<div class="field" *ngIf="showTable">
+			<mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]">
+			</mat-paginator>
+
+			<mat-table #table [dataSource]="dataSource">
+
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef> Name of the brand </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="quantity">
+					<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+				</ng-container>
+
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+			</mat-table>
 		</div>
 	</div>
-	
-
-
-
-
-<!-- </body> -->
+</div>

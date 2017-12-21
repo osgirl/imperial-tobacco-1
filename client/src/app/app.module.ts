@@ -32,8 +32,11 @@ import { MatDialogModule, MatDialog, MatDialogRef, MatNativeDateModule } from '@
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
+import { SearchFilter } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -63,12 +66,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 		MatCardModule,
 		MatSlideToggleModule,
 		MatDatepickerModule,
-		MatNativeDateModule
+		MatNativeDateModule,
+		MatPaginatorModule,
+		MatIconModule
 	],
 	declarations: [
 		AppComponent,
 		AuthComponent,
-		MainComponent
+		MainComponent,
+		SearchFilter
 	],
 	providers: [
 		AccountService,

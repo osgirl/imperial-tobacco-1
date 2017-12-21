@@ -9,7 +9,7 @@ const cors = require('cors');
 const passport = require('passport');
 const fs = require('fs');
 const config = require('../config');
-// const DB = require('./db/index');
+const DB = require('./db/index');
 
 const {engines} = require('./../package.json');
 
@@ -58,10 +58,10 @@ const app = express();
 	// }));
 
 
-	// app.use(function (req, res, next) {
-	// 	req.db = DB;
-	// 	next();
-	// });
+	app.use(async function (req, res, next) {
+		req.db = await DB.connect();
+		next();
+	});
 
 	app.use(express.static(path.join(__dirname, '../client/dist')));
 
