@@ -34,6 +34,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
+import {DpDatePickerModule} from 'ng2-date-picker';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
 import { SearchFilter } from './pipes/filter.pipe';
@@ -69,7 +70,8 @@ import { Unique } from './pipes/unique.pipe';
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatPaginatorModule,
-		MatIconModule
+		MatIconModule,
+		DpDatePickerModule
 	],
 	declarations: [
 		AppComponent,

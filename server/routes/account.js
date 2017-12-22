@@ -68,9 +68,10 @@ module.exports = function (router) {
 
 	router.get('/getBrandsByFilter', async function (req, res, next) {
 		let platform = req.query.platform;
-		let month = req.query.month;
+		let month = +req.query.month;
+		let year = +req.query.year;
 
-		let brands = await new AccountLogic(new AccountRep(req.db)).getBrandsByFilter(platform, month);
+		let brands = await new AccountLogic(new AccountRep(req.db)).getBrandsByFilter(platform, month, year);
 		
 		res.json(brands);
 	});

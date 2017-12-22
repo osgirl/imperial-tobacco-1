@@ -8,8 +8,8 @@ module.exports = class Account {
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
 
-	async getBrandsByFilter(platform, month) {
-		const pipeline = require('./getBrandsByFilter.pipeline.js')(platform, month);
+	async getBrandsByFilter(platform, month, year) {
+		const pipeline = require('./getBrandsByFilter.pipeline.js')(platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
 };

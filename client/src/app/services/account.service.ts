@@ -47,8 +47,8 @@ export class AccountService {
 		});
 	}
 
-	getBrandsByFilter(platform: string, month: number) {
-		return this.http.get(`/getBrandsByFilter?platform=${platform}&month=${month}`, {}).toPromise().then(res => {
+	getBrandsByFilter(platform: string, month: number, year: number) {
+		return this.http.get(`/getBrandsByFilter?platform=${platform}&month=${month}&year=${year}`, {}).toPromise().then(res => {
 			return res.json()
 		});
 	}

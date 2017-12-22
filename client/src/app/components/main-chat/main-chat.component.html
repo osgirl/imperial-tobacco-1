@@ -11,7 +11,7 @@
 		<div class="menu">
 			<div class="menu-buttons">
 				<button mat-button (click)="home()">Home</button>
-				<button (click)="onLogOut()" mat-button>Logout</button>
+				<button (click)="logOut()" mat-button>Logout</button>
 			</div>
 		</div>
 		<div class="footer"></div>
@@ -31,11 +31,14 @@
 				</mat-form-field>
 
 				<mat-form-field>
-					<mat-select placeholder="Choose month" [(value)]="selectedMonth" [formControl]="monthControl" required>
-						<mat-option></mat-option>
-						<mat-option *ngFor="let month of months" [value]="month.index">{{month.viewValue}}</mat-option>
-					</mat-select>
-					<mat-error *ngIf="monthControl.hasError('required')">Please choose a month</mat-error>
+					<input placeholder="Choose month" 
+						   matInput 
+						   mode="month" 
+						   name="someName" 
+						   [(ngModel)]="selectedMonth" 
+						   [dpDayPicker]="config" 
+						   theme="dp-material"
+						   required="true" />
 				</mat-form-field>
 			</div>
 

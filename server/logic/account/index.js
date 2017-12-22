@@ -14,8 +14,8 @@ module.exports = class Account {
 		});
 	}
 
-	async getBrandsByFilter(platform, month) {
-		let brands = await this.accountRep.getBrandsByFilter(platform, month);
+	async getBrandsByFilter(platform, month, year) {
+		let brands = await this.accountRep.getBrandsByFilter(platform, month, year);
 		return brands;
 		// return brands.map((brand) => {
 		// 	return brand.name;

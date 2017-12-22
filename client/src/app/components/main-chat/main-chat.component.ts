@@ -9,6 +9,7 @@ import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { Subject } from 'rxjs/Subject';
+import {DatePickerComponent} from 'ng2-date-picker';
 
 @Component({
 	selector: 'app-main',
@@ -20,20 +21,9 @@ export class MainComponent implements OnInit{
 		username: 'admin'
 	}
 	platforms: any[];
-	months: object[] = [{viewValue: 'January', index: 1}, 
-						{viewValue: 'February', index: 2}, 
-						{viewValue: 'March', index: 3}, 
-						{viewValue: 'April', index: 4}, 
-						{viewValue: 'May', index: 5}, 
-						{viewValue: 'June', index: 6}, 
-						{viewValue: 'July', index: 7}, 
-						{viewValue: 'August', index: 8}, 
-						{viewValue: 'September', index: 9}, 
-						{viewValue: 'October', index: 10}, 
-						{viewValue: 'November', index: 11}, 
-						{viewValue: 'December', index: 12}];
+	months: object = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12};
 	selectedPlatform: string;
-	selectedMonth: number;
+	selectedMonth: string;
 
 	allBrands: any[];
 	filteredBrands: any[] = [];
@@ -98,16 +88,18 @@ export class MainComponent implements OnInit{
 			this.openSnackBar("Please select all fields");
 			return;
 		}
-
 		this.showTable = true;
 
-		this.accountService.getBrandsByFilter(this.selectedPlatform, this.selectedMonth).then(res => {
+		let month = this.months[this.selectedMonth.substring(0, 3)];
+		let year = +this.selectedMonth.slice(-4);
+
+		this.accountService.getBrandsByFilter(this.selectedPlatform, month, year).then(res => {
 			this.allBrands = res;
 			this.rerenderTable(res);
 		});
 
 		this.selectedPlatform = '';
-		this.selectedMonth = 0;
+		this.selectedMonth = '';
 	}
 
 

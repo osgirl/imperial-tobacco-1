@@ -60,6 +60,7 @@
     "mongodb": "^3.0.0-rc0",
     "nedb": "^1.8.0",
     "nedb-promise": "^2.0.1",
+    "ng2-date-picker": "^2.6.2",
     "nightmare": "^2.10.0",
     "npm": "^5.5.1",
     "passport": "^0.4.0",
