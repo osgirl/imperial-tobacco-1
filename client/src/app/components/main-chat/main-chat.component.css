@@ -105,7 +105,7 @@
   flex-direction: column;
   height: 100%;
   background-color: #fff;
-  margin: 70px;
+  margin: 50px 50px 50px 50px;
 }
 
 .mat-table {
@@ -121,4 +121,17 @@
 .tags .mat-form-field, .tags input.mat-chip-input{
   width: 100% !important;
   margin: 0;
+}
+
+.checkbox-cell {
+  flex: 0 0 75px;
+}
+
+.download-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.download-buttons button {
+  margin-right: 7px;
 }

@@ -1,4 +1,6 @@
 const passport = require('passport');
+const fs = require('fs');
+let PDFDocument = require('pdfkit');
 // const { ReqAccess } = require('../logic/secure');
 const AccountRep = require('../repositories/account');
 const AccountLogic = require('../logic/account/index');
@@ -74,6 +76,57 @@ module.exports = function (router) {
 		let brands = await new AccountLogic(new AccountRep(req.db)).getBrandsByFilter(platform, month, year);
 		
 		res.json(brands);
+	});
+
+	router.post('/excel', function(req, res, next) {
+		let data = req.body.data;
+		return res.xls('data.xlsx', data);
+	});
+
+	router.post('/pdf', function(req, res, next) {
+		let data = req.body.data;
+
+
+		let doc = new PDFDocument()
+		
+		doc.pipe(fs.createWriteStream('data.pdf'));
+
+		// doc.font('fonts/PalatinoBold.ttf')
+		// 	.fontSize(25)
+		// 	.text('Some text with an embedded font!', 100, 100)
+
+		// doc.image('path/to/image.png', {
+		// fit: [250, 300],
+		// align: 'center',
+		// valign: 'center'
+		// });
+
+		// doc.addPage()
+		// 	.fontSize(25)
+		// 	.text('Here is some vector graphics...', 100, 100)
+
+		doc.save()
+			.moveTo(100, 150)
+			.lineTo(100, 450)
+
+		for(let i = 0; i < data.length; i++) {
+			doc.save().fontSize(25).text(data[i].name, 100, i*100)
+		}
+
+		// doc.scale(0.6)
+		// 	.translate(470, -380)
+		// 	.path('M 250,75 L 323,301 131,161 369,161 177,301 z')
+		// 	.fill('red', 'even-odd')
+		// 	.restore()
+
+		doc.addPage()
+			.fillColor("blue")
+			.text(JSON.stringify(data), 100, 100)
+			.link(100, 100, 160, 27, 'http://google.com/')
+
+		doc.end()
+
+		res.sendFile('data.pdf', {root: './'});
 	});
 	
 	return router;

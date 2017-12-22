@@ -11,6 +11,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import {DatePickerComponent} from 'ng2-date-picker';
 
+declare let jsPDF: any;
 @Component({
 	selector: 'app-main',
 	templateUrl: './main-chat.component.html',
@@ -28,13 +29,15 @@ export class MainComponent implements OnInit{
 	allBrands: any[];
 	filteredBrands: any[] = [];
 
+	checkedRows: any[] = [];
+
 	tags: any[] = [];
 
 	//variables for table view
 	showTable: boolean = false;
 
 	dataSource: MatTableDataSource<any>;
-	displayedColumns = ['name'];
+	displayedColumns = ['check', 'name'];
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	platformControl = new FormControl('', [Validators.required]);
@@ -104,6 +107,7 @@ export class MainComponent implements OnInit{
 
 
 	addStatus(event: any) {
+		if(this.checkedRows.length) this.checkedRows = [];
 		//if we has already showed 'quantity' column, dont show it again
 		if(this.displayedColumns.indexOf('quantity') == -1) {
 			this.displayedColumns.push('quantity');			
@@ -145,5 +149,44 @@ export class MainComponent implements OnInit{
 		} else {
 			this.rerenderTable(this.filteredBrands);
 		}
+	}
+
+
+	check(event:any, elem: any) {
+		// if(event.target.checked) {
+			this.checkedRows.push(elem);
+		// } else {
+		// 	this.checkedRows.find(x => x.name === elem.name)
+		// }
+		// this.accountService.check();
+	}
+
+	getExcelFile() {
+		this.accountService.getExcelFile(this.checkedRows);
+	}
+
+	getPDFFile() {
+		// this.accountService.getPDFFile(this.checkedRows);
+
+		let doc = new jsPDF();
+
+		var col = ["Brand"];
+		var rows = [];
+
+		if(this.checkedRows[0].hasOwnProperty('quantity')) {
+			col.push("Quantity");
+		}
+
+		for(let i = 0; i < this.checkedRows.length; i++) {
+			let temp:any = [];
+			for(var key in this.checkedRows[i]){
+				temp.push(this.checkedRows[i][key]);
+			}
+			rows.push(temp);
+		}
+
+		doc.autoTable(col, rows);
+
+		doc.save('data.pdf')
 	}
 }

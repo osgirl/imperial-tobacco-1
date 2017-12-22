@@ -11,6 +11,8 @@ const fs = require('fs');
 const config = require('../config');
 const DB = require('./db/index');
 
+const json2xls = require('json2xls');
+
 const {engines} = require('./../package.json');
 
 const engineVersion = engines.node;
@@ -30,6 +32,7 @@ const app = express();
 
 (async function () {
 	app.use(cors());
+	app.use(json2xls.middleware);
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(cookieParser());
@@ -45,17 +48,6 @@ const app = express();
 		resave: false,
 		saveUninitialized: false
 	}));
-	// const sessionStore = new pgSession({
-	// 	pool     : DB._pool,
-	// 	tableName: 'session'
-	// });
-	// app.use(session({
-	// 	store            : sessionStore,
-	// 	secret           : config.get('sessionSecret'),
-	// 	resave           : false,
-	// 	saveUninitialized: false,
-	// 	cookie           : {maxAge: 30 * 24 * 60 * 60 * 1000} // 30 days
-	// }));
 
 
 	app.use(async function (req, res, next) {
