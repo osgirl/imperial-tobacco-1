@@ -23,17 +23,19 @@
 		<div class="picker" *ngIf="!showTable">
 			<div class="picker-inputs">
 				<mat-form-field>
-					<mat-select placeholder="Choose platform" [(value)]="selectedPlatform">
+					<mat-select placeholder="Choose platform" [(value)]="selectedPlatform" [formControl]="platformControl" required>
 						<mat-option>--</mat-option>
 						<mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
 					</mat-select>
+					<mat-error *ngIf="platformControl.hasError('required')">Please choose a platform</mat-error>
 				</mat-form-field>
 
 				<mat-form-field>
-					<mat-select placeholder="Choose month" [(value)]="selectedMonth">
-						<mat-option>--</mat-option>
+					<mat-select placeholder="Choose month" [(value)]="selectedMonth" [formControl]="monthControl" required>
+						<mat-option></mat-option>
 						<mat-option *ngFor="let month of months" [value]="month.index">{{month.viewValue}}</mat-option>
 					</mat-select>
+					<mat-error *ngIf="monthControl.hasError('required')">Please choose a month</mat-error>
 				</mat-form-field>
 			</div>
 

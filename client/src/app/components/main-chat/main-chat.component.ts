@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, NgZone, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
@@ -46,6 +47,9 @@ export class MainComponent implements OnInit{
 	displayedColumns = ['name'];
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
+	platformControl = new FormControl('', [Validators.required]);
+	monthControl = new FormControl('', [Validators.required]);
+
 
 
 	constructor(private accountService: AccountService,
@@ -77,7 +81,7 @@ export class MainComponent implements OnInit{
 	}
 
 	openSnackBar(msg: string) {
-		this.snackBar.open(msg, '', {
+		this.snackBar.open(msg, 'Okay', {
 			duration: 3000,
 			verticalPosition: 'top'
 		});
@@ -90,6 +94,11 @@ export class MainComponent implements OnInit{
 
 
 	submit() {
+		if(!(this.selectedPlatform && this.selectedMonth)) {
+			this.openSnackBar("Please select all fields");
+			return;
+		}
+
 		this.showTable = true;
 
 		this.accountService.getBrandsByFilter(this.selectedPlatform, this.selectedMonth).then(res => {
