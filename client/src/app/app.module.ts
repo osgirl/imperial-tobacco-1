@@ -37,6 +37,7 @@ import {MatIconModule} from '@angular/material/icon';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
 import { SearchFilter } from './pipes/filter.pipe';
+import { Unique } from './pipes/unique.pipe';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { SearchFilter } from './pipes/filter.pipe';
 		AppComponent,
 		AuthComponent,
 		MainComponent,
-		SearchFilter
+		SearchFilter,
+		Unique
 	],
 	providers: [
 		AccountService,
