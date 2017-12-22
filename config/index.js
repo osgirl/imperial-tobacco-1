@@ -19,7 +19,7 @@ const conf = convict({
 	},
 	port: {
 		format : 'port',
-		default: 3000
+		default: 3002
 	},
 	username: {
 		format : 'String',

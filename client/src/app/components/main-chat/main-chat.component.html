@@ -44,7 +44,7 @@
 		<div class="tags" *ngIf="showTable">
 			<mat-form-field floatPlaceholder="never">
 				<mat-chip-list #chipList>
-					<mat-chip *ngFor="let value of statusSelected" (remove)="removeStatus(value)">
+					<mat-chip *ngFor="let value of tags" (remove)="removeStatus(value)">
 						{{value}} <mat-icon matChipRemove>cancel</mat-icon>
 					</mat-chip>
 				</mat-chip-list>
@@ -53,7 +53,7 @@
 				matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
 				
 				<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event); statusInput.value=''">
-					<mat-option *ngFor="let brand of filteredBrands | filter: statusInput.value: filteredBrands" [value]="brand.name">
+					<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands" [value]="brand.name">
 						<span>{{ brand.name }}</span>
 					</mat-option>
 				</mat-autocomplete>
@@ -73,7 +73,7 @@
 
 				<ng-container matColumnDef="quantity">
 					<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+					<mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
 				</ng-container>
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

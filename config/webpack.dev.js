@@ -25,113 +25,23 @@ module.exports = webpackMerge(commonConfig, {
 		port              : 8080,
 		proxy             : {
 			'/': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3002',
 				secure: false
 			},
 			'/isAuth': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3002',
 				secure: false
 			},
 			'/login': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/signup/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/invite': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/activate/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/getInvitedEmail': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/add-new-user': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/delete-user': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/update-user': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/get-all-users': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/editProfile': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3002',
 				secure: false
 			},
 			'/logout': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3002',
 				secure: false
-			},
-			'/getMessages': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/getRooms': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/getAllClients': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/uploadFile': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/deletePhoto': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/getAccounts': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/getClient': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/downloadDesktop/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/auth/facebook/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/auth/linkedin/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/auth/vkontakte/*': {
-				target: 'http://localhost:3000',
-				secure: false
-			},
-			'/socket.io/*': {
-				target: 'http://localhost:3000',
-				secure: false,
-				ws    : true
-			},
-			'/socket.io*': {
-				target: 'ws://localhost:3000',
-				secure: false,
-				ws    : true
 			},
 			'/src/assets/*': {
-				target: 'http://localhost:3000',
+				target: 'http://localhost:3002',
 				secure: false
 			}
 		}

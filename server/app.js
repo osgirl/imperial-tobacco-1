@@ -100,7 +100,7 @@ const app = express();
 
 	let http = require('http');
 
-	let port = config.get('port') || '3000';
+	let port = config.get('port') || '3002';
 	app.set('port', port);
 	let server = http.createServer(app);
 

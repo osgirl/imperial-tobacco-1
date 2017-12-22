@@ -33,9 +33,11 @@ export class MainComponent implements OnInit{
 						{viewValue: 'December', index: 12}];
 	selectedPlatform: string;
 	selectedMonth: number;
-	filteredBrands: any[];
 
-	statusSelected: any[] = [];
+	allBrands: any[];
+	filteredBrands: any[] = [];
+
+	tags: any[] = [];
 
 	//variables for table view
 	showTable: boolean = false;
@@ -61,6 +63,7 @@ export class MainComponent implements OnInit{
 	
 	home() {
 		this.showTable = false;
+		this.tags = [];
 	}
 
 	logOut() {
@@ -80,29 +83,66 @@ export class MainComponent implements OnInit{
 		});
 	}
 
+	rerenderTable(newData: any[]) {
+		this.dataSource = new MatTableDataSource<any>(newData);
+		this.dataSource.paginator = this.paginator;
+	}
+
+
 	submit() {
 		this.showTable = true;
 
 		this.accountService.getBrandsByFilter(this.selectedPlatform, this.selectedMonth).then(res => {
-			this.filteredBrands = res;
-			this.dataSource = new MatTableDataSource<any>(this.filteredBrands);
-			this.dataSource.paginator = this.paginator;
+			this.allBrands = res;
+			this.rerenderTable(res);
 		});
 
+		this.selectedPlatform = '';
+		this.selectedMonth = 0;
 	}
 
 
 	addStatus(event: any) {
-		this.statusSelected.push(event.option.value);
-		// this.displayedColumns.push('quantity');
+		//if we has already showed 'quantity' column, dont show it again
+		if(this.displayedColumns.indexOf('quantity') == -1) {
+			this.displayedColumns.push('quantity');			
+		}
+
+		let newTag = event.option.value;
+
+		//if such tag has already been added
+		if(this.filteredBrands.find(x => x.name === newTag)) return;
+
+		this.tags.push(newTag);
+
+		let result = this.allBrands.reduce(function(amount, current) {
+			if(current.name == newTag) return ++amount;
+			else return amount;
+		}, 0);
+
+
+		this.filteredBrands.push({name: newTag, quantity: result});
+		this.rerenderTable(this.filteredBrands);
 	}
 
 	removeStatus(value: string) {
-		this.statusSelected.forEach((status, index) => {
-			if(status === value) {
-				this.statusSelected.splice(index, 1);
-				return;
-			}
-		});
+		//delete tag from tagList
+		let index = this.tags.indexOf(value);
+		this.tags.splice(index, 1);
+
+		//delete brand from table
+		let deletingBrand = this.filteredBrands.find(x => x.name === value);
+		let deletingIndex = this.filteredBrands.indexOf(deletingBrand);
+		this.filteredBrands.splice(deletingIndex, 1);
+
+		if(!this.filteredBrands.length) {
+			//if no tags left, hide 'quantity' column
+			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
+			this.displayedColumns.splice(indexOfQuantityColumn, 1);
+
+			this.rerenderTable(this.allBrands);
+		} else {
+			this.rerenderTable(this.filteredBrands);
+		}
 	}
 }
