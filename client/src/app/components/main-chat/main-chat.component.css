@@ -114,13 +114,19 @@
 }
 
 .tags {
-  height: 80px;
+  /* height: 80px; */
   width: 100%;
 }
 
 .tags .mat-form-field, .tags input.mat-chip-input{
   width: 100% !important;
   margin: 0;
+}
+
+.tags .mat-form-field {
+  padding-left: 7px;
+  padding-right: 7px;
+  box-sizing: border-box;
 }
 
 .checkbox-cell {
@@ -133,6 +139,7 @@
 }
 
 .download-buttons button {
+  margin-top: 7px;
   margin-right: 7px;
 }
 
@@ -143,4 +150,8 @@
 
 /deep/.mat-checkbox-layout {
   color: #fff !important;
+}
+
+/deep/.mat-chip {
+  margin: 0 0 8px 8px;
 }

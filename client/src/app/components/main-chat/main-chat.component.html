@@ -58,7 +58,7 @@
 				matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
 				
 				<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event); statusInput.value=''">
-					<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands | unique" [value]="brand.name">
+					<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands | unique: filteredBrands" [value]="brand.name">
 						<span>{{ brand.name }}</span>
 					</mat-option>
 				</mat-autocomplete>
