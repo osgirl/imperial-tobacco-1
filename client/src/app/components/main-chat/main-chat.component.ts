@@ -62,6 +62,9 @@ export class MainComponent implements OnInit{
 	home() {
 		this.showTable = false;
 		this.tags = [];
+		this.allBrands = [];
+		this.filteredBrands = [];
+		this.checkedRows = [];
 	}
 
 	logOut() {
@@ -153,10 +156,11 @@ export class MainComponent implements OnInit{
 	}
 
 
-	check(event:any, elem: any) {
-		elem.selected = event.checked;
+	check(elem: any) {
+		elem.selected = !elem.selected;
 
-		if(event.checked) {
+		console.log(elem)
+		if(elem.selected) {
 			this.checkedRows.push(elem);
 
 			if(this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;

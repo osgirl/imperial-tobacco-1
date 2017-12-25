@@ -91,7 +91,7 @@
 
 .picker {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   height: 80px;
 }
@@ -121,11 +121,19 @@
 .tags .mat-form-field, .tags input.mat-chip-input{
   width: 100% !important;
   margin: 0;
+  /* padding-left: 10px;
+  box-sizing: border-box; */
 }
 
 .tags .mat-form-field {
   padding-left: 7px;
   padding-right: 7px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+/deep/.tags .mat-form-field-flex {
+  padding-left: 10px;
   box-sizing: border-box;
 }
 
@@ -143,6 +151,9 @@
   margin-right: 7px;
 }
 
+.pointer {
+  cursor: pointer;
+}
 
 .mat-header-row, .mat-row {
   min-height: 30px;
@@ -153,5 +164,5 @@
 }
 
 /deep/.mat-chip {
-  margin: 0 0 8px 8px;
+  margin: 0 0 8px 8px !important;
 }
