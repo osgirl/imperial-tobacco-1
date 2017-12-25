@@ -158,6 +158,8 @@ export class MainComponent implements OnInit{
 
 		if(event.checked) {
 			this.checkedRows.push(elem);
+
+			if(this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
 		} else {
 			let uncheckedElem = this.checkedRows.find(x => x.id === elem.id)
 			let uncheckedIndex = this.checkedRows.indexOf(uncheckedElem);
