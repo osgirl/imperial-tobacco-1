@@ -61,6 +61,10 @@ export class AccountService {
 	}
 
 	getExcelFile(data: any) {
+		data = data.map((item: any) => {
+			return {name: item.name, quantity: item.quantity}
+		});
+
 		let headers = new Headers({ 
 			'Content-Type': 'application/json', 
 			'Accept': 'application/xlsx'

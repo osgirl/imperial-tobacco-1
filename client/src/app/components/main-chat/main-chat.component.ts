@@ -33,6 +33,7 @@ export class MainComponent implements OnInit{
 
 	tags: any[] = [];
 
+	allSelected: boolean = false;
 	//variables for table view
 	showTable: boolean = false;
 
@@ -126,7 +127,7 @@ export class MainComponent implements OnInit{
 		}, 0);
 
 
-		this.filteredBrands.push({name: newTag, quantity: result});
+		this.filteredBrands.push({name: newTag, quantity: result, id: this.filteredBrands.length});
 		this.rerenderTable(this.filteredBrands);
 	}
 
@@ -153,16 +154,36 @@ export class MainComponent implements OnInit{
 
 
 	check(event:any, elem: any) {
-		// if(event.target.checked) {
+		elem.selected = event.checked;
+
+		if(event.checked) {
 			this.checkedRows.push(elem);
-		// } else {
-		// 	this.checkedRows.find(x => x.name === elem.name)
-		// }
+		} else {
+			let uncheckedElem = this.checkedRows.find(x => x.id === elem.id)
+			let uncheckedIndex = this.checkedRows.indexOf(uncheckedElem);
+			this.checkedRows.splice(uncheckedIndex, 1);
+		
+			this.allSelected = false;
+		}
 		// this.accountService.check();
+	}
+
+	checkAll(value: boolean) {
+		this.allSelected = value;
+		
+		if(value) this.checkedRows = this.dataSource.filteredData.slice(0);
+		else this.checkedRows = [];
+
+		this.dataSource.filteredData.forEach((element: any) => {
+			element.selected = this.allSelected;
+		});
+
 	}
 
 	getExcelFile() {
 		this.accountService.getExcelFile(this.checkedRows);
+
+		this.checkAll(false)
 	}
 
 	getPDFFile() {
@@ -186,7 +207,8 @@ export class MainComponent implements OnInit{
 		}
 
 		doc.autoTable(col, rows);
+		doc.save('data.pdf');
 
-		doc.save('data.pdf')
+		this.checkAll(false)
 	}
 }

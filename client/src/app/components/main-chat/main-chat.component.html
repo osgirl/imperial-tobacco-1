@@ -67,7 +67,7 @@
 
 		<div class="field" *ngIf="showTable">
 			<div class="download-buttons">
-				<button mat-raised-button color="primary" (click)="getExcelFile()">XLS</button>
+				<button mat-raised-button color="primary" (click)="getExcelFile()">Excel</button>
 				<button mat-raised-button color="primary" (click)="getPDFFile()">PDF</button>
 			</div>
 			<!-- <a href="/excel">Excel</a> -->
@@ -75,11 +75,16 @@
 			<mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]">
 			</mat-paginator>
 
+
 			<mat-table id="table" #table [dataSource]="dataSource">
 
 				<ng-container matColumnDef="check">
-					<mat-header-cell *matHeaderCellDef [ngClass]="'checkbox-cell'"> # </mat-header-cell>
-					<mat-cell *matCellDef="let element" [ngClass]="'checkbox-cell'"><input type="checkbox" (change)="check($event, element)"></mat-cell>
+					<mat-header-cell *matHeaderCellDef [ngClass]="'checkbox-cell'">
+						<mat-checkbox [checked]="allSelected" color="primary" (change)="checkAll($event.checked)">A</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element" [ngClass]="'checkbox-cell'">
+						<mat-checkbox [checked]="element.selected" color="primary" (change)="check($event, element)">a</mat-checkbox>
+					</mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="name">
