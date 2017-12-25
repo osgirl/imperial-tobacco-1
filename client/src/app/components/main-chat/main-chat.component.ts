@@ -27,6 +27,7 @@ export class MainComponent implements OnInit{
 	selectedMonth: string;
 
 	allBrands: any[];
+	allItems: any[];
 	filteredBrands: any[] = [];
 
 	checkedRows: any[] = [];
@@ -102,6 +103,11 @@ export class MainComponent implements OnInit{
 
 		this.accountService.getBrandsByFilter(this.selectedPlatform, month, year).then(res => {
 			this.allBrands = res;
+			// this.rerenderTable(res);
+		});
+
+		this.accountService.getNamesByFilter(this.selectedPlatform, month, year).then(res => {
+			this.allItems = res;
 			this.rerenderTable(res);
 		});
 
@@ -124,8 +130,8 @@ export class MainComponent implements OnInit{
 
 		this.tags.push(newTag);
 
-		let result = this.allBrands.reduce(function(amount, current) {
-			if(current.name == newTag) return ++amount;
+		let result = this.allItems.reduce(function(amount, current) {
+			if(current.brand_name == newTag) return ++amount;
 			else return amount;
 		}, 0);
 
@@ -149,7 +155,7 @@ export class MainComponent implements OnInit{
 			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
 			this.displayedColumns.splice(indexOfQuantityColumn, 1);
 
-			this.rerenderTable(this.allBrands);
+			this.rerenderTable(this.allItems);
 		} else {
 			this.rerenderTable(this.filteredBrands);
 		}
@@ -159,7 +165,6 @@ export class MainComponent implements OnInit{
 	check(elem: any) {
 		elem.selected = !elem.selected;
 
-		console.log(elem)
 		if(elem.selected) {
 			this.checkedRows.push(elem);
 

@@ -78,6 +78,16 @@ module.exports = function (router) {
 		res.json(brands);
 	});
 
+	router.get('/getNamesByFilter', async function (req, res, next) {
+		let platform = req.query.platform;
+		let month = +req.query.month;
+		let year = +req.query.year;
+
+		let brands = await new AccountLogic(new AccountRep(req.db)).getNamesByFilter(platform, month, year);
+		
+		res.json(brands);
+	});
+
 	router.post('/excel', function(req, res, next) {
 		let data = req.body.data;
 		return res.xls('data.xlsx', data);

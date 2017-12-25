@@ -54,6 +54,12 @@ export class AccountService {
 		});
 	}
 
+	getNamesByFilter(platform: string, month: number, year: number) {
+		return this.http.get(`/getNamesByFilter?platform=${platform}&month=${month}&year=${year}`, {}).toPromise().then(res => {
+			return res.json()
+		});
+	}
+
 	check() {
 		return this.http.get('/test', {}).toPromise().then(res => {
 			return res.json()

@@ -12,4 +12,9 @@ module.exports = class Account {
 		const pipeline = require('./getBrandsByFilter.pipeline.js')(platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
+
+	async getNamesByFilter(platform, month, year) {
+		const pipeline = require('./getNamesByFilter.pipeline.js')(platform, month, year);
+		return await this.db.collection('items').aggregate(pipeline).toArray();
+	}
 };
