@@ -16,22 +16,20 @@ module.exports = class Account {
 
 	async getBrandsByFilter(platform, month, year) {
 		let brands = await this.accountRep.getBrandsByFilter(platform, month, year);
-		return brands;
-		// return brands.map((brand, index) => {
-		// 	brand.id = index;
-		// 	brand.selected = false;
-		// 	return brand;
-		// });
+		// return brands;
+		
+		return brands.map((brand, index) => {
+			return {
+				id: index,
+				selected: false,
+				name: brand._id,
+				description: brand.description
+			};
+		});
 	}
 
 	async getNamesByFilter(platform, month, year) {
 		let brands = await this.accountRep.getNamesByFilter(platform, month, year);
-		// return brands;
-		console.log(brands[0]);
-		return brands.map((brand, index) => {
-			brand.id = index;
-			brand.selected = false;
-			return brand;
-		});
+		return brands;
 	}
 };

@@ -3,12 +3,15 @@ module.exports = function(platform, month, year) {
 		{
 			"$project" : {
 				"_id": 0,
-				"name" : {$cond: { if: { $eq: [ "$brand_name", "" ] }, 
-									then: "$name", 
-									else: "$brand_name" } },
+				"check" : { $and: [
+							{$ne: ["$brand_name", null]}, 
+							{$ne: ["$brand_name", ""]}
+				] },
 				"pl": { $in: [ platform, "$platforms" ] },
 				"month": { $eq: [ {$month: "$dates.modified"}, month ] },
-				"year": { $eq: [ {$year: "$dates.modified"}, year ] }
+				"year": { $eq: [ {$year: "$dates.modified"}, year ] },
+				"brand_name": 1,
+				"category.data": 1
 			}
 		},
 		{
@@ -16,14 +19,36 @@ module.exports = function(platform, month, year) {
 				"pl" : true,
 				"month" : true,
 				"year" : true,
-				"name": {$exists: true}
+				"check": true
+			}
+		},
+		{
+		   "$lookup":{
+				from: "categories",
+				localField: "category.data",
+				foreignField: "_id",
+				as: "categories_docs"
 			}
 		},
 		{
 			"$project" : {
 				"_id": 0,
-				"name" : 1
+				"brand_name": 1,
+				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] }
+			}
+		},
+		{
+			"$project": {
+				"brand_name": 1,
+				"categories_docs.description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] }
+			}
+		},
+		{
+			"$group": {
+				"_id": "$brand_name",
+				"description": { $first: "$categories_docs.description" }
 			}
 		}
+		
 	]
 }

@@ -103,12 +103,12 @@ export class MainComponent implements OnInit{
 
 		this.accountService.getBrandsByFilter(this.selectedPlatform, month, year).then(res => {
 			this.allBrands = res;
-			// this.rerenderTable(res);
+			this.rerenderTable(res);
 		});
 
 		this.accountService.getNamesByFilter(this.selectedPlatform, month, year).then(res => {
 			this.allItems = res;
-			this.rerenderTable(res);
+			// this.rerenderTable(res);
 		});
 
 		this.selectedPlatform = '';
@@ -155,7 +155,7 @@ export class MainComponent implements OnInit{
 			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
 			this.displayedColumns.splice(indexOfQuantityColumn, 1);
 
-			this.rerenderTable(this.allItems);
+			this.rerenderTable(this.allBrands);
 		} else {
 			this.rerenderTable(this.filteredBrands);
 		}
@@ -166,6 +166,12 @@ export class MainComponent implements OnInit{
 		elem.selected = !elem.selected;
 
 		if(elem.selected) {
+			elem.items = [];
+
+			this.allItems.forEach((item) => {
+				if(item.brand_name == elem.name) elem.items.push(item);
+			});
+
 			this.checkedRows.push(elem);
 
 			if(this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
@@ -182,7 +188,7 @@ export class MainComponent implements OnInit{
 	checkAll(value: boolean) {
 		this.allSelected = value;
 		
-		if(value) this.checkedRows = this.dataSource.filteredData.slice(0);
+		if(value) this.checkedRows = this.dataSource.filteredData.slice(0); //copy all
 		else this.checkedRows = [];
 
 		this.dataSource.filteredData.forEach((element: any) => {
