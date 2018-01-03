@@ -179,7 +179,6 @@ export class MainComponent implements OnInit{
 			this.allItems.forEach((item) => {
 				if(item.brand_name == elem.name) elem.items.push(item);
 			});
-			console.log(elem)
 
 			this.checkedRows.push(elem);
 
@@ -200,7 +199,10 @@ export class MainComponent implements OnInit{
 		if(value) this.checkedRows = this.dataSource.filteredData.slice(0); //copy all
 		else this.checkedRows = [];
 
+		this.checkedRows = [];
 		this.dataSource.filteredData.forEach((element: any) => {
+			this.check(element);
+
 			element.selected = this.allSelected;
 		});
 
