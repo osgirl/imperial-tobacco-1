@@ -135,8 +135,16 @@ export class MainComponent implements OnInit{
 			else return amount;
 		}, 0);
 
+		let description = '';
+		this.allBrands.forEach((brand) => {
+			if(brand.name === newTag) {
+				description = brand.description;
+				return;
+			}
+		})
 
-		this.filteredBrands.push({name: newTag, quantity: result, id: this.filteredBrands.length});
+
+		this.filteredBrands.push({name: newTag, quantity: result, id: this.filteredBrands.length, description});
 		this.rerenderTable(this.filteredBrands);
 	}
 
@@ -171,6 +179,7 @@ export class MainComponent implements OnInit{
 			this.allItems.forEach((item) => {
 				if(item.brand_name == elem.name) elem.items.push(item);
 			});
+			console.log(elem)
 
 			this.checkedRows.push(elem);
 

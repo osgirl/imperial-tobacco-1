@@ -123,14 +123,16 @@ module.exports = function (router) {
 
 		let row = 1;
 		for(let i = 0; i < data.length; i++) {
-			let current = data[i];
 
-			worksheet.cell(row, 1).string('Brand').style(myStyle);;
+			let current = data[i];
+			// console.log(current.name)
+			worksheet.cell(row, 1).string('Brand').style(myStyle);
 			worksheet.cell(row, 2).string(`${current.name}`);
 
 			row++;
 			
-			let descr = strip_html_tags(current.description)
+			let descr = strip_html_tags(current.description);
+
 			worksheet.row(row).setHeight(120);
 			worksheet.cell(row, 1).string('Description').style(myStyle);;
 			worksheet.cell(row, 2, row, 8, true).string(`${descr}`).style(wrap);
@@ -162,9 +164,8 @@ module.exports = function (router) {
 			row += 2;
 		}
 
-		workbook.write('Excel.xlsx', function(err, stats) {
-			console.log(err, stats)
-			res.sendFile('Excel.xlsx', {root: './'});
+		workbook.write('data.xlsx', function(err, stats) {
+			res.sendFile('data.xlsx', {root: './'});
 		});
 	});
 
