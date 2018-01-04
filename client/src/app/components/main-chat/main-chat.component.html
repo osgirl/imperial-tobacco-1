@@ -99,8 +99,53 @@
 				</ng-container>
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="check(row)" class="pointer"></mat-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onCheckboxChange(row)" class="pointer"></mat-row>
 			</mat-table>
+			
+			<div *ngIf="checkedRows.length" id="preview">
+				<div *ngFor="let row of checkedRows" class="row">
+
+					<div class="brand-info">
+						<div class="brand-name">
+							<h2>Brand</h2>
+							<span>{{row.name}}</span>
+						</div>
+
+						<div class="description">
+							<h2>Description</h2>
+							<div [innerHTML]="row.description"></div>
+						</div>
+					</div>
+
+					<div class="items">
+						<h2>Items</h2>
+						<table>
+							<tr>
+								<th>Code</th>
+								<th>Name</th>
+								<th>Shade</th>
+								<th>Length</th>
+								<th>Ring</th>
+								<th>Quantity</th>
+								<th>MSRP</th>
+								<th>Jrprice</th>
+							</tr>
+							<tr *ngFor="let item of row.items">
+								<td>{{item.code}}</td>
+								<td>{{item.name}}</td> 
+								<td>{{item.details.length}}</td>
+								<td>{{item.details.ring}}</td>
+								<td>{{item.details.wrapper_shade}}</td> 
+								<td>{{item.details.packaging_details.quantity}}</td>
+								<td>{{item.prices.msrp}}</td>
+								<td>{{item.prices.jr_price}}</td> 
+							</tr>
+						</table>
+					</div>
+
+					<div class="line"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

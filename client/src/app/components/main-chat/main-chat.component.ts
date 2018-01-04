@@ -11,7 +11,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import {DatePickerComponent} from 'ng2-date-picker';
 
-declare let jsPDF: any;
+const html2pdf = require('html2pdf.js');
 @Component({
 	selector: 'app-main',
 	templateUrl: './main-chat.component.html',
@@ -117,7 +117,7 @@ export class MainComponent implements OnInit{
 
 
 	addStatus(event: any) {
-		if(this.checkedRows.length) this.checkedRows = [];
+		if(!this.tags.length && this.checkedRows.length) this.checkedRows = [];
 		//if we has already showed 'quantity' column, dont show it again
 		if(this.displayedColumns.indexOf('quantity') == -1) {
 			this.displayedColumns.push('quantity');			
@@ -170,19 +170,11 @@ export class MainComponent implements OnInit{
 	}
 
 
-	check(elem: any) {
+	onCheckboxChange(elem: any) {
 		elem.selected = !elem.selected;
 
 		if(elem.selected) {
-			elem.items = [];
-
-			this.allItems.forEach((item) => {
-				if(item.brand_name == elem.name) elem.items.push(item);
-			});
-
-			this.checkedRows.push(elem);
-
-			if(this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
+			this.check(elem);
 		} else {
 			let uncheckedElem = this.checkedRows.find(x => x.id === elem.id)
 			let uncheckedIndex = this.checkedRows.indexOf(uncheckedElem);
@@ -190,22 +182,37 @@ export class MainComponent implements OnInit{
 		
 			this.allSelected = false;
 		}
-		// this.accountService.check();
+	}
+
+	check(elem: any) {
+		elem.items = [];
+
+		this.allItems.forEach((item) => {
+			if(item.brand_name == elem.name) elem.items.push(item);
+		});
+
+		this.checkedRows.push(elem);
+
+		if(this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
+		
 	}
 
 	checkAll(value: boolean) {
 		this.allSelected = value;
-		
-		if(value) this.checkedRows = this.dataSource.filteredData.slice(0); //copy all
-		else this.checkedRows = [];
-
 		this.checkedRows = [];
-		this.dataSource.filteredData.forEach((element: any) => {
-			this.check(element);
-
-			element.selected = this.allSelected;
-		});
-
+		
+		if(value) {
+			this.dataSource.filteredData.forEach((element: any) => {
+				this.check(element);
+	
+				element.selected = value;
+			});
+		
+		} else {
+			this.dataSource.filteredData.forEach((element: any) => {
+				element.selected = value;
+			});
+		}
 	}
 
 	hideQuantity(event: any) {
@@ -218,34 +225,20 @@ export class MainComponent implements OnInit{
 	}
 
 	getExcelFile() {
-		this.accountService.getExcelFile(this.checkedRows);
+		if(!this.checkedRows.length) return;
 
-		this.checkAll(false)
+		this.accountService.getExcelFile(this.checkedRows);
 	}
 
 	getPDFFile() {
-		// this.accountService.getPDFFile(this.checkedRows);
+		if(!this.checkedRows.length) return;
 
-		let doc = new jsPDF();
-
-		var col = ["Brand"];
-		var rows = [];
-
-		if(this.checkedRows[0].hasOwnProperty('quantity')) {
-			col.push("Quantity");
-		}
-
-		for(let i = 0; i < this.checkedRows.length; i++) {
-			let temp:any = [];
-			for(var key in this.checkedRows[i]){
-				temp.push(this.checkedRows[i][key]);
-			}
-			rows.push(temp);
-		}
-
-		doc.autoTable(col, rows);
-		doc.save('data.pdf');
-
-		this.checkAll(false)
+		var element = document.getElementById('preview');
+		html2pdf(element, {
+			margin: 1,
+			filename: 'data.pdf',
+			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+			html2canvas: { dpi: 192, letterRendering: true },
+		});
 	}
 }
