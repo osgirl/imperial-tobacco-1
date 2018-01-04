@@ -67,7 +67,6 @@
 
 		<div class="field" *ngIf="showTable">
 			<div class="download-buttons">
-				<mat-slide-toggle *ngIf="filteredBrands.length" (change)="hideQuantity($event)" color="primary">Hide quantity</mat-slide-toggle>
 				<button mat-raised-button color="primary" (click)="getExcelFile()">Excel</button>
 				<button mat-raised-button color="primary" (click)="getPDFFile()">PDF</button>
 			</div>
@@ -77,7 +76,7 @@
 			</mat-paginator>
 
 
-			<mat-table id="table" #table [dataSource]="dataSource">
+			<mat-table [ngClass]="{'small': checkedRows.length}" id="table" #table [dataSource]="dataSource">
 
 				<ng-container matColumnDef="check">
 					<mat-header-cell *matHeaderCellDef [ngClass]="'checkbox-cell'">
@@ -93,10 +92,10 @@
 					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="quantity">
+				<!-- <ng-container matColumnDef="quantity">
 					<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
 					<mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
-				</ng-container>
+				</ng-container> -->
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onCheckboxChange(row)" class="pointer"></mat-row>

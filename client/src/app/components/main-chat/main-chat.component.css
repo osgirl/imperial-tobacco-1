@@ -115,6 +115,9 @@
   height: 100%;
   max-height: 100%;
 }
+.mat-table.small {
+  height: 40%;
+}
 
 .tags {
   /* height: 80px; */

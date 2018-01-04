@@ -119,9 +119,9 @@ export class MainComponent implements OnInit{
 	addStatus(event: any) {
 		if(!this.tags.length && this.checkedRows.length) this.checkedRows = [];
 		//if we has already showed 'quantity' column, dont show it again
-		if(this.displayedColumns.indexOf('quantity') == -1) {
-			this.displayedColumns.push('quantity');			
-		}
+		// if(this.displayedColumns.indexOf('quantity') == -1) {
+		// 	this.displayedColumns.push('quantity');			
+		// }
 
 		let newTag = event.option.value;
 
@@ -160,8 +160,8 @@ export class MainComponent implements OnInit{
 
 		if(!this.filteredBrands.length) {
 			//if no tags left, hide 'quantity' column
-			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
-			this.displayedColumns.splice(indexOfQuantityColumn, 1);
+			// let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
+			// this.displayedColumns.splice(indexOfQuantityColumn, 1);
 
 			this.rerenderTable(this.allBrands);
 		} else {
@@ -212,15 +212,6 @@ export class MainComponent implements OnInit{
 			this.dataSource.filteredData.forEach((element: any) => {
 				element.selected = value;
 			});
-		}
-	}
-
-	hideQuantity(event: any) {
-		if(event.checked) {
-			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
-			this.displayedColumns.splice(indexOfQuantityColumn, 1);
-		} else {
-			this.displayedColumns.push('quantity');			
 		}
 	}
 
