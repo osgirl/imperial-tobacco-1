@@ -67,6 +67,7 @@
 
 		<div class="field" *ngIf="showTable">
 			<div class="download-buttons">
+				<mat-slide-toggle *ngIf="filteredBrands.length" (change)="hideQuantity($event)" color="primary">Hide quantity</mat-slide-toggle>
 				<button mat-raised-button color="primary" (click)="getExcelFile()">Excel</button>
 				<button mat-raised-button color="primary" (click)="getPDFFile()">PDF</button>
 			</div>

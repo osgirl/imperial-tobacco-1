@@ -208,6 +208,15 @@ export class MainComponent implements OnInit{
 
 	}
 
+	hideQuantity(event: any) {
+		if(event.checked) {
+			let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
+			this.displayedColumns.splice(indexOfQuantityColumn, 1);
+		} else {
+			this.displayedColumns.push('quantity');			
+		}
+	}
+
 	getExcelFile() {
 		this.accountService.getExcelFile(this.checkedRows);
 

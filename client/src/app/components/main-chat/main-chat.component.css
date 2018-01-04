@@ -144,6 +144,7 @@
 .download-buttons {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .download-buttons button {
@@ -165,4 +166,8 @@
 
 /deep/.mat-chip {
   margin: 0 0 8px 8px !important;
+}
+
+mat-slide-toggle {
+  margin-right: 20px;
 }
