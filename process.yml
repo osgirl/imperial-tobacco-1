@@ -1,6 +1,8 @@
 apps:
-  - name     : api
+  - name     : imperial
     script   : ./server/app.js
+    env      :
+      NODE_ENV: dev
     watch    : ["build.txt", "../build.txt"]
     watch_options:
       usePolling: true
