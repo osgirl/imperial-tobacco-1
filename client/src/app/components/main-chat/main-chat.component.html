@@ -103,7 +103,7 @@
 			</mat-table>
 			
 			<div *ngIf="checkedRows.length" id="preview">
-				<div *ngFor="let row of checkedRows" class="row">
+				<div *ngFor="let row of checkedRows.slice(0, 15)" class="row">
 
 					<div class="brand-info">
 						<div class="brand-name">
@@ -143,7 +143,7 @@
 						</table>
 					</div>
 
-					<div class="line"></div>
+					<div class="html2pdf__page-break"></div>
 				</div>
 			</div>
 		</div>
