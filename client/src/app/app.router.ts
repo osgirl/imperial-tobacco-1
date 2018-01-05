@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { MainComponent } from './components/main-chat/main-chat.component';
+import { MainComponent } from './components/main/main.component';
 import { AuthComponent } from './components/auth/auth.component';
 
 import { AuthGuard } from './guards/auth.guard';

@@ -1,0 +1,91 @@
+#main-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#left-menu {
+  width: 220px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.name, .user, .center-wrapper header {
+  flex-shrink: 0;
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #109bf9;
+  height: 50px;
+  padding: 0 10px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+
+  background-color: #003277;
+  color: white;
+}
+
+.user-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.user-wrapper span:first-child {
+  font-size: 20px;
+}
+.user-wrapper span:last-child {
+  font-size: 14px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.menu-buttons {
+  margin-top: 30px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-buttons button {
+  margin-top: 15px;
+}
+
+.footer {
+  height: 50px;
+  background-color: #109bf9;
+}
+
+
+
+/* ----------------------------------------- */
+.center-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #f7f9fb;
+}
+
+.center-wrapper header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  height: 50px;
+}

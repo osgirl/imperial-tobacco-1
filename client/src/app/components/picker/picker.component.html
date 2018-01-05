@@ -1,0 +1,24 @@
+<div class="picker">
+	<div class="picker-inputs">
+		<mat-form-field>
+			<mat-select placeholder="Choose platform" [(ngModel)]="selectedPlatform" [formControl]="platformControl" required>
+				<mat-option>--</mat-option>
+				<mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="platformControl.hasError('required')">Please choose a platform</mat-error>
+		</mat-form-field>
+
+		<mat-form-field>
+			<input placeholder="Choose month" 
+				   matInput 
+				   mode="month" 
+				   name="someName" 
+				   [(ngModel)]="selectedMonth" 
+				   [dpDayPicker]="config" 
+				   theme="dp-material"
+				   required="true" />
+		</mat-form-field>
+	</div>
+
+	<button mat-raised-button color="primary" (click)="submit()">Submit</button>
+</div>

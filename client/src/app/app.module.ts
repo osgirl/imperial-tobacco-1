@@ -5,14 +5,29 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
+import { appRoutes } from './app.router';
+
+//components
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { MainComponent } from './components/main-chat/main-chat.component';
+import { MainComponent } from './components/main/main.component';
+import { PickerComponent } from './components/picker/picker.component';
+import { BrandsTableComponent } from './components/brands-table/brands-table.component';
+
+//guards
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
+
+//services
 import { AccountService } from './services/account.service';
 import { ValidateService } from './services/validate.service';
-import { appRoutes } from './app.router';
+
+//pipes
+import { SearchFilter } from './pipes/filter.pipe';
+import { Unique } from './pipes/unique.pipe';
+
+//angular material modules
 import { AngularDraggableModule } from 'angular2-draggable';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,8 +52,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {DpDatePickerModule} from 'ng2-date-picker';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
-import { SearchFilter } from './pipes/filter.pipe';
-import { Unique } from './pipes/unique.pipe';
 
 
 @NgModule({
@@ -77,6 +90,8 @@ import { Unique } from './pipes/unique.pipe';
 		AppComponent,
 		AuthComponent,
 		MainComponent,
+		PickerComponent,
+		BrandsTableComponent,
 		SearchFilter,
 		Unique
 	],

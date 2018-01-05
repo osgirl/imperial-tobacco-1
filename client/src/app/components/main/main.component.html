@@ -20,7 +20,11 @@
 	<div class="center-wrapper">
 		<header></header>
 
-		<div class="picker" *ngIf="!showTable">
+		<picker (onSubmit)="submit($event)" *ngIf="!showTable"></picker>
+
+		<brands-table [platform]="platform" [month]="month" [year]="year" *ngIf="showTable"></brands-table>
+
+		<!-- <div class="picker" *ngIf="!showTable">
 			<div class="picker-inputs">
 				<mat-form-field>
 					<mat-select placeholder="Choose platform" [(ngModel)]="selectedPlatform" [formControl]="platformControl" required>
@@ -43,9 +47,11 @@
 			</div>
 
 			<button mat-raised-button color="primary" (click)="submit()">Submit</button>
-		</div>
+		</div> -->
 
-		<div class="tags" *ngIf="showTable">
+
+
+		<!-- <div class="tags" *ngIf="showTable">
 			<mat-form-field floatPlaceholder="never">
 				<mat-chip-list #chipList>
 					<mat-chip *ngFor="let value of tags" (remove)="removeStatus(value)">
@@ -69,7 +75,6 @@
 				<button mat-raised-button color="primary" (click)="getExcelFile()">Excel</button>
 				<button mat-raised-button color="primary" (click)="getPDFFile()">PDF</button>
 			</div>
-			<!-- <a href="/excel">Excel</a> -->
 
 			<mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]">
 			</mat-paginator>
@@ -91,10 +96,10 @@
 					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
 				</ng-container>
 
-				<!-- <ng-container matColumnDef="quantity">
+				<ng-container matColumnDef="quantity">
 					<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
 					<mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
-				</ng-container> -->
+				</ng-container>
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onCheckboxChange(row)" class="pointer"></mat-row>
@@ -144,6 +149,6 @@
 					<div class="html2pdf__page-break"></div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
