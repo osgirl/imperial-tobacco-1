@@ -139,14 +139,14 @@ module.exports = function (router) {
 
 			row += 2;
 
-			worksheet.cell(row, 1).string('Code').style(myStyle);;
-			worksheet.cell(row, 2).string('Name').style(myStyle);;
-			worksheet.cell(row, 3).string('Shade').style(myStyle);;
-			worksheet.cell(row, 4).string('Length').style(myStyle);;
-			worksheet.cell(row, 5).string('Ring').style(myStyle);;
-			worksheet.cell(row, 6).string('Quantity').style(myStyle);;
-			worksheet.cell(row, 7).string('MSRP').style(myStyle);;
-			worksheet.cell(row, 8).string('Jrprice').style(myStyle);;
+			worksheet.cell(row, 1).string('Code').style(myStyle);
+			worksheet.cell(row, 2).string('Name').style(myStyle);
+			worksheet.cell(row, 3).string('Length').style(myStyle);
+			worksheet.cell(row, 4).string('Ring').style(myStyle);
+			worksheet.cell(row, 5).string('Shade').style(myStyle);
+			worksheet.cell(row, 6).string('Quantity').style(myStyle);
+			worksheet.cell(row, 7).string('MSRP').style(myStyle);
+			worksheet.cell(row, 8).string('Jrprice').style(myStyle);
 			row++;
 
 			current.items.forEach(function(element) {
