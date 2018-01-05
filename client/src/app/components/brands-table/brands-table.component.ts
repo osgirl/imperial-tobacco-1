@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
@@ -13,9 +14,9 @@ const html2pdf = require('html2pdf.js');
 	styleUrls: ['./brands-table.component.css']
 })
 export class BrandsTableComponent {
-	@Input() platform: string;
-	@Input() month: number;
-	@Input() year: number;
+	private platform: string;
+	private month: number;
+	private year: number;
 
 	allBrands: any[] = [];
 	allItems: any[] = [];
@@ -34,7 +35,13 @@ export class BrandsTableComponent {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-	constructor(private accountService: AccountService) { }
+	constructor(private accountService: AccountService, private route: ActivatedRoute) {
+		this.route.queryParams.subscribe(params => {
+			this.platform = params.platform;
+			this.month = params.month;
+			this.year = params.year;
+		});
+	}
 
 	ngOnInit() {
 		document.getElementById('loading').style.display = 'flex';
@@ -57,8 +64,6 @@ export class BrandsTableComponent {
 				});
 
 				if(!a) this.allItems.push(item);
-
-
 			});
 		});
 	}

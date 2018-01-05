@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import {HttpRequest} from "@angular/common/http";
 import {HttpClient} from '@angular/common/http';
@@ -9,14 +10,22 @@ import * as FileSaver from 'file-saver';
 @Injectable()
 export class AccountService {
 	isLoggedIn: boolean;
+	bSubject = new BehaviorSubject(false);
 
 
 	constructor(private http: Http, private httpClient: HttpClient) {
 	}
 
 	authenticateUser(user: any) {
-		return this.http.post('/login', user, {}).toPromise().then(res => {
+		return this.http.post('/login', user, {}).toPromise().then((res: any) => {
+			if (JSON.parse(res._body).success) {
+				this.bSubject.next(true)
+			} else {
+				this.bSubject.next(false)
+			}
 			return res.json()
+		}, err => {
+			this.bSubject.next(false)
 		});
 	}
 
@@ -27,8 +36,15 @@ export class AccountService {
 	}
 
 	isAuth() {
-		return this.http.get('/isAuth', {}).toPromise().then(res => {
+		return this.http.get('/isAuth', {}).toPromise().then((res: any) => {
+			if (JSON.parse(res._body).isAuth) {
+				this.bSubject.next(true)
+			} else {
+				this.bSubject.next(false)
+			}
 			return res.json()
+		}, err => {
+			this.bSubject.next(false)
 		});
 	}
 
@@ -38,6 +54,7 @@ export class AccountService {
 
 	logOut() {
 		return this.http.post('/logout', {}).toPromise().then(res => {
+			this.bSubject.next(false)
 			return res.json()
 		});
 	}

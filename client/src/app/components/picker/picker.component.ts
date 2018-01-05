@@ -21,11 +21,9 @@ export class PickerComponent implements OnInit{
 	platformControl = new FormControl('', [Validators.required]);
 	monthControl = new FormControl('', [Validators.required]);
 
-	@Output() onSubmit = new EventEmitter<object>();
 
 
-	constructor(private accountService: AccountService,
-		public snackBar: MatSnackBar) {}
+	constructor(private accountService: AccountService, private router: Router, public snackBar: MatSnackBar) {}
 
 	ngOnInit() {
 		this.accountService.getAllPlatforms().then(res => {
@@ -50,6 +48,6 @@ export class PickerComponent implements OnInit{
 		let month = this.months[this.selectedMonth.substring(0, 3)];
 		let year = +this.selectedMonth.slice(-4);
 
-		this.onSubmit.emit({platform: this.selectedPlatform, month, year});
+		this.router.navigate(['/brands'], { queryParams: {platform: this.selectedPlatform, month, year} });
 	}
 }
