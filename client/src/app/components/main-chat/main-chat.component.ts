@@ -27,7 +27,7 @@ export class MainComponent implements OnInit{
 	selectedMonth: string;
 
 	allBrands: any[];
-	allItems: any[];
+	allItems: any[] = [];
 	filteredBrands: any[] = [];
 
 	checkedRows: any[] = [];
@@ -107,7 +107,24 @@ export class MainComponent implements OnInit{
 		});
 
 		this.accountService.getNamesByFilter(this.selectedPlatform, month, year).then(res => {
-			this.allItems = res;
+			// this.allItems = 
+			
+			res.forEach((item: any, index: number, self: any[]) => {
+				// let temp = self.slice(index); //copy all from 'index'
+				
+				let a = this.allItems.find((x: any) => {
+					return  item.name == x.name &&
+							item.details.length == x.details.length &&
+							item.details.ring == x.details.ring && 
+							item.details.packaging_details.quantity == x.details.packaging_details.quantity &&
+							item.prices.msrp == x.prices.msrp &&
+							item.prices.jr_price == x.prices.jr_price
+				});
+
+				if(!a) this.allItems.push(item);
+
+
+			});
 			// this.rerenderTable(res);
 		});
 

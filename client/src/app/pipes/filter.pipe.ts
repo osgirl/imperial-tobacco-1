@@ -12,6 +12,9 @@ export class SearchFilter implements PipeTransform {
 		filterValue = filterValue.trim().toLowerCase();
 
 		brands.forEach((brand: any) => {
+			// console.log();
+			if(!brand.name) return;
+
 			let brandName = brand.name.trim().toLowerCase();
 			if (brandName.includes(filterValue)) {
 				filteredClients.push(brand);
