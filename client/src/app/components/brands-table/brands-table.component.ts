@@ -17,7 +17,7 @@ export class BrandsTableComponent {
 	@Input() month: number;
 	@Input() year: number;
 
-	allBrands: any[];
+	allBrands: any[] = [];
 	allItems: any[] = [];
 	filteredBrands: any[] = [];
 
@@ -37,9 +37,12 @@ export class BrandsTableComponent {
 	constructor(private accountService: AccountService) { }
 
 	ngOnInit() {
+		document.getElementById('loading').style.display = 'flex';
+
 		this.accountService.getBrandsByFilter(this.platform, this.month, this.year).then(res => {
 			this.allBrands = res;
 			this.rerenderTable(res);
+			document.getElementById('loading').style.display = 'none';
 		});
 
 		this.accountService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
@@ -168,6 +171,7 @@ export class BrandsTableComponent {
 
 	getExcelFile() {
 		if (!this.checkedRows.length) return;
+		document.getElementById('loading').style.display = 'flex';
 
 		this.accountService.getExcelFile(this.checkedRows);
 	}

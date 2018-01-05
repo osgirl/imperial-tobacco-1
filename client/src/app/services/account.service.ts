@@ -84,6 +84,8 @@ export class AccountService {
 
 				let filename = 'data.xlsx';
 				FileSaver.saveAs(blob, filename);
+				
+				document.getElementById('loading').style.display = 'none';
 				return res;
 			});
 	}

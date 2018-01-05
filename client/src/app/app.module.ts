@@ -47,6 +47,7 @@ import { MatDialogModule, MatDialog, MatDialogRef, MatNativeDateModule } from '@
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {DpDatePickerModule} from 'ng2-date-picker';
@@ -81,6 +82,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 		MatCardModule,
 		MatSlideToggleModule,
 		MatDatepickerModule,
+		MatProgressSpinnerModule,
 		MatNativeDateModule,
 		MatPaginatorModule,
 		MatIconModule,
