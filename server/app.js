@@ -33,7 +33,7 @@ const app = express();
 (async function () {
 	app.use(cors());
 	app.use(json2xls.middleware);
-	app.use(bodyParser.json({limit: '5mb'}));
+	app.use(bodyParser.json({limit: '10mb'}));
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(cookieParser());
 

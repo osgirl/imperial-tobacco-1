@@ -7,18 +7,18 @@ module.exports = function(platform, month, year) {
 							{$ne: ["$brand_name", null]}, 
 							{$ne: ["$brand_name", ""]}
 				] },
-				"pl": { $in: [ platform, "$platforms" ] },
-				"month": { $eq: [ {$month: "$dates.modified"}, month ] },
-				"year": { $eq: [ {$year: "$dates.modified"}, year ] },
+				// "pl": { $in: [ platform, "$platforms" ] },
+				// "month": { $eq: [ {$month: "$dates.modified"}, month ] },
+				// "year": { $eq: [ {$year: "$dates.modified"}, year ] },
 				"brand_name": 1,
 				"category.data": 1
 			}
 		},
 		{
 			"$match" : {
-				"pl" : true,
-				"month" : true,
-				"year" : true,
+				// "pl" : true,
+				// "month" : true,
+				// "year" : true,
 				"check": true
 			}
 		},

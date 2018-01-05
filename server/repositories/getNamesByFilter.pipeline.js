@@ -13,9 +13,9 @@ module.exports = function(platform, month, year) {
 							{$ne: ["$brand_name", null]}, 
 							{$ne: ["$brand_name", ""]}
 				] },
-				"pl": { $in: [ platform, "$platforms" ] },
-				"month": { $eq: [ {$month: "$dates.modified"}, month ] },
-				"year": { $eq: [ {$year: "$dates.modified"}, year ] },
+				// "pl": { $in: [ platform, "$platforms" ] },
+				// "month": { $eq: [ {$month: "$dates.modified"}, month ] },
+				// "year": { $eq: [ {$year: "$dates.modified"}, year ] },
 				
 				"code": { $ifNull: [ "$code", "Unspecified" ] },
 				"details.wrapper_shade": { $ifNull: [ "$details.wrapper_shade", "Unspecified" ] },
@@ -28,9 +28,9 @@ module.exports = function(platform, month, year) {
 		},
 		{
 			"$match" : {
-				"pl" : true,
-				"month" : true,
-				"year" : true,
+				// "pl" : true,
+				// "month" : true,
+				// "year" : true,
 				"check_name": true,
 				"check_brand": true
 			}
