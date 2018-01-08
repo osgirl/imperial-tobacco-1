@@ -125,7 +125,7 @@ export class BrandsTableComponent {
 		if (elem.selected) {
 			this.check(elem);
 		} else {
-			let uncheckedElem = this.checkedRows.find(x => x.id === elem.id)
+			let uncheckedElem = this.checkedRows.find(x => x.name === elem.name)
 			let uncheckedIndex = this.checkedRows.indexOf(uncheckedElem);
 			this.checkedRows.splice(uncheckedIndex, 1);
 
@@ -170,7 +170,11 @@ export class BrandsTableComponent {
 		if (!this.checkedRows.length) return;
 		document.getElementById('loading').style.display = 'flex';
 
-		this.dataService.getExcelFile(this.checkedRows);
+		let data = this.checkedRows.map((row) => {
+			return row.name
+		});
+
+		this.dataService.getExcelFile(data);
 	}
 
 	getPDFFile() {

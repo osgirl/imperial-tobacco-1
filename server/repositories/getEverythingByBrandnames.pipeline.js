@@ -10,7 +10,7 @@ function concat(field, delimiter) {
 	};
 }
 
-module.exports = function(platform, month, year) {
+module.exports = function(brandNames) {
 	return [
 		{
 			"$match" : {
@@ -18,7 +18,16 @@ module.exports = function(platform, month, year) {
 				// "month" : true,
 				// "year" : true,
 				"name": {$ne: null, $exists: 1},
-				"brand_name": {$ne: null, $exists: 1}
+				"brand_name": {$in: brandNames}
+			}
+		},
+	
+		{
+			$lookup: {
+				from: "categories",
+				localField: "category.data",
+				foreignField: "_id",
+				as: "categories_docs"
 			}
 		},
 		{
@@ -34,8 +43,10 @@ module.exports = function(platform, month, year) {
 				},
 				"codes": { $push: "$code" },
 				"shades": { $push: "$details.wrapper_shade" },
+				"categories_docs": { $first: "$categories_docs"}
 			}
 		},
+	
 		{
 			"$project": {
 				"_id": 0,
@@ -47,8 +58,52 @@ module.exports = function(platform, month, year) {
 				"jr_price": { $ifNull: [ "$_id.jr_price", "Unspecified" ] },
 				"code": concat("$codes", "/"),
 				"shade": concat("$shades", "/"),
-				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] }
+				"brand_name": "$_id.brand_name",
 				
+				
+				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] }
+			}
+		},
+		
+		{
+			"$project": {
+				"name": "$name",
+				"length": "$length",
+				"ring": "$ring",
+				"quantity": "$quantity",
+				"msrp": "$quantity",
+				"jr_price": "$jr_price",
+				"code": "$code",
+				"shade": "$shade",
+				"brand_name": "$brand_name",
+				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
+			}
+		},
+		
+		{
+			"$group": {
+				"_id": "$brand_name",
+				"items": { 
+					$push: {
+						"name": "$name",
+						"length": "$length",
+						"ring": "$ring",
+						"quantity": "$quantity",
+						"msrp": "$quantity",
+						"jr_price": "$jr_price",
+						"code": "$code",
+						"shade": "$shade"
+					} 
+				},
+				"description": { $first: "$description"}
+			}
+		},
+		{
+			"$project": {
+				_id: 0,
+				name: "$_id",
+				description: 1,
+				items:  1
 			}
 		}
 	];

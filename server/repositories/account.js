@@ -17,4 +17,9 @@ module.exports = class Account {
 		const pipeline = require('./getNamesByFilter.pipeline.js')(platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
+
+	async getEverythingByBrandnames(brandNames) {
+		const pipeline = require('./getEverythingByBrandnames.pipeline.js')(brandNames);
+		return await this.db.collection('items').aggregate(pipeline, {allowDiskUse: true}).toArray();
+	}
 };
