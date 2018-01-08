@@ -152,12 +152,12 @@ module.exports = function (router) {
 			current.items.forEach(function(element) {
 				worksheet.cell(row, 1).string(`${element.code}`);
 				worksheet.cell(row, 2).string(`${element.name}`);
-				worksheet.cell(row, 3).string(`${element.details.length}`);
-				worksheet.cell(row, 4).string(`${element.details.ring}`);
-				worksheet.cell(row, 5).string(`${element.details.wrapper_shade}`);
-				worksheet.cell(row, 6).string(`${element.details.packaging_details.quantity}`);
-				worksheet.cell(row, 7).string(`${element.prices.msrp}`);
-				worksheet.cell(row, 8).string(`${element.prices.jr_price}`);
+				worksheet.cell(row, 3).string(`${element.length}`);
+				worksheet.cell(row, 4).string(`${element.ring}`);
+				worksheet.cell(row, 5).string(`${element.wrapper_shade}`);
+				worksheet.cell(row, 6).string(`${element.quantity}`);
+				worksheet.cell(row, 7).string(`${element.msrp}`);
+				worksheet.cell(row, 8).string(`${element.jr_price}`);
 				row++;
 			}, this);
 

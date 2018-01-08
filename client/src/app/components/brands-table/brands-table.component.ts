@@ -54,18 +54,6 @@ export class BrandsTableComponent {
 		});
 
 		this.dataService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
-			// res.forEach((item: any, index: number, self: any[]) => {				
-			// 	let a = this.allItems.find((x: any) => {
-			// 		return  item.name == x.name &&
-			// 				item.details.length == x.details.length &&
-			// 				item.details.ring == x.details.ring && 
-			// 				item.details.packaging_details.quantity == x.details.packaging_details.quantity &&
-			// 				item.prices.msrp == x.prices.msrp &&
-			// 				item.prices.jr_price == x.prices.jr_price
-			// 	});
-
-			// 	if(!a) this.allItems.push(item);
-			// });
 			this.allItems = res;
 		});
 	}
