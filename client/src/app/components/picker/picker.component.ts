@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
+import { DataService } from '../../services/data.service';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
 import { HttpEventType, HttpResponse } from "@angular/common/http";
@@ -23,10 +24,10 @@ export class PickerComponent implements OnInit{
 
 
 
-	constructor(private accountService: AccountService, private router: Router, public snackBar: MatSnackBar) {}
+	constructor(private accountService: AccountService, private dataService: DataService, private router: Router, public snackBar: MatSnackBar) {}
 
 	ngOnInit() {
-		this.accountService.getAllPlatforms().then(res => {
+		this.dataService.getAllPlatforms().then(res => {
 			this.platforms = res;
 		});
 	}

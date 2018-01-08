@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
+import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
@@ -35,7 +36,7 @@ export class BrandsTableComponent {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-	constructor(private accountService: AccountService, private route: ActivatedRoute) {
+	constructor(private accountService: AccountService, private dataService: DataService, private route: ActivatedRoute) {
 		this.route.queryParams.subscribe(params => {
 			this.platform = params.platform;
 			this.month = params.month;
@@ -46,25 +47,26 @@ export class BrandsTableComponent {
 	ngOnInit() {
 		document.getElementById('loading').style.display = 'flex';
 
-		this.accountService.getBrandsByFilter(this.platform, this.month, this.year).then(res => {
+		this.dataService.getBrandsByFilter(this.platform, this.month, this.year).then(res => {
 			this.allBrands = res;
 			this.rerenderTable(res);
 			document.getElementById('loading').style.display = 'none';
 		});
 
-		this.accountService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
-			res.forEach((item: any, index: number, self: any[]) => {				
-				let a = this.allItems.find((x: any) => {
-					return  item.name == x.name &&
-							item.details.length == x.details.length &&
-							item.details.ring == x.details.ring && 
-							item.details.packaging_details.quantity == x.details.packaging_details.quantity &&
-							item.prices.msrp == x.prices.msrp &&
-							item.prices.jr_price == x.prices.jr_price
-				});
+		this.dataService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
+			// res.forEach((item: any, index: number, self: any[]) => {				
+			// 	let a = this.allItems.find((x: any) => {
+			// 		return  item.name == x.name &&
+			// 				item.details.length == x.details.length &&
+			// 				item.details.ring == x.details.ring && 
+			// 				item.details.packaging_details.quantity == x.details.packaging_details.quantity &&
+			// 				item.prices.msrp == x.prices.msrp &&
+			// 				item.prices.jr_price == x.prices.jr_price
+			// 	});
 
-				if(!a) this.allItems.push(item);
-			});
+			// 	if(!a) this.allItems.push(item);
+			// });
+			this.allItems = res;
 		});
 	}
 
@@ -147,7 +149,9 @@ export class BrandsTableComponent {
 		elem.items = [];
 
 		this.allItems.forEach((item) => {
-			if (item.brand_name == elem.name) elem.items.push(item);
+			if (item.brand_name == elem.name) {
+				elem.items.push(item);
+			}
 		});
 
 		this.checkedRows.push(elem);
@@ -178,7 +182,7 @@ export class BrandsTableComponent {
 		if (!this.checkedRows.length) return;
 		document.getElementById('loading').style.display = 'flex';
 
-		this.accountService.getExcelFile(this.checkedRows);
+		this.dataService.getExcelFile(this.checkedRows);
 	}
 
 	getPDFFile() {

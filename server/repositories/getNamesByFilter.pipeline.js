@@ -48,6 +48,16 @@ module.exports = function(platform, month, year) {
 				"prices.msrp": 1,
 				"prices.jr_price": 1
 			}
+		},
+		{
+			"$group" : {
+				"_id": { name: "$name", length: "$details.length", ring: "$details.ring", 
+								quantity: "$details.packaging_details.quantity", msrp: "$prices.msrp", 
+								jr_price: "$prices.jr_price",
+								brand_name: "$brand_name"},
+				"codes": { $push: "$code" },
+				"shades": { $push: "$details.wrapper_shade" },
+			}
 		}
 	]
 }

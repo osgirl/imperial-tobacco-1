@@ -21,6 +21,7 @@ import { UnauthGuard } from './guards/unauth.guard';
 
 //services
 import { AccountService } from './services/account.service';
+import { DataService } from './services/data.service';
 import { ValidateService } from './services/validate.service';
 
 //pipes
@@ -99,6 +100,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 	],
 	providers: [
 		AccountService,
+		DataService,
 		ValidateService,
 		AuthGuard,
 		UnauthGuard,
