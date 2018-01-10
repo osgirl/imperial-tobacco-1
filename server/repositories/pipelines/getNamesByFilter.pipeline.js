@@ -50,6 +50,7 @@ module.exports = function(platform, month, year) {
 				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] }
 				
 			}
-		}
+		},
+		{ $sort : { "name": 1, "details.length": 1, "details.ring": 1 } },
 	];
 };

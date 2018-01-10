@@ -22,7 +22,7 @@
         "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
         "no-console": ["off"],
         "no-var": "error",
-        "key-spacing": ["warn", { "align": "colon" }],
+        // "key-spacing": ["warn", { "align": "colon" }],
         "no-multi-spaces": ["error", {
                 "exceptions": {
                     "VariableDeclarator": true,

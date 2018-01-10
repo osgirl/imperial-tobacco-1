@@ -58,7 +58,7 @@ export class BrandsTableComponent {
 		});
 	}
 
-
+	
 	rerenderTable(newData: any[]) {
 		this.dataSource = new MatTableDataSource<any>(newData);
 		this.dataSource.paginator = this.paginator;

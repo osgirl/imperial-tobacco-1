@@ -26,7 +26,7 @@ if (process.version !== engineVersion) {
 	process.exit(1);
 }
 
-const AccountRep = require('./repositories/account');
+const DataRep = require('./repositories/data');
 
 const app = express();
 
@@ -74,6 +74,8 @@ const app = express();
 	//TODO Routes
 	const router = require('express-promise-router')();
 	app.use(require('./routes/account')(router));
+	app.use(require('./routes/data')(router));
+	app.use(require('./routes/file-export')(router));
 
 
 	let debug = require('debug')('upwork:server');

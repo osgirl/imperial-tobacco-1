@@ -50,6 +50,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import {DpDatePickerModule} from 'ng2-date-picker';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
@@ -86,6 +87,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 		MatProgressSpinnerModule,
 		MatNativeDateModule,
 		MatPaginatorModule,
+		MatSortModule,
 		MatIconModule,
 		DpDatePickerModule
 	],

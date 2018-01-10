@@ -1,13 +1,10 @@
-const config = require('../../../config/index');
-
-
-module.exports = class Account {
+module.exports = class Data {
 	constructor(rep) {
-		this.accountRep = rep;
+		this.dataRep = rep;
 	}
 
 	async getAllPlatforms() {
-		let platforms = await this.accountRep.getAllPlatforms();
+		let platforms = await this.dataRep.getAllPlatforms();
 
 		return platforms.map((platform) => {
 			return platform._id;
@@ -15,7 +12,7 @@ module.exports = class Account {
 	}
 
 	async getBrandsByFilter(platform, month, year) {
-		let brands = await this.accountRep.getBrandsByFilter(platform, month, year);
+		let brands = await this.dataRep.getBrandsByFilter(platform, month, year);
 		return brands;
 		
 		// return brands.map((brand, index) => {
@@ -29,13 +26,13 @@ module.exports = class Account {
 	}
 
 	async getNamesByFilter(platform, month, year) {
-		let items = await this.accountRep.getNamesByFilter(platform, month, year);
+		let items = await this.dataRep.getNamesByFilter(platform, month, year);
 		
 		return items;
 	}
 
 	async getEverythingByBrandnames(brandNames) {
-		let items = await this.accountRep.getEverythingByBrandnames(brandNames);
+		let items = await this.dataRep.getEverythingByBrandnames(brandNames);
 		return items;
 	}
 	
