@@ -19,8 +19,8 @@
 
 <div class="field">
 	<div class="download-buttons">
-		<button mat-raised-button color="primary" (click)="getExcelFile()">Excel</button>
-		<button mat-raised-button color="primary" (click)="getPDFFile()">PDF</button>
+		<button mat-raised-button  (click)="getExcelFile()">Excel</button>
+		<button mat-raised-button  (click)="getPDFFile()">PDF</button>
 	</div>
 
 	<mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]">
@@ -31,10 +31,10 @@
 
 		<ng-container matColumnDef="check">
 			<mat-header-cell *matHeaderCellDef [ngClass]="'checkbox-cell'">
-				<mat-checkbox [checked]="allSelected" color="primary" (change)="checkAll($event.checked)">A</mat-checkbox>
+				<mat-checkbox [checked]="allSelected" (change)="checkAll($event.checked)" disableRipple>a</mat-checkbox>
 			</mat-header-cell>
 			<mat-cell *matCellDef="let element" [ngClass]="'checkbox-cell'">
-				<mat-checkbox [checked]="element.selected" color="primary" (click)="$event.preventDefault()">a</mat-checkbox>
+				<mat-checkbox [checked]="element.selected" (click)="$event.preventDefault()" disableRipple></mat-checkbox>
 			</mat-cell>
 		</ng-container>
 

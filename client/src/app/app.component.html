@@ -4,27 +4,31 @@
 </div>
 
 <div id="main-wrapper">
-	<div id="left-menu" *ngIf="isAuth$ | async">
-		<div class="name">PRICE BOX DISPLAY</div>
-		<div class="user">
-			<div class="user-wrapper">
-				<span>Admin</span>
-				<span>Administrator</span>
-			</div>
-			<span></span>
-		</div>
-		<div class="menu">
-			<div class="menu-buttons">
-				<button mat-button (click)="home()">Home</button>
-				<button (click)="logOut()" mat-button>Logout</button>
-			</div>
-		</div>
-		<div class="footer"></div>
-	</div>
+	<header>
+		<div id="logout" (click)="logOut()">Logout</div>
+	</header>
 
-	<div class="center-wrapper">
-		<header></header>
+	<div id="content-wrapper">
+		<div id="left-menu" *ngIf="isAuth$ | async">
+			<div class="name">
+				<img src="../assets/images/logo.svg" alt="" (click)="home()" class="pointer"> PRICE BOX DISPLAY
+			</div>
+			<div class="user">
+				<!-- <div class="user-wrapper"> -->
+					<span>Admin</span>
+				<!-- </div> -->
+				<!-- <span></span> -->
+			</div>
 
-		<router-outlet></router-outlet>
+			<!-- <div class="menu"></div>
+		
+		<div class="footer"></div> -->
+		</div>
+
+		<div class="center-wrapper">
+			<!-- <header></header> -->
+
+			<router-outlet></router-outlet>
+		</div>
 	</div>
 </div>

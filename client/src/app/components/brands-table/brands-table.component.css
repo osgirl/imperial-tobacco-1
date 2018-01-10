@@ -23,6 +23,12 @@
 .mat-table.small {
 	height: 40%;
 }
+.mat-cell {
+	font-size: 12px;
+}
+/deep/.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+	background-color: #5C5B5B !important;
+}
 
 .tags {
 	width: 100%;
@@ -49,10 +55,22 @@
 	flex: 0 0 28px;
 }
 
+.mat-raised-button {
+	color: #fff;
+	background-color: #817F7F;
+}
+
+.mat-raised-button:hover {
+	color: #fff;
+	background-color: #696767;
+	transition: 0.3s;
+}
+
 .download-buttons {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+	flex-shrink: 0;
 }
 
 .download-buttons button {
@@ -82,7 +100,7 @@ mat-slide-toggle {
 
 
 #preview {
-	margin-top: 30px;
+	margin-top: 5px;
 	height: 100%;
 	overflow-y: auto;
 }
@@ -98,4 +116,14 @@ th, td {
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
+}
+
+
+#table .mat-row:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table .mat-row:hover {
+	transition: 0.3s;
+	background-color: #D6D4D4;
 }
