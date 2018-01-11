@@ -38,7 +38,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
-	background-color: #e8e8e8;
+	/* background-color: #e8e8e8; */
 }
 
 .name, .user, .center-wrapper header {
@@ -131,7 +131,7 @@ header {
 	z-index: 999;
 }
 
-.mat-raised-button {
+/* .mat-raised-button {
 	color: #fff;
 	background-color: #817F7F;
 }
@@ -140,4 +140,4 @@ header {
 	color: #fff;
 	background-color: #696767;
 	transition: 0.3s;
-}
+} */
