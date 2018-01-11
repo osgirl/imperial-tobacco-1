@@ -6,14 +6,14 @@ const pipeline = [
 	}
 ];
 
-module.exports.name = "add_random_data_to_items";
+module.exports.name = "add_random_data_to_items_v2";
 
 module.exports.up = async function (db) {
 	try {
 		let IDs = await db.collection('items').aggregate(pipeline).toArray();
-		let data = getRandomData();
 		
 		for(let i = 0; i < IDs.length; i++) {
+			let data = getRandomData();
 			await db.collection('items').updateOne({"_id": IDs[i]._id}, { $set: {platform_prices: data}});
 		}
 	} catch(err) {
@@ -23,41 +23,42 @@ module.exports.up = async function (db) {
 
 function getRandomData() {
 	let platforms = ["jrcigars.com", "retail", "moto"];
-	let randomData = [];
-	let indexes = getRandomInts();
-	let dates = getRandomDates(new Date(2017, 0, 1), new Date(2018, 0, 1));
-	let prices = getRandomPrices();	
-	
+	let randomData = [];	
 
-	for(let i = 0; i < 2; i++) {
-		randomData.push({platform: platforms[indexes[i]], date: dates[i], price: prices[i]});
+	for(let i = 0; i < 10; i++) {
+		let platform = platforms[getRandomInts()];
+		let date = getRandomDates(new Date(2017, 0, 1), new Date(2018, 0, 1), randomData, platform);
+		let price = getRandomPrices();
+
+		randomData.push({platform: platform, date: date, price: +price});
 	}
 
 	return randomData;
 }
 
 function getRandomInts() {
-	let rand = () => Math.floor(Math.random() * (3 - 0)) + 0;
-
-	let firstNumber = rand();
-	let secondNumber;
-
-	do {
-		secondNumber = rand();
-	} while(firstNumber == secondNumber);
-
-	return [firstNumber, secondNumber];
+	return Math.floor(Math.random() * (3 - 0)) + 0;
 }
 
-function getRandomDates(start, end) {
+function getRandomDates(start, end, randomData, currentPlatform) {
 	let rand = () => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-	let firstDate = rand();
-	let secondDate = rand();
-	return [firstDate, secondDate];
+	
+	let randomValue = rand();
+
+	let found = true;
+	while(found) {
+		let f = randomData.find((x) => x.platform == currentPlatform && x.date.getMonth() == randomValue.getMonth());
+
+		if(f) {
+			randomValue = rand();
+		} else {
+			found = false;
+		}
+	}
+
+	return randomValue;
 }
 
 function getRandomPrices() {
-	let firstPrice = (Math.random() * 100).toFixed(1);
-	let secondPrice = (Math.random() * 100).toFixed(1);
-	return [+firstPrice, +secondPrice];
+	return (Math.random() * 100).toFixed(1);
 }
