@@ -38,6 +38,6 @@ module.exports = function(platform, month, year) {
 				"selected": { $literal: false },
 			}
 		}
-	
+		
 	];
 };

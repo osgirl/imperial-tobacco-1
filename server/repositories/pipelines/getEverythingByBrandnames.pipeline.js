@@ -71,7 +71,7 @@ module.exports = function(brandNames) {
 				"length": "$length",
 				"ring": "$ring",
 				"quantity": "$quantity",
-				"msrp": "$quantity",
+				"msrp": "$msrp",
 				"jr_price": "$jr_price",
 				"code": "$code",
 				"shade": "$shade",
@@ -90,7 +90,7 @@ module.exports = function(brandNames) {
 						"length": "$length",
 						"ring": "$ring",
 						"quantity": "$quantity",
-						"msrp": "$quantity",
+						"msrp": "$msrp",
 						"jr_price": "$jr_price",
 						"code": "$code",
 						"shade": "$shade"
@@ -106,6 +106,7 @@ module.exports = function(brandNames) {
 				description: 1,
 				items:  1
 			}
-		}
+		},
+		{$sort: {"name": 1}},
 	];
 };

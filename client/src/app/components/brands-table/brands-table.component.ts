@@ -142,6 +142,10 @@ export class BrandsTableComponent {
 		});
 
 		this.checkedRows.push(elem);
+		this.checkedRows.sort((a, b) => {
+			if(a.name > b.name) return 1;
+			else return -1;
+		});
 
 		if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
 
