@@ -38,7 +38,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
-    background-color: #e8e8e8;
+	background-color: #e8e8e8;
 }
 
 .name, .user, .center-wrapper header {
@@ -50,10 +50,14 @@ header {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: white;
-	background-color: #5C5B5B;
-	/* height: 50px; */
+	color: #3e3e3e;
+	background-color: #d8d8d8;
 	padding: 5px 10px;
+}
+
+.logo {
+	cursor: pointer;
+	margin-bottom: 10px;
 }
 
 .user {
@@ -124,8 +128,4 @@ header {
 	/* top: 0;
 	left: 0; */
 	z-index: 999;
-}
-
-.pointer {
-	cursor: pointer;
 }

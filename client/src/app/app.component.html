@@ -4,14 +4,14 @@
 </div>
 
 <div id="main-wrapper">
-	<header>
+	<header *ngIf="isAuth$ | async">
 		<div id="logout" (click)="logOut()">Logout</div>
 	</header>
 
 	<div id="content-wrapper">
 		<div id="left-menu" *ngIf="isAuth$ | async">
 			<div class="name">
-				<img src="../assets/images/logo.svg" alt="" (click)="home()" class="pointer"> PRICE BOX DISPLAY
+				<img src="../assets/images/logo.png" alt="" (click)="home()" class="logo" width="200px"> PRICE BOX DISPLAY
 			</div>
 			<div class="user">
 				<!-- <div class="user-wrapper"> -->
@@ -26,8 +26,6 @@
 		</div>
 
 		<div class="center-wrapper">
-			<!-- <header></header> -->
-
 			<router-outlet></router-outlet>
 		</div>
 	</div>

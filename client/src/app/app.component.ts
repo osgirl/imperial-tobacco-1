@@ -18,6 +18,7 @@ export class AppComponent {
 	}
 
 	home() {
+		console.log(1);
 		this.router.navigate(['/']);
 	}
 
