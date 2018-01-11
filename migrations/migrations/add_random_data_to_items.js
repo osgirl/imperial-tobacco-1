@@ -51,14 +51,8 @@ function getRandomInts() {
 
 function getRandomDates(start, end) {
 	let rand = () => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-
 	let firstDate = rand();
-	let secondDate;
-
-	do {
-		secondDate = rand();
-	} while(firstDate == secondDate);
-
+	let secondDate = rand();
 	return [firstDate, secondDate];
 }
 

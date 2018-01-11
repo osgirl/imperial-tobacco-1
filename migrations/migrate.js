@@ -103,7 +103,7 @@ async function applyMigrations() {
 			await migration.up(db);
 			let now = new Date();
 
-			await db.collection("_migrations").insertOne({ name: migration.name, date: now })
+			await db.collection("_migrations").insertOne({ name: migration.name, date: now });
 
 			console.log(`Migration "${migration.name}" has been applied`);
 			changed = true;
