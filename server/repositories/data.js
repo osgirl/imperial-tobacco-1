@@ -18,8 +18,8 @@ module.exports = class Data {
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
 
-	async getEverythingByBrandnames(brandNames) {
-		const pipeline = require('./pipelines/getEverythingByBrandnames.pipeline.js')(brandNames);
+	async getEverythingByBrandnames(brandNames, platform, month, year) {
+		const pipeline = require('./pipelines/getEverythingByBrandnames.pipeline.js')(brandNames, platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline, {allowDiskUse: true}).toArray();
 	}
 };

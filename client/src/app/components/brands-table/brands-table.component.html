@@ -79,6 +79,7 @@
 						<th>Quantity</th>
 						<th>MSRP</th>
 						<th>Jrprice</th>
+						<th>Price</th>
 					</tr>
 					<tr *ngFor="let item of row.items">
 						<td>{{item.code}}</td>
@@ -89,6 +90,7 @@
 						<td>{{item.quantity}}</td>
 						<td>{{item.msrp}}</td>
 						<td>{{item.jr_price}}</td> 
+						<td>{{item.platform_price}}</td>
 					</tr>
 				</table>
 			</div>

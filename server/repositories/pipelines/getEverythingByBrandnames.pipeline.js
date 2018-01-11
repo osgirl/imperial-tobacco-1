@@ -10,7 +10,7 @@ function concat(field, delimiter) {
 	};
 }
 
-module.exports = function(brandNames) {
+module.exports = function(brandNames, platform, month, year) {
 	return [
 		{
 			"$match" : {
@@ -43,7 +43,8 @@ module.exports = function(brandNames) {
 				},
 				"codes": { $push: "$code" },
 				"shades": { $push: "$details.wrapper_shade" },
-				"categories_docs": { $first: "$categories_docs"}
+				"categories_docs": { $first: "$categories_docs"},
+				"platform_prices": { $first: "$platform_prices"}
 			}
 		},
 	
@@ -61,7 +62,34 @@ module.exports = function(brandNames) {
 				"brand_name": "$_id.brand_name",
 				
 				
-				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] }
+				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] },
+				"platform_prices": {
+					"$filter": {
+						input: "$platform_prices",
+						as: "info",
+						cond: { $and: [
+							{ $eq: [ "$$info.platform", platform ]},
+							{ $eq: [ { $month: "$$info.date"}, month ] },
+							{ $eq: [ { $year: "$$info.date"} , year] }
+						] }
+					}
+				},
+			}
+		},
+	
+		{
+			"$project": {
+				"name": "$name",
+				"length": "$length",
+				"ring": "$ring",
+				"quantity": "$quantity",
+				"msrp": "$msrp",
+				"jr_price": "$jr_price",
+				"code": "$code",
+				"shade": "$shade",
+				"brand_name": "$brand_name",
+				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
+				"platform_prices": { $arrayElemAt: [ "$platform_prices", 0 ] },
 			}
 		},
 		
@@ -76,10 +104,11 @@ module.exports = function(brandNames) {
 				"code": "$code",
 				"shade": "$shade",
 				"brand_name": "$brand_name",
-				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
+				"description": "$description",
+				"platform_prices": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
 			}
 		},
-		
+	
 		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },
 		{
 			"$group": {
@@ -93,7 +122,8 @@ module.exports = function(brandNames) {
 						"msrp": "$msrp",
 						"jr_price": "$jr_price",
 						"code": "$code",
-						"shade": "$shade"
+						"shade": "$shade",
+						"price": "$platform_prices"
 					} 
 				},
 				"description": { $max: "$description"}

@@ -31,8 +31,8 @@ module.exports = class Data {
 		return items;
 	}
 
-	async getEverythingByBrandnames(brandNames) {
-		let items = await this.dataRep.getEverythingByBrandnames(brandNames);
+	async getEverythingByBrandnames(brandNames, platform, month, year) {
+		let items = await this.dataRep.getEverythingByBrandnames(brandNames, platform, month, year);
 		return items;
 	}
 	

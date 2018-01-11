@@ -18,9 +18,10 @@ module.exports = function(platform, month, year) {
 				// "month" : true,
 				// "year" : true,
 				"name": {$ne: null, $exists: 1},
-				"brand_name": {$ne: null, $exists: 1}
+				"brand_name": {$ne: null, $exists: 1},
 			}
 		},
+		
 		{
 			"$group" : {
 				"_id": { 
@@ -34,6 +35,7 @@ module.exports = function(platform, month, year) {
 				},
 				"codes": { $push: "$code" },
 				"shades": { $push: "$details.wrapper_shade" },
+				"platform_prices": {$first: "$platform_prices"}
 			}
 		},
 		{
@@ -47,8 +49,50 @@ module.exports = function(platform, month, year) {
 				"jr_price": { $ifNull: [ "$_id.jr_price", "Unspecified" ] },
 				"code": concat("$codes", "/ "),
 				"shade": concat("$shades", "/ "),
-				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] }
-				
+				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] },
+				"platform_prices": {
+					"$filter": {
+						input: "$platform_prices",
+						as: "info",
+						cond: { $and: [
+							{ $eq: [ "$$info.platform", platform ]},
+							{ $eq: [ { $month: "$$info.date"}, month ] },
+							{ $eq: [ { $year: "$$info.date"} , year] }
+						] }
+					}
+				},
+			}
+		},
+		
+		{
+			"$project": {
+				"_id": 0,
+				"name": 1,
+				"length": 1,
+				"ring": 1,
+				"quantity": 1,
+				"msrp": 1,
+				"jr_price": 1,
+				"code": 1,
+				"shade": 1,
+				"brand_name": 1,
+				"platform_prices": { $arrayElemAt: [ "$platform_prices", 0 ] }
+			}
+		},
+		
+		{
+			"$project": {
+				"_id": 0,
+				"name": 1,
+				"length": 1,
+				"ring": 1,
+				"quantity": 1,
+				"msrp": 1,
+				"jr_price": 1,
+				"code": 1,
+				"shade": 1,
+				"brand_name": 1,
+				"platform_price": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
 			}
 		},
 		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },

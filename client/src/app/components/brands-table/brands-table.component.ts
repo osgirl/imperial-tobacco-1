@@ -177,7 +177,7 @@ export class BrandsTableComponent {
 			return row.name
 		});
 
-		this.dataService.getExcelFile(data);
+		this.dataService.getExcelFile(data, this.platform, this.month, this.year);
 	}
 
 	getPDFFile() {
