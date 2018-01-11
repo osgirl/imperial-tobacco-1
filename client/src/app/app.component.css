@@ -78,13 +78,14 @@ header {
 	font-size: 14px;
 } */
 
-/* .menu {
+.menu {
 	display: flex;
 	justify-content: center;
-	height: 100%;
+	margin-top: 20px; 
+	/* height: 100%; */
 }
 
-.menu-buttons {
+/* .menu-buttons {
 	margin-top: 30px;
 	width: 50%;
 	display: flex;
@@ -128,4 +129,15 @@ header {
 	/* top: 0;
 	left: 0; */
 	z-index: 999;
+}
+
+.mat-raised-button {
+	color: #fff;
+	background-color: #817F7F;
+}
+
+.mat-raised-button:hover {
+	color: #fff;
+	background-color: #696767;
+	transition: 0.3s;
 }

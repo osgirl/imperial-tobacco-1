@@ -80,7 +80,7 @@ module.exports = function(brandNames) {
 			}
 		},
 		
-		{ $sort : { "name": 1, "length": 1, "ring": 1 } },
+		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },
 		{
 			"$group": {
 				"_id": "$brand_name",

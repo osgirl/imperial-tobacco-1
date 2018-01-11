@@ -45,12 +45,12 @@ module.exports = function(platform, month, year) {
 				"quantity": { $ifNull: [ "$_id.quantity", "Unspecified" ] },
 				"msrp": { $ifNull: [ "$_id.msrp", "Unspecified" ] },
 				"jr_price": { $ifNull: [ "$_id.jr_price", "Unspecified" ] },
-				"code": concat("$codes", "/"),
-				"shade": concat("$shades", "/"),
+				"code": concat("$codes", "/ "),
+				"shade": concat("$shades", "/ "),
 				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] }
 				
 			}
 		},
-		{ $sort : { "name": 1, "details.length": 1, "details.ring": 1 } },
+		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },
 	];
 };
