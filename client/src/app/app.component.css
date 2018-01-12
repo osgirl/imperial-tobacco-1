@@ -38,6 +38,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
+	border-right: 1px solid #cecece;
 	/* background-color: #e8e8e8; */
 }
 
@@ -51,13 +52,16 @@ header {
 	justify-content: center;
 	align-items: center;
 	color: #3e3e3e;
-	background-color: #d8d8d8;
-	padding: 5px 10px;
+}
+
+.border {
+	border-bottom: 2px solid #c2c2c2;
+	width: 100%;
 }
 
 .logo {
 	cursor: pointer;
-	margin-bottom: 10px;
+	margin: 5px 0;
 }
 
 .user {
@@ -66,13 +70,13 @@ header {
 	justify-content: space-around;
 	height: 80px;
 
-	background-color: #f7e7bb;
+	background-color: #817f7f;
 	color: white;
 }
 
 .user span {
-	font-size: 20px;
-	color: #181858;
+	font-size: 25px;
+	color: #000;
 }
 /* .user-wrapper span:last-child {
 	font-size: 14px;
