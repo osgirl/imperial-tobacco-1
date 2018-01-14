@@ -15,7 +15,7 @@
     "server:nodemon": "NODE_ENV=dev nodemon server/app.js",
     "migrate": "DEBUG=* node migrations/migrate.js",
     "server:demo-build": "NODE_ENV=testing DEGUG=* node migrations/migrate && NODE_ENV=testing yarn run build",
-    "unit:demo-build": "NODE_ENV=testing mocha --recursive tests --reporter mocha-tap-reporter > test.tap"
+    "unit:demo-build": "NODE_ENV=testing  mocha --recursive tests --reporter mocha-tap-reporter > test.tap"
   },
   "keywords": [],
   "author": "",
