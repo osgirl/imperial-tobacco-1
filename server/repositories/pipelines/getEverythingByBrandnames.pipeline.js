@@ -100,11 +100,12 @@ module.exports = function(brandNames, platform, month, year) {
 				"ring": "$ring",
 				"quantity": "$quantity",
 				"msrp": "$msrp",
-				"jr_price": "$jr_price",
+				"jr_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "", else: "$jr_price" }},
 				"code": "$code",
 				"shade": "$shade",
 				"brand_name": "$brand_name",
 				"description": "$description",
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$jr_price", else: "" }},
 				"platform_prices": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
 			}
 		},
@@ -123,6 +124,7 @@ module.exports = function(brandNames, platform, month, year) {
 						"jr_price": "$jr_price",
 						"code": "$code",
 						"shade": "$shade",
+						"five_pack_price": "$five_pack_price",
 						"price": "$platform_prices"
 					} 
 				},

@@ -46,27 +46,27 @@ module.exports = class FileExport {
 
 			row += 2;
 
-			worksheet.cell(row, 1).string('Code').style(myStyle);
-			worksheet.cell(row, 2).string('Name').style(myStyle);
-			worksheet.cell(row, 3).string('Length').style(myStyle);
-			worksheet.cell(row, 4).string('Ring').style(myStyle);
-			worksheet.cell(row, 5).string('Shade').style(myStyle);
-			worksheet.cell(row, 6).string('Quantity').style(myStyle);
-			worksheet.cell(row, 7).string('MSRP').style(myStyle);
-			worksheet.cell(row, 8).string('Jrprice').style(myStyle);
-			worksheet.cell(row, 9).string('Price').style(myStyle);
-			row++;
+			// worksheet.cell(row, 1).string('Code').style(myStyle);
+			// worksheet.cell(row, 2).string('Name').style(myStyle);
+			// worksheet.cell(row, 3).string('Length').style(myStyle);
+			// worksheet.cell(row, 4).string('Ring').style(myStyle);
+			// worksheet.cell(row, 5).string('Shade').style(myStyle);
+			// worksheet.cell(row, 6).string('Quantity').style(myStyle);
+			// worksheet.cell(row, 7).string('MSRP').style(myStyle);
+			// worksheet.cell(row, 8).string('Jrprice').style(myStyle);
+			// worksheet.cell(row, 9).string('Price').style(myStyle);
+			// row++;
 
 			current.items.forEach(function(element) {
 				worksheet.cell(row, 1).string(`${element.code}`);
-				worksheet.cell(row, 2).string(`${element.name}`);
-				worksheet.cell(row, 3).string(`${element.length}`);
-				worksheet.cell(row, 4).string(`${element.ring}`);
-				worksheet.cell(row, 5).string(`${element.shade}`);
+				worksheet.cell(row, 2, row, 5, true).string(`${element.name} • ${element.shade}, ${element.length} x ${element.ring}`);
+				// worksheet.cell(row, 3).string(`${element.length}`);
+				// worksheet.cell(row, 4).string(`${element.ring}`);
+				// worksheet.cell(row, 5).string(`${element.shade}`);
 				worksheet.cell(row, 6).string(`${element.quantity}`);
-				worksheet.cell(row, 7).string(`${element.msrp}`);
-				worksheet.cell(row, 8).string(`${element.jr_price}`);
-				worksheet.cell(row, 9).string(`${element.price}`);
+				worksheet.cell(row, 7).string(`$${element.msrp}`);
+				worksheet.cell(row, 8).string(`$${element.jr_price}`);
+				worksheet.cell(row, 9).string(`$${element.five_pack_price}`);
 				row++;
 			}, this);
 
