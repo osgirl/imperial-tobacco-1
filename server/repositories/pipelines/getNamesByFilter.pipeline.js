@@ -34,7 +34,7 @@ module.exports = function(platform, month, year) {
 					brand_name: "$brand_name"
 				},
 				"codes": { $push: "$code" },
-				"shades": { $push: "$details.wrapper_shade" },
+				"shades": { $push: { $substr: [ "$details.wrapper_shade", 0, 1 ] } },
 				"platform_prices": {$first: "$platform_prices"}
 			}
 		},
@@ -72,10 +72,11 @@ module.exports = function(platform, month, year) {
 				"ring": 1,
 				"quantity": 1,
 				"msrp": 1,
-				"jr_price": 1,
+				"jr_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "", else: "$jr_price" }},
 				"code": 1,
 				"shade": 1,
 				"brand_name": 1,
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$jr_price", else: "" }},
 				"platform_prices": { $arrayElemAt: [ "$platform_prices", 0 ] }
 			}
 		},
@@ -92,6 +93,7 @@ module.exports = function(platform, month, year) {
 				"code": 1,
 				"shade": 1,
 				"brand_name": 1,
+				"five_pack_price": 1,
 				"platform_price": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
 			}
 		},

@@ -70,7 +70,7 @@
 			<div class="items">
 				<h2>Items</h2>
 				<table>
-					<tr>
+					<!-- <tr>
 						<th>Code</th>
 						<th>Name</th>
 						<th>Length</th>
@@ -79,18 +79,18 @@
 						<th>Quantity</th>
 						<th>MSRP</th>
 						<th>Jrprice</th>
-						<th>Price</th>
-					</tr>
+						<th>5 pack price</th>
+					</tr> -->
 					<tr *ngFor="let item of row.items">
 						<td>{{item.code}}</td>
-						<td>{{item.name}}</td> 
-						<td>{{item.length}}</td>
-						<td>{{item.ring}}</td>
-						<td>{{item.shade}}</td> 
+						<td>{{item.name}} • {{item.shade}}, {{item.length}} x {{item.ring}}</td> 
+						<!-- <td>{{item.shade}}, {{item.length}} x {{item.ring}}</td> -->
+						<!-- <td>{{item.ring}}</td> -->
+						<!-- <td>{{item.shade}}</td>  -->
 						<td>{{item.quantity}}</td>
-						<td>{{item.msrp}}</td>
-						<td>{{item.jr_price}}</td> 
-						<td>{{item.platform_price}}</td>
+						<td>${{item.msrp}}</td>
+						<td><span *ngIf="item.jr_price">$</span>{{item.jr_price}}</td> 
+						<td><span *ngIf="item.five_pack_price">$</span>{{item.five_pack_price}}</td>
 					</tr>
 				</table>
 			</div>

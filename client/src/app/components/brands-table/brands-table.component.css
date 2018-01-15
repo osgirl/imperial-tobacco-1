@@ -99,6 +99,7 @@
 	margin-top: 5px;
 	height: 100%;
 	overflow-y: auto;
+	font-size: 14px;
 }
 
 #preview .row {
@@ -106,13 +107,13 @@
 }
 
 th, td {
-	padding: 5px;
-	text-align: center;
+	padding: 5px 10px;
+	/* text-align: center; */
 }
-table, th, td {
+/* table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
-}
+} */
 
 
 #table .mat-row:nth-child(even) {
