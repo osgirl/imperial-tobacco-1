@@ -42,7 +42,7 @@ module.exports = function(brandNames, platform, month, year) {
 					"brand_name": "$brand_name"
 				},
 				"codes": { $push: "$code" },
-				"shades": { $push: "$details.wrapper_shade" },
+				"shades": { $push: { $substr: [ "$details.wrapper_shade", 0, 1 ] } },
 				"categories_docs": { $first: "$categories_docs"},
 				"platform_prices": { $first: "$platform_prices"}
 			}
