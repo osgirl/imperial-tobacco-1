@@ -88,9 +88,9 @@
 						<!-- <td>{{item.ring}}</td> -->
 						<!-- <td>{{item.shade}}</td>  -->
 						<td>{{item.quantity}}</td>
-						<td>${{item.msrp}}</td>
-						<td><span *ngIf="item.jr_price">$</span>{{item.jr_price}}</td> 
-						<td><span *ngIf="item.five_pack_price">$</span>{{item.five_pack_price}}</td>
+						<td><span *ngIf="item.msrp != -1">${{item.msrp.toFixed(2)}}</span></td>
+						<td><span *ngIf="item.jr_price != -1">${{item.jr_price.toFixed(2)}}</span></td> 
+						<td><span *ngIf="item.five_pack_price != -1">${{item.five_pack_price.toFixed(2)}}</span></td>
 					</tr>
 				</table>
 			</div>

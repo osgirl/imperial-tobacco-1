@@ -55,25 +55,25 @@ module.exports = function(brandNames, platform, month, year) {
 				"length": { $ifNull: [ "$_id.length", "Unspecified" ] },
 				"ring": { $ifNull: [ "$_id.ring", "Unspecified" ] },
 				"quantity": { $ifNull: [ "$_id.quantity", "Unspecified" ] },
-				"msrp": { $ifNull: [ "$_id.msrp", "Unspecified" ] },
-				"jr_price": { $ifNull: [ "$_id.jr_price", "Unspecified" ] },
+				"msrp": { $ifNull: [ "$_id.msrp", -1 ] },
+				"jr_price": { $ifNull: [ "$_id.jr_price", -1 ] },
 				"code": concat("$codes", "/"),
 				"shade": concat("$shades", "/"),
 				"brand_name": "$_id.brand_name",
 				
 				
 				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] },
-				"platform_prices": {
-					"$filter": {
-						input: "$platform_prices",
-						as: "info",
-						cond: { $and: [
-							{ $eq: [ "$$info.platform", platform ]},
-							{ $eq: [ { $month: "$$info.date"}, month ] },
-							{ $eq: [ { $year: "$$info.date"} , year] }
-						] }
-					}
-				},
+				// "platform_prices": {
+				// 	"$filter": {
+				// 		input: "$platform_prices",
+				// 		as: "info",
+				// 		cond: { $and: [
+				// 			{ $eq: [ "$$info.platform", platform ]},
+				// 			{ $eq: [ { $month: "$$info.date"}, month ] },
+				// 			{ $eq: [ { $year: "$$info.date"} , year] }
+				// 		] }
+				// 	}
+				// },
 			}
 		},
 	
@@ -89,7 +89,7 @@ module.exports = function(brandNames, platform, month, year) {
 				"shade": "$shade",
 				"brand_name": "$brand_name",
 				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
-				"platform_prices": { $arrayElemAt: [ "$platform_prices", 0 ] },
+				// "platform_prices": { $arrayElemAt: [ "$platform_prices", 0 ] },
 			}
 		},
 		
@@ -100,13 +100,13 @@ module.exports = function(brandNames, platform, month, year) {
 				"ring": "$ring",
 				"quantity": "$quantity",
 				"msrp": "$msrp",
-				"jr_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "", else: "$jr_price" }},
+				"jr_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: -1, else: "$jr_price" }},
 				"code": "$code",
 				"shade": "$shade",
 				"brand_name": "$brand_name",
 				"description": "$description",
-				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$jr_price", else: "" }},
-				"platform_prices": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$jr_price", else: -1 }},
+				// "platform_prices": { $ifNull: [ "$platform_prices.price", "$jr_price" ] }
 			}
 		},
 	
@@ -125,7 +125,7 @@ module.exports = function(brandNames, platform, month, year) {
 						"code": "$code",
 						"shade": "$shade",
 						"five_pack_price": "$five_pack_price",
-						"price": "$platform_prices"
+						// "price": "$platform_prices"
 					} 
 				},
 				"description": { $max: "$description"}
