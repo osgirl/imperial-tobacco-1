@@ -28,7 +28,7 @@ module.exports = function (router) {
 		res.json(items);
 	});
 	
-	router.get('excel', function(req, res, next) {
+	router.get('/excel', function(req, res, next) {
 		res.sendFile('data.xlsx', {root: './'});
 	});
 

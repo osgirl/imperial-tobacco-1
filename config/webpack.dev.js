@@ -28,6 +28,10 @@ module.exports = webpackMerge(commonConfig, {
 				target: 'http://localhost:3002',
 				secure: false
 			},
+			'/excel': {
+				target: 'http://localhost:3002',
+				secure: false
+			},
 			'/isAuth': {
 				target: 'http://localhost:3002',
 				secure: false
