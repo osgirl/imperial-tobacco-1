@@ -47,7 +47,7 @@ module.exports = class FileExport {
 
 			worksheet.row(row).setHeight(120);
 			worksheet.cell(row, 1).string('Description').style(myStyle);
-			worksheet.cell(row, 2, row, 10, true).string(`${descr}`).style(wrap);
+			worksheet.cell(row, 2, row, 11, true).string(`${descr}`).style(wrap);
 
 			row += 2;
 
@@ -60,6 +60,7 @@ module.exports = class FileExport {
 			worksheet.cell(row, 8).string('Jrprice').style(myStyle);
 			worksheet.cell(row, 9).string('5 pack Price').style(myStyle);
 			worksheet.cell(row, 10).string('Sale Price').style(myStyle);
+			worksheet.cell(row, 11).string('Future Price').style(myStyle);
 			row++;
 
 			current.items.forEach(function(element) {
@@ -75,6 +76,7 @@ module.exports = class FileExport {
 				worksheet.cell(row, 8).string(`${jrPrice}`);
 				worksheet.cell(row, 9).string(`${fivePackPrice}`);
 				worksheet.cell(row, 10).string(`$${element.sale_price.toFixed(2)}`);
+				worksheet.cell(row, 11).string(`$${element.future_price.toFixed(2)}`);
 				row++;
 			}, this);
 

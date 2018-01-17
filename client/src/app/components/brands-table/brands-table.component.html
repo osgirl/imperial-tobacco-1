@@ -81,6 +81,7 @@
 						<th>Jrprice</th>
 						<th>5 pack price</th>
 						<th>Sale price</th>
+						<th>Future price</th>
 					</tr>
 					<tr *ngFor="let item of row.items">
 						<td>{{item.code}}</td>
@@ -93,6 +94,7 @@
 						<td><span *ngIf="item.jr_price != -1">${{item.jr_price.toFixed(2)}}</span></td> 
 						<td><span *ngIf="item.five_pack_price != -1">${{item.five_pack_price.toFixed(2)}}</span></td>
 						<td>${{item.sale_price.toFixed(2)}}</td>
+						<td>${{item.future_price.toFixed(2)}}</td>
 					</tr>
 				</table>
 			</div>
