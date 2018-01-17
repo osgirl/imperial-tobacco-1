@@ -4,7 +4,7 @@ const DataLogic = require('../logic/data/index');
 module.exports = function (router) {
 	router.get('/getAllPlatforms', async function (req, res, next) {
 		let platforms = await new DataLogic(new DataRep(req.db)).getAllPlatforms();
-		
+
 		res.json(platforms);
 	});
 
@@ -28,5 +28,9 @@ module.exports = function (router) {
 		res.json(items);
 	});
 	
+	router.get('excel', function(req, res, next) {
+		res.sendFile('data.xlsx', {root: './'});
+	});
+
 	return router;
 };
