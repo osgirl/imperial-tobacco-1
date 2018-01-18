@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import '../assets/css/styles.css';
 
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { AccountService } from './services/account.service'
 
 @Component({

@@ -1,12 +1,10 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { DataService } from '../../services/data.service';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
-import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { DatePickerComponent } from 'ng2-date-picker';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'picker',

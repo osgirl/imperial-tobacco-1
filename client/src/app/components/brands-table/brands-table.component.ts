@@ -1,12 +1,10 @@
-import { Component, ViewChild, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { DataService } from '../../services/data.service';
-import { Subscription } from 'rxjs';
+
 import "@angular/material/prebuilt-themes/indigo-pink.css";
-import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
 
 const html2pdf = require('html2pdf.js');
 @Component({

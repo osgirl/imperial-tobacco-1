@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import {HttpRequest} from "@angular/common/http";
+// import { Observable } from 'rxjs/Observable';
+// import {HttpRequest} from "@angular/common/http";
 import {HttpClient} from '@angular/common/http';
 import * as FileSaver from 'file-saver'; 
 

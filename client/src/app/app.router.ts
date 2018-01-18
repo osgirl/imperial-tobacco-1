@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { MainComponent } from './components/main/main.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { PickerComponent } from './components/picker/picker.component';
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';

@@ -4,11 +4,9 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { ValidateService } from '../../services/validate.service';
 
-import {MatInputModule} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material';
 
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-auth',

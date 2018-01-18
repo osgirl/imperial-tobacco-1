@@ -11,7 +11,6 @@ import { appRoutes } from './app.router';
 //components
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { MainComponent } from './components/main/main.component';
 import { PickerComponent } from './components/picker/picker.component';
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';
 
@@ -94,7 +93,6 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 	declarations: [
 		AppComponent,
 		AuthComponent,
-		MainComponent,
 		PickerComponent,
 		BrandsTableComponent,
 		SearchFilter,
