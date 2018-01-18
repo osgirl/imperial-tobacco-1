@@ -6,11 +6,9 @@
     "username": "admin",
     "password": "admin",
     "db": {
-        "user": "postgres",
         "host": "localhost",
-        "database": "aisales",
-        "password": "12345",
-        "port": "5432"
+        "database": "imperial-tobacco",
+        "port": "27017"
     },
     "sessionSecret": "Killer Is Jim"
 }
