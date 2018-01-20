@@ -107,7 +107,10 @@ module.exports = function(platform, month, year) {
 							else: "$jr_price" } 
 						} 
 					]
-				}
+				},
+				"prices.wholesale_price": { $ifNull: [ "$prices.wholesale_price", 0 ] },
+				"prices.seriouscigars_price": { $ifNull: [ "$prices.seriouscigars_price", 0 ] },
+				"prices.cigars_price": { $ifNull: [ "$prices.cigars_price", 0 ] },
 			}
 		},
 		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },

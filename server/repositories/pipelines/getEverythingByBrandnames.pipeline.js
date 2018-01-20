@@ -139,7 +139,10 @@ module.exports = function(brandNames, platform, month, year) {
 						"shade": "$shade",
 						"five_pack_price": "$five_pack_price",
 						"sale_price": "$sale_price",
-						"future_price": "$future_prices"
+						"future_price": "$future_prices",
+						"wholesale_price": { $ifNull: [ "$prices.wholesale_price", 0 ] },
+						"seriouscigars_price": { $ifNull: [ "$prices.seriouscigars_price", 0 ] },
+						"cigars_price": { $ifNull: [ "$prices.cigars_price", 0 ] },
 					} 
 				},
 				"description": { $max: "$description"}
