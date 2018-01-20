@@ -10,7 +10,7 @@
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "build": "rimraf dist && yarn run migrate && webpack --config config/webpack.prod.js --bail",
     "client": "webpack-dev-server --config config/webpack.dev.js --inline",
-    "server": "NODE_ENV=dev node server/app.js",
+    "server": "node server/app.js",
     "test": "mocha --recursive tests",
     "server:nodemon": "NODE_ENV=dev nodemon server/app.js",
     "migrate": "DEBUG=* node migrations/migrate.js",
