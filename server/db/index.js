@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const dbConfig = require('../../config').get('db');
+const isProd = require('../../config').get('isProd');
 
-const url = `mongodb://${dbConfig.host}:${dbConfig.port}`;
+const url = isProd ? `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}` : `mongodb://${dbConfig.host}:${dbConfig.port}`;
 
 module.exports.connect = async function() {
 	let client = await MongoClient.connect(url);

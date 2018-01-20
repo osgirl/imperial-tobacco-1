@@ -3,5 +3,12 @@
     "isProd": "true",
     "host": "http://0.0.0.0:8080",
     "port": "3002",
-    "sessionSecret": "Killer Is Jim"
+    "sessionSecret": "Killer Is Jim",
+    "db": {
+        "host": "ds123456-a0.mlab.com",
+        "database": "trackinginfo",
+        "port": "23456",
+        "user":"pbuser",
+        "password":"Pricebox287"
+    }
 }

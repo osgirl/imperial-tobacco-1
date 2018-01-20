@@ -9,6 +9,8 @@ const cors = require('cors');
 const passport = require('passport');
 const fs = require('fs');
 const config = require('../config');
+const dbConfig = config.get('db');
+const isProd = config.get('isProd');
 const DB = require('./db/index');
 
 const json2xls = require('json2xls');
@@ -37,8 +39,9 @@ const app = express();
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(cookieParser());
 
+	const url = isProd ? `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}` : `mongodb://${dbConfig.host}:${dbConfig.port}`;
 	let store = new MongoDBStore({
-		uri: 'mongodb://localhost:27017/imperial-tobacco',
+		uri: url,
 		collection: 'sessions'
 	});
 	app.use(require('express-session')({
