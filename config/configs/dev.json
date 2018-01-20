@@ -1,7 +1,7 @@
 {
     "isDev": "true",
     "isProd": "false",
-    "host": "http://localhost:8080",
+    "host": "http://localhost:3002",
     "port": "3002",
     "username": "admin",
     "password": "admin",
