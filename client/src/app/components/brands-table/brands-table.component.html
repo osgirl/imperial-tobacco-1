@@ -72,35 +72,29 @@
 				<table>
 					<tr>
 						<th>Code</th>
-						<th></th>
-						<!-- <th>Length</th>
-						<th>Ring</th>
-						<th>Shade</th> -->
+						<th>Front mark</th>
 						<th>Quantity</th>
 						<th>MSRP</th>
 						<th>Jrprice</th>
 						<th>5 pack price</th>
 						<th>Sale price</th>
 						<th>Future price</th>
-						<th>Wholesale price</th>
-						<th>Seriouscigars price</th>
-						<th>Cigars price</th>
+						<!-- <th>Wholesale price</th> -->
+						<!-- <th>Seriouscigars price</th>
+						<th>Cigars price</th> -->
 					</tr>
 					<tr *ngFor="let item of row.items">
 						<td>{{item.code}}</td>
 						<td>{{item.name}} • {{item.shade}}, {{item.length}} x {{item.ring}}</td> 
-						<!-- <td>{{item.shade}}, {{item.length}} x {{item.ring}}</td> -->
-						<!-- <td>{{item.ring}}</td> -->
-						<!-- <td>{{item.shade}}</td>  -->
 						<td>{{item.quantity}}</td>
 						<td><span *ngIf="item.msrp != -1">${{item.msrp.toFixed(2)}}</span></td>
 						<td><span *ngIf="item.jr_price != -1">${{item.jr_price.toFixed(2)}}</span></td> 
 						<td><span *ngIf="item.five_pack_price != -1">${{item.five_pack_price.toFixed(2)}}</span></td>
-						<td>${{item.sale_price.toFixed(2)}}</td>
+						<!-- <td>${{item.sale_price.toFixed(2)}}</td> -->
+						<td>${{item.prices.wholesale_price.toFixed(2)}}</td>
 						<td>${{item.future_price.toFixed(2)}}</td>
-						<td>${{item.prices.wholesale_price}}</td>
-						<td>${{item.prices.seriouscigars_price}}</td>
-						<td>${{item.prices.cigars_price}}</td>
+						<!-- <td>${{item.prices.seriouscigars_price}}</td>
+						<td>${{item.prices.cigars_price}}</td> -->
 					</tr>
 				</table>
 			</div>

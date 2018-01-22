@@ -61,9 +61,9 @@ module.exports = class FileExport {
 			worksheet.cell(row, 9).string('5 pack Price').style(myStyle);
 			worksheet.cell(row, 10).string('Sale Price').style(myStyle);
 			worksheet.cell(row, 11).string('Future Price').style(myStyle);
-			worksheet.cell(row, 12).string('Wholesale Price').style(myStyle);
-			worksheet.cell(row, 13).string('Seriouscigars Price').style(myStyle);
-			worksheet.cell(row, 14).string('Cigars Price').style(myStyle);
+			// worksheet.cell(row, 12).string('Wholesale Price').style(myStyle);
+			// worksheet.cell(row, 13).string('Seriouscigars Price').style(myStyle);
+			// worksheet.cell(row, 14).string('Cigars Price').style(myStyle);
 			row++;
 
 			current.items.forEach(function(element) {
@@ -78,11 +78,11 @@ module.exports = class FileExport {
 				worksheet.cell(row, 7).string(`${msrp}`);
 				worksheet.cell(row, 8).string(`${jrPrice}`);
 				worksheet.cell(row, 9).string(`${fivePackPrice}`);
-				worksheet.cell(row, 10).string(`$${element.sale_price.toFixed(2)}`);
+				worksheet.cell(row, 10).string(`$${element.wholesale_price.toFixed(2)}`);
 				worksheet.cell(row, 11).string(`$${element.future_price.toFixed(2)}`);
-				worksheet.cell(row, 12).string(`$${element.wholesale_price}`);
-				worksheet.cell(row, 13).string(`$${element.seriouscigars_price}`);
-				worksheet.cell(row, 14).string(`$${element.cigars_price}`);
+				// worksheet.cell(row, 12).string(`$${element.wholesale_price}`);
+				// worksheet.cell(row, 13).string(`$${element.seriouscigars_price}`);
+				// worksheet.cell(row, 14).string(`$${element.cigars_price}`);
 				row++;
 			}, this);
 
