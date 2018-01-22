@@ -39,7 +39,7 @@ const app = express();
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(cookieParser());
 
-	const url = isProd ? `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}` : `mongodb://${dbConfig.host}:${dbConfig.port}`;
+	const url = isProd ? `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}` : `mongodb://${dbConfig.host}:${dbConfig.port}`;
 	let store = new MongoDBStore({
 		uri: url,
 		collection: 'sessions'
