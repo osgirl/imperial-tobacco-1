@@ -39,6 +39,10 @@ module.exports = function(brandNames, platform, month, year) {
 					"quantity": "$details.packaging_details.quantity", 
 					"msrp": "$prices.msrp", 
 					"jr_price": "$prices.jr_price",
+					"cigars_price": "$prices.cigars_price",
+					"seriouscigars_price": "$prices.seriouscigars_price",
+					"wholesale_price": "$prices.wholesale_price",
+
 					"brand_name": "$brand_name"
 				},
 				"codes": { $push: "$code" },
@@ -57,25 +61,47 @@ module.exports = function(brandNames, platform, month, year) {
 				"ring": { $ifNull: [ "$_id.ring", "Unspecified" ] },
 				"quantity": { $ifNull: [ "$_id.quantity", "Unspecified" ] },
 				"msrp": { $ifNull: [ "$_id.msrp", -1 ] },
-				"jr_price": { $ifNull: [ "$_id.jr_price", -1 ] },
+				// "jr_price": { $ifNull: [ "$_id.jr_price", -1 ] },
 				"code": concat("$codes", "/"),
 				"shade": concat("$shades", "/"),
 				"brand_name": "$_id.brand_name",
-				"sale_price": { $ifNull: [ "$sale_price", "Unspecified" ] },
+				// "sale_price": { $ifNull: [ "$sale_price", "Unspecified" ] },
 				
-				
-				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] },
-				"future_prices": {
-					"$filter": {
-						input: "$future_prices",
-						as: "info",
-						cond: { $and: [
-							{ $eq: [ "$$info.platform", platform ]},
-							{ $eq: [ { $month: "$$info.date"}, month ] },
-							{ $eq: [ { $year: "$$info.date"} , year] }
-						] }
+				"price" : {
+					$switch: {
+						branches: [
+							{
+								case: { $eq : [ platform, "jrcigars" ] },
+								then: "$_id.jr_price"
+							},
+							{
+								case: { $eq : [ platform, "cigars.com" ] },
+								then: "$_id.cigars_price"
+							},
+							{
+								case: { $eq : [ platform, "serious cigars" ] },
+								then: "$_id.seriouscigars_price"
+							},
+							{
+								case: { $eq : [ platform, "Santaclaracigars.com" ] },
+								then: "$_id.wholesale_price"
+							},
+						],
 					}
 				},
+				
+				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] },
+				// "future_prices": {
+				// 	"$filter": {
+				// 		input: "$future_prices",
+				// 		as: "info",
+				// 		cond: { $and: [
+				// 			{ $eq: [ "$$info.platform", platform ]},
+				// 			{ $eq: [ { $month: "$$info.date"}, month ] },
+				// 			{ $eq: [ { $year: "$$info.date"} , year] }
+				// 		] }
+				// 	}
+				// },
 			}
 		},
 	
@@ -86,13 +112,14 @@ module.exports = function(brandNames, platform, month, year) {
 				"ring": "$ring",
 				"quantity": "$quantity",
 				"msrp": "$msrp",
-				"jr_price": "$jr_price",
+				"price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: -1, else: "$price" }},
 				"code": "$code",
 				"shade": "$shade",
 				"brand_name": "$brand_name",
-				"sale_price": 1,
+				// "sale_price": 1,
 				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
-				"future_prices": { $arrayElemAt: [ "$future_prices", 0 ] },
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: -1 }},
+				// "future_prices": { $arrayElemAt: [ "$future_prices", 0 ] },
 			}
 		},
 		
@@ -103,23 +130,23 @@ module.exports = function(brandNames, platform, month, year) {
 				"ring": "$ring",
 				"quantity": "$quantity",
 				"msrp": "$msrp",
-				"jr_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: -1, else: "$jr_price" }},
+				"price": {$ifNull: ["$price", -1]},
 				"code": "$code",
 				"shade": "$shade",
 				"brand_name": "$brand_name",
 				"description": "$description",
-				"sale_price": 1,
-				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$jr_price", else: -1 }},
-				"future_prices": { 
-					$ifNull: [ 
-						"$future_prices.price", 
-						{ $cond: { 
-							if: { $eq: ["$jr_price", -1] }, 
-							then: "$five_pack_price", 
-							else: "$jr_price" } 
-						} 
-					]
-				}
+				// "sale_price": 1,
+				"five_pack_price": {$ifNull: ["$five_pack_price", -1]},
+				// "future_prices": { 
+				// 	$ifNull: [ 
+				// 		"$future_prices.price", 
+				// 		{ $cond: { 
+				// 			if: { $eq: ["$price", -1] }, 
+				// 			then: "$five_pack_price", 
+				// 			else: "$price" } 
+				// 		} 
+				// 	]
+				// }
 			}
 		},
 	
@@ -134,15 +161,15 @@ module.exports = function(brandNames, platform, month, year) {
 						"ring": "$ring",
 						"quantity": "$quantity",
 						"msrp": "$msrp",
-						"jr_price": "$jr_price",
+						"price": "$price",
 						"code": "$code",
 						"shade": "$shade",
 						"five_pack_price": "$five_pack_price",
-						"sale_price": "$sale_price",
-						"future_price": "$future_prices",
-						"wholesale_price": { $ifNull: [ "$prices.wholesale_price", 0 ] },
-						"seriouscigars_price": { $ifNull: [ "$prices.seriouscigars_price", 0 ] },
-						"cigars_price": { $ifNull: [ "$prices.cigars_price", 0 ] },
+						// "sale_price": "$sale_price",
+						// "future_price": "$future_prices",
+						// "wholesale_price": { $ifNull: [ "$prices.wholesale_price", 0 ] },
+						// "seriouscigars_price": { $ifNull: [ "$prices.seriouscigars_price", 0 ] },
+						// "cigars_price": { $ifNull: [ "$prices.cigars_price", 0 ] },
 					} 
 				},
 				"description": { $max: "$description"}

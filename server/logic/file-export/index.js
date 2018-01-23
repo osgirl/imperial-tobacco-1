@@ -57,10 +57,10 @@ module.exports = class FileExport {
 			
 			worksheet.cell(row, 6).string('Quantity').style(myStyle);
 			worksheet.cell(row, 7).string('MSRP').style(myStyle);
-			worksheet.cell(row, 8).string('Jrprice').style(myStyle);
+			worksheet.cell(row, 8).string('Price').style(myStyle);
 			worksheet.cell(row, 9).string('5 pack Price').style(myStyle);
-			worksheet.cell(row, 10).string('Sale Price').style(myStyle);
-			worksheet.cell(row, 11).string('Future Price').style(myStyle);
+			// worksheet.cell(row, 10).string('Sale Price').style(myStyle);
+			// worksheet.cell(row, 11).string('Future Price').style(myStyle);
 			// worksheet.cell(row, 12).string('Wholesale Price').style(myStyle);
 			// worksheet.cell(row, 13).string('Seriouscigars Price').style(myStyle);
 			// worksheet.cell(row, 14).string('Cigars Price').style(myStyle);
@@ -68,7 +68,7 @@ module.exports = class FileExport {
 
 			current.items.forEach(function(element) {
 				let msrp = element.msrp == -1 ? "" : `$${element.msrp.toFixed(2)}`;
-				let jrPrice = element.jr_price == -1 ? "" : `$${element.jr_price.toFixed(2)}`;
+				let price = element.price == -1 ? "" : `$${element.price.toFixed(2)}`;
 				let fivePackPrice = element.five_pack_price == -1 ? "" : `$${element.five_pack_price.toFixed(2)}`;
 
 				worksheet.cell(row, 1).string(`${element.code}`);
@@ -76,10 +76,10 @@ module.exports = class FileExport {
 				
 				worksheet.cell(row, 6).string(`${element.quantity}`);
 				worksheet.cell(row, 7).string(`${msrp}`);
-				worksheet.cell(row, 8).string(`${jrPrice}`);
+				worksheet.cell(row, 8).string(`${price}`);
 				worksheet.cell(row, 9).string(`${fivePackPrice}`);
-				worksheet.cell(row, 10).string(`$${element.wholesale_price.toFixed(2)}`);
-				worksheet.cell(row, 11).string(`$${element.future_price.toFixed(2)}`);
+				// worksheet.cell(row, 10).string(`$${element.wholesale_price.toFixed(2)}`);
+				// worksheet.cell(row, 11).string(`$${element.future_price.toFixed(2)}`);
 				// worksheet.cell(row, 12).string(`$${element.wholesale_price}`);
 				// worksheet.cell(row, 13).string(`$${element.seriouscigars_price}`);
 				// worksheet.cell(row, 14).string(`$${element.cigars_price}`);

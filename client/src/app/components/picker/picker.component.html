@@ -8,7 +8,7 @@
 			<mat-error *ngIf="platformControl.hasError('required')">Please choose a platform</mat-error>
 		</mat-form-field>
 
-		<mat-form-field>
+		<!-- <mat-form-field>
 			<input placeholder="Choose month" 
 				   matInput 
 				   mode="month" 
@@ -17,7 +17,7 @@
 				   [dpDayPicker]="config" 
 				   theme="dp-material"
 				   required="true" />
-		</mat-form-field>
+		</mat-form-field> -->
 	</div>
 
 	<button mat-raised-button color="primary" (click)="submit()">Submit</button>
