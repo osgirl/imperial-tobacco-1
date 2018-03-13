@@ -28,6 +28,16 @@ module.exports = class Data {
 	async getNamesByFilter(platform, month, year) {
 		let items = await this.dataRep.getNamesByFilter(platform, month, year);
 		
+		items.forEach((element) => {
+			if(element.code.length > 1) {
+				element.code = element.code.sort((a, b) => a.length - b.length)[0];
+			}
+
+			if(element.shade.length > 1) {
+				element.shade = element.shade.sort().join('/');
+			}
+		});
+
 		return items;
 	}
 
