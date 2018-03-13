@@ -18,7 +18,8 @@ module.exports = function(brandNames, platform, month, year) {
 				// "month" : true,
 				// "year" : true,
 				"name": {$ne: null, $exists: 1},
-				"brand_name": {$in: brandNames}
+				"brand_name": {$in: brandNames},
+				"code": /^(.(?!_1$))+$/
 			}
 		},
 	
@@ -62,8 +63,8 @@ module.exports = function(brandNames, platform, month, year) {
 				"quantity": { $ifNull: [ "$_id.quantity", "Unspecified" ] },
 				"msrp": { $ifNull: [ "$_id.msrp", -1 ] },
 				// "jr_price": { $ifNull: [ "$_id.jr_price", -1 ] },
-				"code": concat("$codes", "/"),
-				"shade": concat("$shades", "/"),
+				"code": "$codes",
+				"shade": "$shades",
 				"brand_name": "$_id.brand_name",
 				// "sale_price": { $ifNull: [ "$sale_price", "Unspecified" ] },
 				

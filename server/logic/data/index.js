@@ -42,8 +42,23 @@ module.exports = class Data {
 	}
 
 	async getEverythingByBrandnames(brandNames, platform, month, year) {
-		let items = await this.dataRep.getEverythingByBrandnames(brandNames, platform, month, year);
-		return items;
+		let brands = await this.dataRep.getEverythingByBrandnames(brandNames, platform, month, year);
+
+		brands.forEach((brand) => {
+
+			brand.items.forEach((element) => {
+				if(element.code.length > 1) {
+					element.code = element.code.sort((a, b) => a.length - b.length)[0];
+				}
+	
+				if(element.shade.length > 1) {
+					element.shade = element.shade.sort().join('/');
+				}
+			});
+
+		});
+
+		return brands;
 	}
 	
 };
