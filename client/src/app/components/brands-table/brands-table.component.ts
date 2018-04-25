@@ -179,7 +179,7 @@ export class BrandsTableComponent {
 		for(let i = 0; i < rows.length; i++) {
 			let td = rows[i].children.item(0);
 			let checkbox = td.children.item(0);
-			let checked = checkbox.attributes.getNamedItem('ng-reflect-checked').value === 'true';
+			let checked = checkbox.classList.contains('mat-checkbox-checked');
 
 			if(!checked) rows[i].classList.add('hidden');
 			else checkbox.classList.add('hidden');
