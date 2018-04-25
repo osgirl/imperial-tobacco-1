@@ -31,6 +31,8 @@ module.exports = class Data {
 		items.forEach((element) => {
 			if(element.code.length > 1) {
 				element.code = element.code.sort((a, b) => a.length - b.length)[0];
+			} else {
+				element.code = element.code[0];
 			}
 
 			if(element.shade.length > 1) {
@@ -41,14 +43,16 @@ module.exports = class Data {
 		return items;
 	}
 
-	async getEverythingByBrandnames(brandNames, platform, month, year) {
-		let brands = await this.dataRep.getEverythingByBrandnames(brandNames, platform, month, year);
+	async getEverythingByBrandnames(brandNames, codes, platform, month, year) {
+		let brands = await this.dataRep.getEverythingByBrandnames(brandNames, codes, platform, month, year);
 
 		brands.forEach((brand) => {
 
 			brand.items.forEach((element) => {
 				if(element.code.length > 1) {
 					element.code = element.code.sort((a, b) => a.length - b.length)[0];
+				} else {
+					element.code = element.code[0];
 				}
 	
 				if(element.shade.length > 1) {

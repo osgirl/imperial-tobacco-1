@@ -110,6 +110,14 @@ th, td {
 	padding: 5px 10px;
 	/* text-align: center; */
 }
+
+td mat-checkbox {
+	/* display: block !important; */
+}
+
+.hidden {
+	display: none;
+}
 /* table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;

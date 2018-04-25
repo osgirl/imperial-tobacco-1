@@ -49,11 +49,13 @@ export class BrandsTableComponent {
 			this.allBrands = res;
 			this.rerenderTable(res);
 			document.getElementById('loading').style.display = 'none';
+			// this.allBrands.forEach((brand) => this.check(brand));
+
 		});
 
-		this.dataService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
-			this.allItems = res;
-		});
+		// this.dataService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
+		// 	this.allItems = res;
+		// });
 	}
 
 	rerenderTable(newData: any[]) {
@@ -62,59 +64,60 @@ export class BrandsTableComponent {
 	}
 
 
-	addStatus(event: any) {
-		if (!this.tags.length && this.checkedRows.length) this.checkedRows = [];
-		//if we has already showed 'quantity' column, dont show it again
-		// if(this.displayedColumns.indexOf('quantity') == -1) {
-		// 	this.displayedColumns.push('quantity');			
-		// }
-
-		let newTag = event.option.value;
+	addStatus(newTag: any) {
 
 		//if such tag has already been added
-		if (this.filteredBrands.find(x => x.name === newTag)) return;
+		if (this.tags.find(x => x.name === newTag)) return;
 
-		this.tags.push(newTag);
 
-		let result = this.allItems.reduce(function (amount, current) {
-			if (current.brand_name == newTag) return ++amount;
-			else return amount;
-		}, 0);
+		if (!this.tags.length && this.checkedRows.length) this.checkedRows = [];
 
-		let description = '';
+		let tagId = this.tags.length;
+		this.tags.push({ name: newTag, id: tagId });
+
 		this.allBrands.forEach((brand) => {
-			if (brand.name === newTag) {
-				description = brand.description;
-				return;
+			let isBrandMatchesNewTag = brand.name.toLowerCase().includes(newTag.toLowerCase());
+			let isBrandAlreadyAdded = !(this.filteredBrands.find(x => x.name === brand.name))
+			
+			if (isBrandMatchesNewTag && isBrandAlreadyAdded) {
+
+				let name = brand.name;
+				let id = this.filteredBrands.length;
+				let description = brand.description;
+				let selected = brand.selected;
+				let items = brand.items;
+		
+				this.filteredBrands.push({ name, id, tagId, description, selected, items });
+
+				if(selected) this.check(this.filteredBrands[this.filteredBrands.length - 1]);
 			}
 		})
 
-
-		this.filteredBrands.push({ name: newTag, quantity: result, id: this.filteredBrands.length, description });
 		this.rerenderTable(this.filteredBrands);
+		if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
 	}
 
-	removeStatus(value: string) {
+	removeStatus(tagId: number) {
 		//delete tag from tagList
-		let index = this.tags.indexOf(value);
-		this.tags.splice(index, 1);
+		let deletingTag = this.tags.find(x => x.id === tagId);
+		let deletingIndex = this.tags.indexOf(deletingTag);
+		this.tags.splice(deletingIndex, 1);
 
-		//delete brand from table
-		let deletingBrand = this.filteredBrands.find(x => x.name === value);
-		let deletingIndex = this.filteredBrands.indexOf(deletingBrand);
-		this.filteredBrands.splice(deletingIndex, 1);
+		//delete brands from table
+		this.filteredBrands = this.filteredBrands.filter((brand) => {
+			if(brand.tagId === tagId) this.onCheckboxChange(brand);
+			return brand.tagId !== tagId;
+		});
 
-		if (!this.filteredBrands.length) {
-			//if no tags left, hide 'quantity' column
-			// let indexOfQuantityColumn = this.displayedColumns.indexOf('quantity');
-			// this.displayedColumns.splice(indexOfQuantityColumn, 1);
-
-			this.rerenderTable(this.allBrands);
+		
+		if (!this.tags.length) {
+			this.rerenderTable(this.allBrands); //no more tags - bring all brands back
+			this.allBrands.forEach((brand) => brand.selected && this.check(brand)); 
 		} else {
 			this.rerenderTable(this.filteredBrands);
+			if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
 		}
 	}
-
 
 	onCheckboxChange(elem: any) {
 		elem.selected = !elem.selected;
@@ -131,19 +134,12 @@ export class BrandsTableComponent {
 	}
 
 	check(elem: any) {
-		elem.items = [];
-
-		this.allItems.forEach((item) => {
-			if (item.brand_name == elem.name) {
-				elem.items.push(item);
-			}
-		});
-
 		this.checkedRows.push(elem);
 		this.checkedRows.sort((a, b) => {
 			if(a.name > b.name) return 1;
 			else return -1;
 		});
+
 
 		if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
 
@@ -153,33 +149,41 @@ export class BrandsTableComponent {
 		this.allSelected = value;
 		this.checkedRows = [];
 
-		if (value) {
-			this.dataSource.filteredData.forEach((element: any) => {
-				this.check(element);
+		this.dataSource.filteredData.forEach((element: any) => {
+			if (value) this.check(element);
 
-				element.selected = value;
-			});
-
-		} else {
-			this.dataSource.filteredData.forEach((element: any) => {
-				element.selected = value;
-			});
-		}
+			element.selected = value;
+		});
 	}
 
 	getExcelFile() {
 		if (!this.checkedRows.length) return;
 		document.getElementById('loading').style.display = 'flex';
 
+		let codes: any[] = [];
 		let data = this.checkedRows.map((row) => {
+			row.items.forEach((item: any) => {
+				if(item.selected) codes.push(item.code);
+			})
+
 			return row.name
 		});
 
-		this.dataService.getExcelFile(data, this.platform, this.month, this.year);
+		this.dataService.getExcelFile(data, codes, this.platform, this.month, this.year);
 	}
 
 	getPDFFile() {
 		if (!this.checkedRows.length) return;
+
+		let rows = document.querySelectorAll('.preview-item');
+		for(let i = 0; i < rows.length; i++) {
+			let td = rows[i].children.item(0);
+			let checkbox = td.children.item(0);
+			let checked = checkbox.attributes.getNamedItem('ng-reflect-checked').value === 'true';
+
+			if(!checked) rows[i].classList.add('hidden');
+			else checkbox.classList.add('hidden');
+		}
 
 		var element = document.getElementById('preview');
 		html2pdf(element, {
@@ -188,5 +192,11 @@ export class BrandsTableComponent {
 			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
 			html2canvas: { dpi: 192, letterRendering: true },
 		});
+
+
+		let hiddenElements = document.querySelectorAll('.hidden');
+		for(let i = 0; i < hiddenElements.length; i++) {
+			hiddenElements[i].classList.remove('hidden');
+		}
 	}
 }

@@ -30,7 +30,7 @@ export class DataService {
 		});
 	}
 	
-	getExcelFile(data: any, platform: any, month: any, year: any) {
+	getExcelFile(data: any, codes: any, platform: any, month: any, year: any) {
 		let headers = new Headers({ 
 			'Content-Type': 'application/json', 
 			'Accept': 'application/xlsx'
@@ -39,7 +39,7 @@ export class DataService {
 		let options = new RequestOptions({ headers: headers });
 		options.responseType = ResponseContentType.Blob;
 		
-		this.http.post('/excel', {data: data, platform: platform, month: month, year: year}, options)
+		this.http.post('/excel', {data: data, codes: codes, platform: platform, month: month, year: year}, options)
 			.toPromise().then(res => {
 				let fileBlob = res.blob();
 				let blob = new Blob([fileBlob], { 

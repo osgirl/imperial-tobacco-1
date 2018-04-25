@@ -132,6 +132,7 @@ module.exports = function(platform, month, year) {
 				"brand_name": 1,
 	//             "sale_price": 1,
 				"five_pack_price": {$ifNull: ["$five_pack_price", -1]},
+				"selected": { $literal: true },
 	//             "future_price": { 
 	//                 $ifNull: [ 
 	//                     "$future_prices.price", 

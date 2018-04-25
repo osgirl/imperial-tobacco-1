@@ -1,15 +1,15 @@
 <div class="tags">
 	<mat-form-field floatPlaceholder="never">
 		<mat-chip-list #chipList>
-			<mat-chip *ngFor="let value of tags" (remove)="removeStatus(value)">
-				{{value}} <mat-icon matChipRemove>cancel</mat-icon>
+			<mat-chip *ngFor="let tag of tags" (remove)="removeStatus(tag.id)">
+				{{tag.name}} <mat-icon matChipRemove>cancel</mat-icon>
 			</mat-chip>
 		</mat-chip-list>
 
-		<input #statusInput 
+		<input #statusInput (keyup.enter)="addStatus(statusInput.value); statusInput.value=''"
 		matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
 		
-		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event); statusInput.value=''">
+		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event.option.value); statusInput.value=''">
 			<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands | unique: filteredBrands" [value]="brand.name">
 				<span>{{ brand.name }}</span>
 			</mat-option>
@@ -66,6 +66,7 @@
 				<h2>Items</h2>
 				<table>
 					<tr>
+						<th></th>
 						<th>Code</th>
 						<th>Front mark</th>
 						<th>Quantity</th>
@@ -73,7 +74,10 @@
 						<th>Price</th>
 						<th>5 pack price</th>
 					</tr>
-					<tr *ngFor="let item of row.items">
+					<tr *ngFor="let item of row.items" class="preview-item">
+						<td>
+							<mat-checkbox [checked]="item.selected" [(ngModel)]="item.selected" disableRipple></mat-checkbox>
+						</td>
 						<td>{{item.code}}</td>
 						<td>{{item.name}} • {{item.shade}}, {{item.length}} x {{item.ring}}</td> 
 						<td>{{item.quantity}}</td>

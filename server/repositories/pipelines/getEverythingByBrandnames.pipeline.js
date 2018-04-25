@@ -10,7 +10,7 @@ function concat(field, delimiter) {
 	};
 }
 
-module.exports = function(brandNames, platform, month, year) {
+module.exports = function(brandNames, codes, platform, month, year) {
 	return [
 		{
 			"$match" : {
@@ -29,6 +29,11 @@ module.exports = function(brandNames, platform, month, year) {
 				localField: "category.data",
 				foreignField: "_id",
 				as: "categories_docs"
+			}
+		},
+		{
+			"$match": {
+				"code": {$in: codes}
 			}
 		},
 		{

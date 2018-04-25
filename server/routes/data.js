@@ -14,6 +14,17 @@ module.exports = function (router) {
 		let year = +req.query.year;
 
 		let brands = await new DataLogic(new DataRep(req.db)).getBrandsByFilter(platform, month, year);
+		let items = await new DataLogic(new DataRep(req.db)).getNamesByFilter(platform, month, year);
+
+
+		brands.forEach(element => {
+			element.items = [];
+			items.forEach((item) => {
+				if (item.brand_name == element.name) {
+					element.items.push(item);
+				}
+			});
+		});
 		
 		res.json(brands);
 	});
