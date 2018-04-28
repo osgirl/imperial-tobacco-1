@@ -81,22 +81,8 @@ module.exports = function(platform, month, year) {
 								then: "$_id.wholesale_price"
 							},
 						],
-	//                     default: "No scores found."
 					}
 				}
-					
-	//             "sale_price": { $ifNull: [ "$sale_price", "Unspecified" ] },
-	//             "future_prices": {
-	//                 "$filter": {
-	//                     input: "$future_prices",
-	//                     as: "info",
-	//                     cond: { $and: [
-	//                         { $eq: [ "$$info.platform", platform ]},
-	//                         { $eq: [ { $month: "$$info.date"}, month ] },
-	//                         { $eq: [ { $year: "$$info.date"} , year] }
-	//                     ] }
-	//                 }
-	//             },
 			}
 		},
 	
@@ -112,9 +98,7 @@ module.exports = function(platform, month, year) {
 				"code": 1,
 				"shade": 1,
 				"brand_name": 1,
-	//             "sale_price": 1,
 				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: -1 }},
-	//             "future_prices": { $arrayElemAt: [ "$future_prices", 0 ] }
 			}
 		},
 	
@@ -130,19 +114,8 @@ module.exports = function(platform, month, year) {
 				"code": 1,
 				"shade": 1,
 				"brand_name": 1,
-	//             "sale_price": 1,
 				"five_pack_price": {$ifNull: ["$five_pack_price", -1]},
 				"selected": { $literal: true },
-	//             "future_price": { 
-	//                 $ifNull: [ 
-	//                     "$future_prices.price", 
-	//                     { $cond: { 
-	//                         if: { $eq: ["$jr_price", -1] }, 
-	//                         then: "$five_pack_price", 
-	//                         else: "$jr_price" } 
-	//                     } 
-	//                 ]
-	//             },
 			}
 		},
 		{ $sort : { "name": 1, "quantity": 1, "length": 1 } },

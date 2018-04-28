@@ -28,7 +28,32 @@ module.exports = class Data {
 	async getNamesByFilter(platform, month, year) {
 		let items = await this.dataRep.getNamesByFilter(platform, month, year);
 		
-		items.forEach((element) => {
+		// items.forEach((element) => {
+		for(let j = 0; j < items.length; j++) {
+			let element = items[j];
+
+
+			for(let i = 0; i < element.code.length; i++) {
+				if(j == 0) break;
+
+				let previous = items[j - 1];
+
+				let previousCode = previous.code;
+				let previousFirstDigit = previousCode.match(/\d/);
+				let previousCodeWithoutDigits = previousCode.slice(0, previousCode.indexOf(previousFirstDigit)); //ULBE
+
+				// let a = await this.dataRep.getFivePackPriceByCode(element.code[i]);
+				let currentCode = element.code[i];
+				let currentFirstDigit = currentCode.match(/\d/);
+				let currentCodeWithoutDigits = currentCode.slice(0, currentCode.indexOf(currentFirstDigit)); //ULBE
+			
+
+				if(previousCodeWithoutDigits == currentCodeWithoutDigits) {
+					element.five_pack_price = previous.five_pack_price;
+					break;
+				}
+			}
+
 			if(element.code.length > 1) {
 				element.code = element.code.sort((a, b) => a.length - b.length)[0];
 			} else {
@@ -38,7 +63,8 @@ module.exports = class Data {
 			if(element.shade.length > 1) {
 				element.shade = element.shade.sort().join('/');
 			}
-		});
+		// });
+		}
 
 		return items;
 	}
