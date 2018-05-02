@@ -26,17 +26,22 @@ module.exports = function(platform, month, year) {
 		{
 			"$group" : {
 				"_id": { 
-					name: "$name", 
-					length: "$details.length", 
-					ring: "$details.ring", 
-					quantity: "$details.packaging_details.quantity", 
-					msrp: "$prices.msrp", 
-					jr_price: "$prices.jr_price",
-					cigars_price: "$prices.cigars_price",
-					seriouscigars_price: "$prices.seriouscigars_price",
-					wholesale_price: "$prices.wholesale_price",
+					"name": "$name", 
+					"length": "$details.length", 
+					"ring": "$details.ring", 
+					"quantity": "$details.packaging_details.quantity", 
+					"msrp": "$prices.msrp", 
+					"jr_price": "$prices.jr_price",
+					"cigars_price": "$prices.cigars_price",
+					"seriouscigars_price": "$prices.seriouscigars_price",
+					"wholesale_price": "$prices.wholesale_price",
+
+					"five_pack_jr_price": "$prices.five_pack_jr_price",
+					"five_pack_cigars_price": "$prices.five_pack_cigars_price",
+					"five_pack_seriouscigars_price": "$prices.five_pack_seriouscigars_price",
+					"five_pack_wholesale_price": "$prices.five_pack_wholesale_price",
 					
-					brand_name: "$brand_name"
+					"brand_name": "$brand_name"
 				},
 				"codes": { $push: "$code" },
 				"shades": { $push: { $substr: [ "$details.wrapper_shade", 0, 1 ] } },
@@ -82,6 +87,29 @@ module.exports = function(platform, month, year) {
 							},
 						],
 					}
+				},
+
+				"five_pack_price" : {
+					$switch: {
+						branches: [
+							{
+								case: { $eq : [ platform, "jrcigars" ] },
+								then: "$_id.five_pack_jr_price"
+							},
+							{
+								case: { $eq : [ platform, "cigars.com" ] },
+								then: "$_id.five_pack_cigars_price"
+							},
+							{
+								case: { $eq : [ platform, "serious cigars" ] },
+								then: "$_id.five_pack_seriouscigars_price"
+							},
+							{
+								case: { $eq : [ platform, "Santaclaracigars.com" ] },
+								then: "$_id.five_pack_wholesale_price"
+							},
+						],
+					}
 				}
 			}
 		},
@@ -98,7 +126,7 @@ module.exports = function(platform, month, year) {
 				"code": 1,
 				"shade": 1,
 				"brand_name": 1,
-				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: -1 }},
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: "$five_pack_price" }},
 			}
 		},
 	

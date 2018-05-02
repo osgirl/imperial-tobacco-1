@@ -49,6 +49,11 @@ module.exports = function(brandNames, codes, platform, month, year) {
 					"seriouscigars_price": "$prices.seriouscigars_price",
 					"wholesale_price": "$prices.wholesale_price",
 
+					"five_pack_jr_price": "$prices.five_pack_jr_price",
+					"five_pack_cigars_price": "$prices.five_pack_cigars_price",
+					"five_pack_seriouscigars_price": "$prices.five_pack_seriouscigars_price",
+					"five_pack_wholesale_price": "$prices.five_pack_wholesale_price",
+
 					"brand_name": "$brand_name"
 				},
 				"codes": { $push: "$code" },
@@ -95,6 +100,29 @@ module.exports = function(brandNames, codes, platform, month, year) {
 						],
 					}
 				},
+
+				"five_pack_price" : {
+					$switch: {
+						branches: [
+							{
+								case: { $eq : [ platform, "jrcigars" ] },
+								then: "$_id.five_pack_jr_price"
+							},
+							{
+								case: { $eq : [ platform, "cigars.com" ] },
+								then: "$_id.five_pack_cigars_price"
+							},
+							{
+								case: { $eq : [ platform, "serious cigars" ] },
+								then: "$_id.five_pack_seriouscigars_price"
+							},
+							{
+								case: { $eq : [ platform, "Santaclaracigars.com" ] },
+								then: "$_id.five_pack_wholesale_price"
+							},
+						],
+					}
+				},
 				
 				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] },
 				// "future_prices": {
@@ -124,7 +152,7 @@ module.exports = function(brandNames, codes, platform, month, year) {
 				"brand_name": "$brand_name",
 				// "sale_price": 1,
 				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
-				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: -1 }},
+				"five_pack_price": { $cond: { if: { $eq: [ "$quantity", 5 ] }, then: "$price", else: "$five_pack_price" }},
 				// "future_prices": { $arrayElemAt: [ "$future_prices", 0 ] },
 			}
 		},

@@ -10,7 +10,8 @@ const DB = require('../server/db');
 // const DB = require('./db/index');
 
 let modules = [
-	require('./migrations/add_random_data_to_items')
+	require('./migrations/add_random_data_to_items'),
+	require('./migrations/add_five_pack_price')
 ];
 
 const {engines} = require('./../package.json');

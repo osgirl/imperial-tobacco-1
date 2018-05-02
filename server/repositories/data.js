@@ -67,7 +67,6 @@ module.exports = class Data {
 
 	async getFivePackPriceByCode(code) {
 		let reg = new RegExp(`${code}5.*`);
-		// const pipeline = require('./pipelines/getEverythingByBrandnames.pipeline.js')(brandNames, platform, month, year);
-		return await this.db.collection('items').find({ code: { $regex: reg } }).toArray();
+		return await this.db.collection('items').findOne({ code: { $regex: reg } });
 	}
 };
