@@ -9,8 +9,8 @@
 		<input #statusInput (keyup.enter)="addStatus(statusInput.value); statusInput.value=''"
 		matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
 		
-		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event.option.value); statusInput.value=''">
-			<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands | unique: filteredBrands" [value]="brand.name">
+		<mat-autocomplete #auto="matAutocomplete" #brandAutocomplete (optionSelected)="addStatus($event.option.value); statusInput.value=''">
+			<mat-option *ngFor="let brand of allBrands | filter: statusInput.value: allBrands : selectedType | unique: filteredBrands" [value]="brand.name">
 				<span>{{ brand.name }}</span>
 			</mat-option>
 		</mat-autocomplete>
@@ -19,6 +19,14 @@
 
 <div class="field">
 	<div class="download-buttons">
+		<div class="pack-filter">
+			<mat-form-field>
+				<mat-select placeholder="Filter by pack type " [(ngModel)]="selectedType" (change)="typeChanged();">
+					<mat-option>-- All --</mat-option>
+					<mat-option *ngFor="let t of packTypes" [value]="t.value">{{t.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
 		<button mat-raised-button  (click)="getExcelFile()">Excel</button>
 		<button mat-raised-button  (click)="getPDFFile()">PDF</button>
 	</div>

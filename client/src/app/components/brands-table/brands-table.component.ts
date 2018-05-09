@@ -4,7 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { DataService } from '../../services/data.service';
 
 import "@angular/material/prebuilt-themes/indigo-pink.css";
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatAutocompleteTrigger } from '@angular/material';
 
 const html2pdf = require('html2pdf.js');
 @Component({
@@ -29,10 +29,16 @@ export class BrandsTableComponent {
 	//variables for table view
 	showTable: boolean = false;
 
+	packTypes = [
+		{name: '5 pack', value: 1},
+		{name: '10 pack', value: 2}
+	];
+	selectedType: number = null;
+
 	dataSource: MatTableDataSource<any>;
 	displayedColumns = ['check', 'name'];
 	@ViewChild(MatPaginator) paginator: MatPaginator;
-
+	@ViewChild(MatAutocompleteTrigger) brandAutocomplete: MatAutocompleteTrigger;
 
 	constructor(private accountService: AccountService, private dataService: DataService, private route: ActivatedRoute) {
 		this.route.queryParams.subscribe(params => {
@@ -52,7 +58,6 @@ export class BrandsTableComponent {
 			// this.allBrands.forEach((brand) => this.check(brand));
 
 		});
-
 		// this.dataService.getNamesByFilter(this.platform, this.month, this.year).then(res => {
 		// 	this.allItems = res;
 		// });
@@ -63,9 +68,43 @@ export class BrandsTableComponent {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	typeChanged(){
+		let selectedType = this.selectedType;
+
+		this.checkedRows.forEach(row => {
+			row.selected = false;
+		});
+		this.checkedRows.splice(0);
+
+		this.filteredBrands = [];
+		this.allBrands.forEach((brand) => {
+			let isBrandMatchesSomeTag = !this.tags.length || this.tags.some(t => brand.name.toLowerCase().includes(t.name));
+
+			if (isBrandMatchesSomeTag) {
+				let selected = brand.selected;
+				if(selected) this.check(this.filteredBrands[this.filteredBrands.length - 1]);
+				this.filteredBrands.push(brand)
+			}
+		})
+
+		if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
+
+		this.filteredBrands = this.filteredBrands.filter(brand=>{
+			if(selectedType==1 && brand.items.some((item:any) => item.quantity == 5)){
+				return true;
+			} else if(selectedType==2 && brand.items.some((item:any) => item.quantity == 10)) {
+				return true;
+			} else if(!selectedType){
+				return true;
+			}
+			return false;
+		});
+
+		this.rerenderTable(this.filteredBrands);
+	}
 
 	addStatus(newTag: any) {
-
+		this.selectedType = null;
 		//if such tag has already been added
 		if (this.tags.find(x => x.name === newTag)) return;
 
@@ -95,9 +134,12 @@ export class BrandsTableComponent {
 
 		this.rerenderTable(this.filteredBrands);
 		if (this.checkedRows.length === this.dataSource.filteredData.length) this.allSelected = true;
+
+		this.brandAutocomplete.closePanel();
 	}
 
 	removeStatus(tagId: number) {
+		this.selectedType = null;
 		//delete tag from tagList
 		let deletingTag = this.tags.find(x => x.id === tagId);
 		let deletingIndex = this.tags.indexOf(deletingTag);

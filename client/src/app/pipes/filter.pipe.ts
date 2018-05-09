@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class SearchFilter implements PipeTransform {
-	transform(filteredArray: Array<any>, filterValue: any, brands: any[]): any {
+	transform(filteredArray: Array<any>, filterValue: any, brands: any[], selectedType: number): any {
 		if(filterValue === '') return filteredArray;
 
 		let filteredClients: any = [];
@@ -17,7 +17,15 @@ export class SearchFilter implements PipeTransform {
 
 			let brandName = brand.name.trim().toLowerCase();
 			if (brandName.includes(filterValue)) {
-				filteredClients.push(brand);
+				if(selectedType){
+					if(selectedType==1 && brand.items.some((item:any) => item.quantity == 5)){
+						filteredClients.push(brand);
+					} else if(selectedType==2 && brand.items.some((item:any) => item.quantity == 10)) {
+						filteredClients.push(brand);
+					}
+				} else {
+					filteredClients.push(brand);
+				}
 			}
 		});
 

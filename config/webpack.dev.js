@@ -16,10 +16,12 @@ module.exports = webpackMerge(commonConfig, {
 
 	plugins: [
 		new ExtractTextPlugin('[name].css'),
-		new webpack.HotModuleReplacementPlugin()
+		// new webpack.HotModuleReplacementPlugin()
 	],
 
 	devServer: {
+		hot: false,
+		inline: false,
 		historyApiFallback: true,
 		stats             : 'minimal',
 		port              : 8080,
