@@ -1,7 +1,7 @@
-module.exports = function(platform, month, year) {
+module.exports = function (platform, month, year) {
 	return [
 		{
-			"$match" : {
+			"$match": {
 				"brand_name": {$ne: null, $ne: "", $exists: 1},
 				// "pl" : true,
 				// "month" : true,
@@ -9,10 +9,17 @@ module.exports = function(platform, month, year) {
 			}
 		},
 		{
-			
+			$project: {
+				name: 1,
+				brand_name: 1,
+				category: 1
+			}
+		},
+		{
+
 			"$group": {
 				"_id": "$brand_name",
-				"category": {$first:'$category.data'}
+				"category": {$first: '$category.data'}
 			}
 		},
 		{
@@ -23,21 +30,21 @@ module.exports = function(platform, month, year) {
 				as: "categories_docs"
 			}
 		},
-	
+
 		{
-			"$project" : {
+			"$project": {
 				"name": "$_id",
-				"categories_docs": { $arrayElemAt: [ "$categories_docs", 0 ] }
+				"categories_docs": {$arrayElemAt: ["$categories_docs", 0]}
 			}
 		},
 		{
 			"$project": {
 				_id: 0,
 				"name": 1,
-				"description": { $ifNull: [ "$categories_docs.description", "Unspecified" ] },
-				"selected": { $literal: false },
+				"description": {$ifNull: ["$categories_docs.description", "Unspecified"]},
+				"selected": {$literal: false},
 			}
 		}
-		
+
 	];
 };

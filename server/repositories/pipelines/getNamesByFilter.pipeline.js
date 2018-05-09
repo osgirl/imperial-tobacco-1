@@ -30,11 +30,7 @@ module.exports = function(platform, month, year) {
 					"length": "$details.length", 
 					"ring": "$details.ring", 
 					"quantity": "$details.packaging_details.quantity", 
-					"msrp": "$prices.msrp", 
-					"jr_price": "$prices.jr_price",
-					"cigars_price": "$prices.cigars_price",
-					"seriouscigars_price": "$prices.seriouscigars_price",
-					"wholesale_price": "$prices.wholesale_price",
+					"msrp": "$prices.msrp",
 
 					"five_pack_jr_price": "$prices.five_pack_jr_price",
 					"five_pack_cigars_price": "$prices.five_pack_cigars_price",
@@ -43,6 +39,11 @@ module.exports = function(platform, month, year) {
 					
 					"brand_name": "$brand_name"
 				},
+				"jr_price": {$first: "$prices.jr_price"},
+				"cigars_price": {$first: "$prices.cigars_price"},
+				"seriouscigars_price": {$first: "$prices.seriouscigars_price"},
+				"wholesale_price": {$first: "$prices.wholesale_price"},
+
 				"codes": { $push: "$code" },
 				"shades": { $push: { $substr: [ "$details.wrapper_shade", 0, 1 ] } },
 				// "future_prices": {$first: "$platform_prices"},
@@ -61,29 +62,29 @@ module.exports = function(platform, month, year) {
 				"shade": "$shades",
 				"brand_name": { $ifNull: [ "$_id.brand_name", "Unspecified" ] },
 				
-				//"jr_price": "$_id.jr_price",
-				//"cigars_price": "$_id.cigars_price",
-				//"seriouscigars_price": "$_id.seriouscigars_price",
-				//"wholesale_price": "$_id.wholesale_price",
+				//"jr_price": "$jr_price",
+				//"cigars_price": "$cigars_price",
+				//"seriouscigars_price": "$seriouscigars_price",
+				//"wholesale_price": "$wholesale_price",
 				
 				"price" : {
 					$switch: {
 						branches: [
 							{
 								case: { $eq : [ platform, "jrcigars" ] },
-								then: "$_id.jr_price"
+								then: "$jr_price"
 							},
 							{
 								case: { $eq : [ platform, "cigars.com" ] },
-								then: "$_id.cigars_price"
+								then: "$cigars_price"
 							},
 							{
 								case: { $eq : [ platform, "serious cigars" ] },
-								then: "$_id.seriouscigars_price"
+								then: "$seriouscigars_price"
 							},
 							{
 								case: { $eq : [ platform, "Santaclaracigars.com" ] },
-								then: "$_id.wholesale_price"
+								then: "$wholesale_price"
 							},
 						],
 					}
