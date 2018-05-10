@@ -11,8 +11,10 @@ import { appRoutes } from './app.router';
 //components
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { PickerComponent } from './components/picker/picker.component';
+import { AdminPickerComponent } from './components/picker/picker.component';
+import { SKUPickerComponent } from './components/sku-picker/sku-picker.component';
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';
+import { SKUListComponent } from './components/sku-list/sku-list.component';
 
 //guards
 import { AuthGuard } from './guards/auth.guard';
@@ -25,6 +27,7 @@ import { ValidateService } from './services/validate.service';
 
 //pipes
 import { SearchFilter } from './pipes/filter.pipe';
+import { SKUFilter } from './pipes/sku_filter.pipe';
 import { Unique } from './pipes/unique.pipe';
 
 //angular material modules
@@ -93,9 +96,12 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 	declarations: [
 		AppComponent,
 		AuthComponent,
-		PickerComponent,
+		AdminPickerComponent,
+		SKUPickerComponent,
 		BrandsTableComponent,
+		SKUListComponent,
 		SearchFilter,
+		SKUFilter,
 		Unique
 	],
 	providers: [

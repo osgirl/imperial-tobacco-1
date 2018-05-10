@@ -72,11 +72,21 @@ header {
 
 	background-color: #817f7f;
 	color: white;
+	cursor: pointer;
+	outline: none;
 }
 
 .user span {
 	font-size: 25px;
 	color: #000;
+}
+
+.sku {
+	margin-top: 10px;
+}
+
+.activated {
+	background-color: #3f51b5;
 }
 /* .user-wrapper span:last-child {
 	font-size: 14px;

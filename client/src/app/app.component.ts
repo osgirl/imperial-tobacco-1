@@ -12,6 +12,7 @@ import { AccountService } from './services/account.service'
 })
 export class AppComponent {
 	isAuth$: any;
+	activatedPage: string = 'admin';
 
 	constructor(private accountService: AccountService, private router: Router, public snackBar: MatSnackBar) {
 		this.isAuth$ = accountService.bSubject;

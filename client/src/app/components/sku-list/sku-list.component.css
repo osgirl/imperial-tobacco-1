@@ -1,0 +1,150 @@
+/deep/brands-table {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	background-color: #f7f9fb;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: #fff;
+	margin: 7px;
+}
+
+.pack-filter {
+	display: inline-block;
+	width: 300px;
+	position: relative;
+	top: 9px;
+	text-align: right;
+	padding: 0 20px;
+}
+
+.mat-table {
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100%;
+	max-height: 100%;
+}
+.mat-table.small {
+	height: 40%;
+}
+.mat-cell {
+	font-size: 12px;
+}
+/deep/.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+	background-color: #5C5B5B !important;
+}
+
+.tags {
+	width: 100%;
+}
+
+.tags .mat-form-field, .tags input.mat-chip-input{
+	width: 100% !important;
+	margin: 0;
+}
+
+.tags .mat-form-field {
+	padding-left: 7px;
+	padding-right: 7px;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
+/deep/.tags .mat-form-field-flex {
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.checkbox-cell {
+	flex: 0 0 28px;
+}
+
+.mat-raised-button {
+	color: #fff;
+	background-color: #817F7F;
+}
+
+.mat-raised-button:hover {
+	color: #fff;
+	background-color: #696767;
+	transition: 0.3s;
+}
+
+.download-buttons {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.download-buttons button {
+	margin-top: 7px;
+	margin-right: 7px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.mat-header-row, .mat-row {
+	min-height: 30px;
+}
+
+/deep/.mat-checkbox-layout {
+	color: #fff !important;
+}
+
+/deep/.mat-chip {
+	margin: 0 0 8px 8px !important;
+}
+
+
+#preview {
+	margin-top: 5px;
+	height: 100%;
+	overflow-y: auto;
+	font-size: 14px;
+}
+
+#preview .row {
+	padding: 10px;
+}
+
+th, td {
+	padding: 5px 10px;
+	/* text-align: center; */
+}
+
+td mat-checkbox {
+	/* display: block !important; */
+}
+
+.hidden {
+	display: none;
+}
+/* table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+} */
+
+
+#table .mat-row:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table .mat-row:hover {
+	transition: 0.3s;
+	background-color: #D6D4D4;
+}
+
+
+.nothing-to-show {
+	margin: 30px;
+	background-color: unset;
+	font-size: 20px;
+}

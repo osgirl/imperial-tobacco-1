@@ -15,11 +15,11 @@
 				<span class="border"></span>
 				<p>PRICE BOX DISPLAY</p>
 			</div>
-			<div class="user">
-				<!-- <div class="user-wrapper"> -->
-					<span>Admin</span>
-				<!-- </div> -->
-				<!-- <span></span> -->
+			<div class="user" [ngClass]="{'activated': router.isActive('admin', false)}" [routerLink]="['/admin']">
+				<span>Admin</span>
+			</div>
+			<div class="user sku" [ngClass]="{'activated': router.isActive('sku', false)}" [routerLink]="['/sku']">
+				<span>SKU</span>
 			</div>
 
 			<!-- <div class="menu">

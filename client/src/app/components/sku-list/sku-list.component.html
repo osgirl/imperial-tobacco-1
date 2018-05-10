@@ -1,0 +1,76 @@
+<div class="tags">
+	<mat-form-field floatPlaceholder="never">
+		<mat-chip-list #chipList>
+			<mat-chip *ngFor="let tag of tags" (remove)="removeStatus(tag.id)">
+				{{tag.name}} <mat-icon matChipRemove>cancel</mat-icon>
+			</mat-chip>
+		</mat-chip-list>
+
+		<input #statusInput matChipInputAddOnBlur="true" [matChipInputFor]="chipList" [matAutocomplete]="auto" placeholder="Start typing...">
+		
+		<mat-autocomplete #auto="matAutocomplete" #brandAutocomplete (optionSelected)="addStatus($event.option.value); statusInput.value=''">
+			<mat-option *ngFor="let brand of allBrands | sku_filter: statusInput.value: allBrands" [value]="brand.code">
+				<span>{{ brand.code }}</span>
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+</div>
+
+<div class="field" >
+	<!-- <div class="download-buttons">
+		<div class="pack-filter">
+			<mat-form-field>
+				<mat-select placeholder="Filter by pack type " [(ngModel)]="selectedType" (change)="typeChanged();">
+					<mat-option>-- All --</mat-option>
+					<mat-option *ngFor="let t of packTypes" [value]="t.value">{{t.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<button mat-raised-button  (click)="getExcelFile()">Excel</button>
+		<button mat-raised-button  (click)="getPDFFile()">PDF</button>
+	</div> -->
+
+	<mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]">
+	</mat-paginator>
+
+
+	<mat-table id="table" #table [dataSource]="dataSource">
+
+		<ng-container matColumnDef="code">
+			<mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="frontmark">
+			<mat-header-cell *matHeaderCellDef> Frontmark </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.frontmark}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="quantity">
+			<mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="msrp">
+			<mat-header-cell *matHeaderCellDef> MSRP </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.msrp}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="price">
+			<mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="five_pack_price">
+			<mat-header-cell *matHeaderCellDef> 5 pack price </mat-header-cell>
+			<mat-cell *matCellDef="let element"> {{element.five_pack_price}} </mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns;" class="pointer"></mat-row>
+	</mat-table>
+
+</div>
+
+
+<div class="field nothing-to-show" *ngIf="!showTable">Nothing to show here</div>

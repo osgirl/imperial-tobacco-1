@@ -11,7 +11,8 @@ const DB = require('../server/db');
 
 let modules = [
 	require('./migrations/add_random_data_to_items'),
-	require('./migrations/add_five_pack_price')
+	require('./migrations/add_five_pack_price'),
+	require('./migrations/add_SKU_collection')
 ];
 
 const {engines} = require('./../package.json');

@@ -38,6 +38,15 @@ module.exports = function (router) {
 		
 		res.json(items);
 	});
+
+	router.get('/getSKUList', async function (req, res, next) {
+		let platform = req.query.platform;
+
+		let list = await new DataLogic(new DataRep(req.db)).getSKUList(platform);
+
+		res.json(list);
+	});
+
 	
 	router.get('/excel', function(req, res, next) {
 		res.sendFile('data.xlsx', {root: './'});

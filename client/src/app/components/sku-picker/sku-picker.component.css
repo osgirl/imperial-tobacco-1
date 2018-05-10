@@ -1,0 +1,23 @@
+.picker {
+	display: flex;
+	/* justify-content: space-around; */
+	align-items: center;
+	height: 80px;
+	flex-shrink: 0;
+}
+
+.picker-inputs mat-form-field {
+	margin: 0 10px;
+}
+
+
+/* .mat-raised-button {
+	color: #fff;
+	background-color: #817F7F;
+}
+
+.mat-raised-button:hover {
+	color: #fff;
+	background-color: #696767;
+	transition: 0.3s;
+} */

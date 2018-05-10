@@ -24,6 +24,12 @@ export class DataService {
 		});
 	}
 
+	getSKUList(platform: string) {
+		return this.http.get(`/getSKUList?platform=${platform}`, {}).toPromise().then(res => {
+			return res.json()
+		});
+	}
+
 	getNamesByFilter(platform: string, month: number, year: number) {
 		return this.http.get(`/getNamesByFilter?platform=${platform}&month=${month}&year=${year}`, {}).toPromise().then(res => {
 			return res.json()

@@ -69,4 +69,9 @@ module.exports = class Data {
 		let reg = new RegExp(`${code}5.*`);
 		return await this.db.collection('items').findOne({ code: { $regex: reg } });
 	}
+
+	async getSKUList(platform) {
+		const pipeline = require('./pipelines/getSKUList.pipeline.js')(platform);
+		return await this.db.collection('sku_list').aggregate(pipeline).toArray();
+	}
 };

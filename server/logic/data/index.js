@@ -68,5 +68,12 @@ module.exports = class Data {
 
 		return brands;
 	}
+
+
+	async getSKUList(platform) {
+		let brands = await this.dataRep.getSKUList(platform);
+
+		return brands;
+	}
 	
 };
