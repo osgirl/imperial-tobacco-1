@@ -14,7 +14,7 @@ const html2pdf = require('html2pdf.js');
 })
 export class SKUListComponent {
 	private loading: boolean;
-	private showTable: boolean;
+	private showTable: boolean = true;
 	private platform: string;
 
 	allBrands: any[] = [];
@@ -40,6 +40,8 @@ export class SKUListComponent {
 			// this.filteredBrands = res;
 			this.rerenderTable(res);
 
+			this.showTable = Boolean(res.length);
+
 			this.loading = false;
 		});
 	}
@@ -47,8 +49,6 @@ export class SKUListComponent {
 	rerenderTable(newData: any[]) {
 		this.dataSource = new MatTableDataSource<any>(newData);
 		this.dataSource.paginator = this.paginator;
-
-		this.showTable = Boolean(newData.length);
 	}
 
 	addStatus(newTag: any) {
