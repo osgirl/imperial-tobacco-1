@@ -59,6 +59,10 @@ module.exports = class Data {
 		const pipeline = require('./pipelines/getNamesByFilter.pipeline.js')(platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
+	async getAllItemsByFilter(platform){
+		const pipeline = require('./pipelines/getAllItemsByFilter.pipeline.js')(platform);
+		return await this.db.collection('items').aggregate(pipeline).toArray();
+	}
 
 	async getEverythingByBrandnames(brandNames, platform, month, year) {
 		const pipeline = require('./pipelines/getEverythingByBrandnames.pipeline.js')(brandNames, platform, month, year);

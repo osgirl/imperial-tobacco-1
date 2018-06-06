@@ -25,7 +25,7 @@ module.exports = function (router) {
 				}
 			});
 		});
-		
+
 		res.json(brands);
 	});
 
@@ -35,7 +35,7 @@ module.exports = function (router) {
 		let year = +req.query.year;
 
 		let items = await new DataLogic(new DataRep(req.db)).getNamesByFilter(platform, month, year);
-		
+
 		res.json(items);
 	});
 
@@ -47,9 +47,14 @@ module.exports = function (router) {
 		res.json(list);
 	});
 
-	
-	router.get('/excel', function(req, res, next) {
-		res.sendFile('data.xlsx', {root: './'});
+
+	router.get('/excel', function (req, res, next) {
+		res.sendFile('data.xlsx', { root: './' });
+	});
+
+	router.post('/getAllItemsByFilter', async function (req, res, next) {
+		let items = await new DataLogic(new DataRep(req.db)).getAllItemsByFilter(req.body.platform);
+		res.json(items);
 	});
 
 	return router;

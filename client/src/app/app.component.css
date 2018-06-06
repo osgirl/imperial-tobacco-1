@@ -85,6 +85,10 @@ header {
 	margin-top: 10px;
 }
 
+.filter{
+	margin-top: 10px;
+}
+
 .activated {
 	background-color: #3f51b5;
 }

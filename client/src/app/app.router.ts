@@ -6,6 +6,7 @@ import { SKUPickerComponent } from './components/sku-picker/sku-picker.component
 
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';
 import { SKUListComponent } from './components/sku-list/sku-list.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guard';
@@ -15,6 +16,7 @@ export const appRoutes: Routes = [
 
 	{ path: 'admin', component: AdminPickerComponent, canActivate: [AuthGuard] },
 	{ path: 'sku', component: SKUPickerComponent, canActivate: [AuthGuard] },
+	{ path: 'filter', component: FilterComponent, canActivate: [AuthGuard] },
 
 	{ path: 'brands', component: BrandsTableComponent, canActivate: [AuthGuard] },
 	{ path: 'sku-list', component: SKUListComponent, canActivate: [AuthGuard] },

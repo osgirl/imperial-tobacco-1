@@ -1,0 +1,7 @@
+.picker{
+    margin: 15px;
+}
+
+:host::ng-deep.k-grid .k-grid-container {
+    max-height: calc(100vh - 266px);
+}

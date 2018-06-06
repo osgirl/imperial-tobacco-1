@@ -22,6 +22,10 @@
 				<span>SKU</span>
 			</div>
 
+			<div class="user filter" [ngClass]="{'activated': router.isActive('filter', false)}" [routerLink]="['/filter']">
+				<span>Filter</span>
+			</div>
+
 			<!-- <div class="menu">
 				<button mat-raised-button  (click)="home()">Home</button>
 			</div> -->

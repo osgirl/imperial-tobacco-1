@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import '../assets/css/styles.css';
+import '@progress/kendo-theme-default';
 
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';

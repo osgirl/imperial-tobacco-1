@@ -15,6 +15,7 @@ import { AdminPickerComponent } from './components/picker/picker.component';
 import { SKUPickerComponent } from './components/sku-picker/sku-picker.component';
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';
 import { SKUListComponent } from './components/sku-list/sku-list.component';
+import { FilterComponent} from './components/filter/filter.component'
 
 //guards
 import { AuthGuard } from './guards/auth.guard';
@@ -57,7 +58,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {DpDatePickerModule} from 'ng2-date-picker';
 // import { MAT_DATE_LOCALE } from '@angular/material-moment-adapter';
 
+// Kendo Grid
+import { GridModule } from '@progress/kendo-angular-grid';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
+import { DropDownListFilterComponent } from './components/filter/multicheck_filter.component'
 
 @NgModule({
 	imports: [
@@ -91,7 +96,9 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 		MatPaginatorModule,
 		MatSortModule,
 		MatIconModule,
-		DpDatePickerModule
+		DpDatePickerModule,
+		GridModule,
+		DropDownsModule
 	],
 	declarations: [
 		AppComponent,
@@ -100,9 +107,11 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 		SKUPickerComponent,
 		BrandsTableComponent,
 		SKUListComponent,
+		FilterComponent,
 		SearchFilter,
 		SKUFilter,
-		Unique
+		Unique,
+		DropDownListFilterComponent
 	],
 	providers: [
 		AccountService,

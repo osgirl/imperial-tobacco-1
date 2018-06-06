@@ -14,7 +14,7 @@ module.exports = class Data {
 	async getBrandsByFilter(platform, month, year) {
 		let brands = await this.dataRep.getBrandsByFilter(platform, month, year);
 		return brands;
-		
+
 		// return brands.map((brand, index) => {
 		// 	return {
 		// 		id: index,
@@ -27,21 +27,21 @@ module.exports = class Data {
 
 	async getNamesByFilter(platform, month, year) {
 		let items = await this.dataRep.getNamesByFilter(platform, month, year);
-		
+
 		// items.forEach((element) => {
-		for(let j = 0; j < items.length; j++) {
+		for (let j = 0; j < items.length; j++) {
 			let element = items[j];
 
-			if(element.code.length > 1) {
+			if (element.code.length > 1) {
 				element.code = element.code.sort((a, b) => a.length - b.length)[0];
 			} else {
 				element.code = element.code[0];
 			}
 
-			if(element.shade.length > 1) {
+			if (element.shade.length > 1) {
 				element.shade = element.shade.sort().join('/');
 			}
-		// });
+			// });
 		}
 
 		return items;
@@ -53,13 +53,13 @@ module.exports = class Data {
 		brands.forEach((brand) => {
 
 			brand.items.forEach((element) => {
-				if(element.code.length > 1) {
+				if (element.code.length > 1) {
 					element.code = element.code.sort((a, b) => a.length - b.length)[0];
 				} else {
 					element.code = element.code[0];
 				}
-	
-				if(element.shade.length > 1) {
+
+				if (element.shade.length > 1) {
 					element.shade = element.shade.sort().join('/');
 				}
 			});
@@ -75,5 +75,28 @@ module.exports = class Data {
 
 		return brands;
 	}
-	
+
+	async getAllItemsByFilter(platform) {
+		let items = await this.dataRep.getAllItemsByFilter(platform);
+		items.map((item, index) => {
+			item.code = item.code[0];
+			item.packaging_type = {
+				text: `${item.packaging_type}`,
+				value: this.getIndex(item.packaging_type)
+			};
+		});
+		return items;
+	}
+
+	getIndex(type) {
+		switch (type) {
+			case null: return 1;
+			case 'other': return 2;
+			case 'box': return 3;
+			case 'bundle': return 4;
+			case 'single': return 5;
+			case 'pack': return 6;
+			case 'tin': return 7; 
+		}
+	}
 };
