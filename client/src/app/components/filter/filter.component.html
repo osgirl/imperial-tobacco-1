@@ -43,7 +43,7 @@
             </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="packaging_type.text" title="Packaging type">
-            <ng-template kendoGridFilterCellTemplate let-filter>
+            <ng-template kendoGridFilterMenuTemplate let-filter>
                 <my-dropdown-filter [filter]="filter" [data]="distinctCategories" textField="text" valueField="value">
                 </my-dropdown-filter>
             </ng-template>
