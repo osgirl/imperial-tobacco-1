@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
 
 	{ path: 'admin', component: AdminPickerComponent, canActivate: [AuthGuard] },
 	{ path: 'sku', component: SKUPickerComponent, canActivate: [AuthGuard] },
-	{ path: 'filter', component: FilterComponent, canActivate: [AuthGuard] },
+	{ path: 'item-picker', component: FilterComponent, canActivate: [AuthGuard] },
 
 	{ path: 'brands', component: BrandsTableComponent, canActivate: [AuthGuard] },
 	{ path: 'sku-list', component: SKUListComponent, canActivate: [AuthGuard] },
