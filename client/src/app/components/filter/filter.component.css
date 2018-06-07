@@ -1,5 +1,9 @@
 .picker{
     margin: 15px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 :host::ng-deep.k-grid .k-grid-container {

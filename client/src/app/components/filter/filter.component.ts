@@ -23,7 +23,7 @@ export class FilterComponent {
 	platforms: any[] = ["jrcigars", "cigars.com", "serious cigars", "Santaclaracigars.com"];
 	selectedPlatform: string;
 
-	listItems: any = ['Other'];
+	codes: any;
 
 	items: any = [];
 	loading: boolean = true;
@@ -51,6 +51,37 @@ export class FilterComponent {
 		});
 	}
 
+	copyToClipboard() {
+		this.dataStateChange();
+		let codesArray: any = [];
+		this.codes.data.map((item: any) => {
+			codesArray.push(item.code);
+		})
+		codesArray = codesArray.join(' ');
+		if (window['clipboardData'] && window['clipboardData'].setData) {
+			return window['clipboardData'].setData("Text", codesArray);
+
+		} else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+			var textarea = document.createElement("textarea");
+			textarea.textContent = codesArray;
+			textarea.style.position = "fixed";
+			document.body.appendChild(textarea);
+			textarea.select();
+			try {
+				this.snackBar.open('copied', '', {
+					duration: 500,
+					verticalPosition: 'top'
+				});
+				return document.execCommand("copy");
+			} catch (ex) {
+				console.warn("Copy to clipboard failed.", ex);
+				return false;
+			} finally {
+				document.body.removeChild(textarea);
+			}
+		}
+	}
+
 
 
 	public state: State = {
@@ -65,16 +96,21 @@ export class FilterComponent {
 			]
 		}
 	};
+	
 
 
-	distinct(data:any) {
+	distinct(data: any) {
 		return data
-			.map((x:any, index: any) => x.packaging_type)
-			.filter((x:any, idx:any, xs:any) => xs.findIndex((y:any) => y.text === x.text) === idx);
+			.map((x: any, index: any) => x.packaging_type)
+			.filter((x: any, idx: any, xs: any) => xs.findIndex((y: any) => y.text === x.text) === idx);
 	}
 
-	dataStateChange(state: DataStateChangeEvent): void {
-		this.state = state;
+	dataStateChange(state?: DataStateChangeEvent): void {
+		this.state = state || this.state;
 		this.gridData = process(this.items, this.state);
+		let obj: any = {};
+		Object.assign(obj, this.state);
+		obj.take = null;
+		this.codes = process(this.items, obj);
 	}
 }

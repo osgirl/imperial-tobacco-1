@@ -1,5 +1,5 @@
 <div class="picker">
-    <div class="picker-inputs">
+    <div class="picker-input">
         <mat-form-field>
             <mat-select placeholder="Choose platform" (selectionChange)="selectionChange($event)" [(ngModel)]="selectedPlatform">
                 <mat-option>--</mat-option>
@@ -7,12 +7,16 @@
             </mat-select>
         </mat-form-field>
     </div>
+
+    <div class="copy" *ngIf="!loading">
+        <button mat-raised-button color="primary" (click)="copyToClipboard()">Copy to clipboard</button>
+    </div>
 </div>
 
 
 <div class="wrapper" *ngIf="!loading">
-    <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter" [sortable]="true"
-        [pageable]="true" [filterable]="true" (dataStateChange)="dataStateChange($event)">
+    <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter"
+        [sortable]="true" [pageable]="true" filterable="menu" (dataStateChange)="dataStateChange($event)">
         <kendo-grid-column field="name" title="Name">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.name">null</div>
@@ -65,5 +69,13 @@
                 <div *ngIf="dataItem.on_hand">{{dataItem.on_hand}}</div>
             </ng-template>
         </kendo-grid-column>
+
+        <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
+            <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+            <kendo-pager-numeric-buttons [buttonCount]="10"></kendo-pager-numeric-buttons>
+            <kendo-pager-next-buttons></kendo-pager-next-buttons>
+            <kendo-pager-info></kendo-pager-info>
+            Current page: {{currentPage}}
+        </ng-template>
     </kendo-grid>
 </div>
