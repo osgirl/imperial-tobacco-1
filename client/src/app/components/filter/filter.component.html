@@ -1,13 +1,4 @@
 <div class="picker">
-    <div class="picker-input">
-        <mat-form-field>
-            <mat-select placeholder="Choose platform" (selectionChange)="selectionChange($event)" [(ngModel)]="selectedPlatform">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-
     <div class="copy" *ngIf="!loading">
         <button mat-raised-button color="primary" (click)="copyToClipboard()">Copy to clipboard</button>
     </div>
@@ -15,67 +6,59 @@
 
 
 <div class="wrapper" *ngIf="!loading">
-    <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter"
-        [sortable]="true" [pageable]="true" filterable="menu" (dataStateChange)="dataStateChange($event)">
-        <kendo-grid-column field="name" title="Name">
+    <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter" [sortable]="true"
+        [pageable]="true" [filterable]="true" (dataStateChange)="dataStateChange($event)">
+        <kendo-grid-column field="name" title="Name" width="200">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.name">null</div>
                 <div *ngIf="dataItem.name">{{dataItem.name}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="code" title="Code">
+        <kendo-grid-column field="code" title="Code" width="150">
         </kendo-grid-column>
-        <kendo-grid-column field="quantity" title="Packaging Quantity" filter="numeric">
+        <kendo-grid-column field="quantity" title="Packaging Quantity" filter="numeric" width="180">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.quantity">null</div>
                 <div *ngIf="dataItem.quantity">{{dataItem.quantity}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="price" title="Price" filter="numeric">
+        <kendo-grid-column field="price" title="Price" filter="numeric" width="170">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="dataItem.price!==-1">${{dataItem.price}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="category_name" title="Category">
+        <kendo-grid-column field="category_name" title="Category" width="180">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.category_name">null</div>
                 <div *ngIf="dataItem.category_name">{{dataItem.category_name}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="packaging_type.text" title="Packaging type">
-            <ng-template kendoGridFilterMenuTemplate let-filter>
+        <kendo-grid-column field="packaging_type.text" title="Packaging type" width="160">
+            <ng-template kendoGridFilterCellTemplate let-filter>
                 <my-dropdown-filter [filter]="filter" [data]="distinctCategories" textField="text" valueField="value">
                 </my-dropdown-filter>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="active" title="Active" width="90" filter="boolean">
+        <kendo-grid-column field="active" title="Active" width="135" filter="boolean">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.active" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="live" title="Live" width="90" filter="boolean">
+        <kendo-grid-column field="live" title="Live" width="135" filter="boolean">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.live" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="test" title="Test" width="90" filter="boolean">
+        <kendo-grid-column field="test" title="Test" width="135" filter="boolean">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.test" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="on_hand" title="On Hand" filter="numeric">
+        <kendo-grid-column field="on_hand" title="On Hand" filter="numeric" width="165">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.on_hand">null</div>
                 <div *ngIf="dataItem.on_hand">{{dataItem.on_hand}}</div>
             </ng-template>
         </kendo-grid-column>
-
-        <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
-            <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
-            <kendo-pager-numeric-buttons [buttonCount]="10"></kendo-pager-numeric-buttons>
-            <kendo-pager-next-buttons></kendo-pager-next-buttons>
-            <kendo-pager-info></kendo-pager-info>
-            Current page: {{currentPage}}
-        </ng-template>
     </kendo-grid>
 </div>

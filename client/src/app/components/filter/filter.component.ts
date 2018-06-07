@@ -19,10 +19,6 @@ import {
 })
 
 export class FilterComponent {
-
-	platforms: any[] = ["jrcigars", "cigars.com", "serious cigars", "Santaclaracigars.com"];
-	selectedPlatform: string;
-
 	codes: any;
 
 	items: any = [];
@@ -38,11 +34,10 @@ export class FilterComponent {
 		public snackBar: MatSnackBar
 	) { }
 
-	selectionChange(e: any) {
-		if (!e.value) return;
+	ngOnInit(){
 		this.loading = true;
 		document.getElementById('loading').style.display = 'flex';
-		this.dataService.getAllItemsByFilter(e.value).subscribe(res => {
+		this.dataService.getAllItemsByFilter('jrcigars').subscribe(res => {
 			this.items = res;
 			this.gridData = process(this.items, this.state);
 			this.distinctCategories = this.distinct(this.items);
@@ -57,7 +52,7 @@ export class FilterComponent {
 		this.codes.data.map((item: any) => {
 			codesArray.push(item.code);
 		})
-		codesArray = codesArray.join(' ');
+		codesArray = codesArray.join(', ');
 		if (window['clipboardData'] && window['clipboardData'].setData) {
 			return window['clipboardData'].setData("Text", codesArray);
 
