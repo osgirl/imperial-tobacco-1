@@ -89,7 +89,7 @@ const app = express();
 
 	app.use(function errorHandler(err, req, res, next) {
 		console.error(err.stack);
-		res.send(500, err.stack);
+		res.status(500).send( err.stack);
 	});
 
 

@@ -53,16 +53,25 @@ export class SKUListComponent {
 
 	addStatus(newTag: any) {
 		//if such tag has already been added
+		const abbreviation = newTag.split(' ').slice(0,3).map((el:string) => el[0]).join('');
 		if (this.tags.find(x => x.name === newTag)) return;
-
 		let tagId = this.tags.length;
 		this.tags.push({ name: newTag, id: tagId });
-
-		let item = this.allBrands.find(x => x.code.toLowerCase().includes(newTag.toLowerCase()));
-
-		if(item) {
-			this.filteredBrands.push({ ...item, tagId });
+		// let item = this.allBrands.find(x => x.code.toLowerCase().includes(newTag.toLowerCase()));
+		let arrayOfItems: any[] = [];
+		this.allBrands.map(x => {
+			if ( x.code.toLowerCase().includes(newTag.toLowerCase()) || (abbreviation.length > 2 && x.code.toLowerCase().indexOf(abbreviation.toLowerCase()) === 0) ) {
+				arrayOfItems.push(x)
+			}
+		});
+		if (arrayOfItems.length){
+			arrayOfItems.map(item => {
+				this.filteredBrands.push({ ...item, tagId });
+			});
 		}
+		// if(item) {
+		// 	this.filteredBrands.push({ ...item, tagId });
+		// }
 
 		this.rerenderTable(this.filteredBrands);
 		this.brandAutocomplete.closePanel();
@@ -79,7 +88,7 @@ export class SKUListComponent {
 			return brand.tagId !== tagId;
 		});
 
-		
+
 		if (!this.tags.length) {
 			this.rerenderTable(this.allBrands); //no more tags - bring all brands back
 		} else {
