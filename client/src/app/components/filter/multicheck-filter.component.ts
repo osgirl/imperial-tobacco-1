@@ -1,28 +1,14 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { CompositeFilterDescriptor, distinct, filterBy, FilterDescriptor } from '@progress/kendo-data-query';
-import { FilterService, BaseFilterCellComponent } from '@progress/kendo-angular-grid';
+import { FilterService } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'multicheck-filter',
   template: `
     <ul>
-      <input class="k-textbox" (input)="onInput($event)" />
-
-      <li
-        (click)="onSelectAll()"
-        [ngClass]="{'k-state-selected': selectAll}">
-        <input
-          type="checkbox"
-          id="chk-all"
-          class="k-checkbox"
-          [checked]="selectAll" />
-        <label
-          class="k-multiselect-checkbox k-checkbox-label"
-          for="chk-all">
-          Select All
-        </label>
+      <li *ngIf="showFilter">
+        <input class="k-textbox" (input)="onInput($event)" />
       </li>
-
       <li
         *ngFor="let item of currentData; let i = index;"
         (click)="onSelectionChange(valueAccessor(item))"
@@ -64,73 +50,49 @@ import { FilterService, BaseFilterCellComponent } from '@progress/kendo-angular-
     }
   `]
 })
-export class MultiCheckFilterComponent extends BaseFilterCellComponent implements AfterViewInit {
+export class MultiCheckFilterComponent implements AfterViewInit {
   @Input() public isPrimitive: boolean;
-  @Input() public filter: CompositeFilterDescriptor;
+  @Input() public currentFilter: CompositeFilterDescriptor;
   @Input() public data: any;
   @Input() public textField: any;
   @Input() public valueField: any;
   @Input() public filterService: FilterService;
-  @Input() public filterField: string;
+  @Input() public field: string;
   @Output() public valueChange = new EventEmitter<number[]>();
 
-  constructor(filterService: FilterService) {
-    super(filterService);
-  }
-
-  public currentData: any = [];
+  public currentData: any;
   public showFilter = true;
   private value: any[] = [];
-  public selectAll = true;
 
   protected textAccessor = (dataItem: any) => this.isPrimitive ? dataItem : dataItem[this.textField];
   protected valueAccessor = (dataItem: any) => this.isPrimitive ? dataItem : dataItem[this.valueField];
 
   public ngAfterViewInit() {
-    setTimeout(() => {
-        this.currentData = this.data;
-    
-        this.showFilter = typeof this.textAccessor(this.currentData[0]) === 'string';  
-    })
-  }
+    this.currentData = this.data;
+    this.value = this.currentFilter.filters.map((f: FilterDescriptor) => f.value);
 
-  public onSelectAll() {
-    if (!this.selectAll) {
-      this.selectAll = true
-      this.value = [];
-      this.applyCurrentFilters();
-    }
+    this.showFilter = typeof this.textAccessor(this.currentData[0]) === 'string';
   }
 
   public isItemSelected(item: any) {
     return this.value.some(x => x === this.valueAccessor(item));
   }
 
-  public onSelectionChange(value: any): void {
-    if (this.value.some(x => x === value)) {
-      this.value = this.value.filter(x => x !== value);
+  public onSelectionChange(item: any) {
+    if (this.value.some(x => x === item)) {
+      this.value = this.value.filter(x => x !== item);
     } else {
-      this.value.push(value);
+      this.value.push(item);
     }
 
-    if (!this.value.length) {
-      this.selectAll = true;
-    } else {
-      this.selectAll = false;
-    }
-
-    this.applyCurrentFilters();
-  }
-
-  private applyCurrentFilters() {
-    this.applyFilter({
-      filters: this.value.map((value) => ({
-        field: this.filterField,
-        operator: 'eq',
-        value
-      })),
-      logic: 'or'
-    })
+    this.filterService.filter({
+        filters: this.value.map(value => ({
+            field: this.field,
+            operator: 'eq',
+            value
+        })),
+        logic: 'or'
+    });
   }
 
   public onInput(e: any) {

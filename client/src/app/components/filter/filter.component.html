@@ -14,7 +14,7 @@
         [filter]="state.filter" 
         [sortable]="true"
         [pageable]="true" 
-        [filterable]="true" 
+        filterable="menu" 
         (dataStateChange)="dataStateChange($event)"
     >
         <kendo-grid-column field="category_name" title="Category" width="180" [headerStyle]="headerStyle">
@@ -23,16 +23,17 @@
                 <div *ngIf="dataItem.category_name">{{dataItem.category_name}}</div>
             </ng-template>
             <ng-template 
-                kendoGridFilterCellTemplate 
-                let-filter
+                kendoGridFilterMenuTemplate 
+                let-column="column"
+                let-filter="filter"
+                let-filterService="filterService"
             >
                 <multicheck-filter
-                    [filter]="filter"
-                    [data]="distinctCategories.category_name"
                     [isPrimitive]="true"
-                    filterField="category_name" 
-                >
-                </multicheck-filter>
+                    [field]="column.field"
+                    [filterService]="filterService"
+                    [currentFilter]="filter"
+                    [data]="distinctCategories.category_name"></multicheck-filter>
             </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="code" title="Code" width="150" [headerStyle]="headerStyle">
@@ -44,20 +45,24 @@
             </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="packaging_type.text" title="Packaging type" width="160" [headerStyle]="headerStyle">
-            <ng-template 
-                kendoGridFilterCellTemplate 
-                let-filter
+            <ng-template
+                kendoGridFilterMenuTemplate 
+                let-column="column"
+                let-filter="filter"
+                let-filterService="filterService"
             >
                 <multicheck-filter
-                    [filter]="filter"
-                    [data]="distinctCategories.packaging_type"
                     [isPrimitive]="false"
+                    field="packaging_type.text"
+                    [filterService]="filterService"
+                    [currentFilter]="filter"
                     textField="text"
-                    valueField="value"  
-                    filterField="packaging_type.value" 
-                >
-                </multicheck-filter>
+                    valueField="text"
+                    [data]="distinctCategories.packaging_type"></multicheck-filter>
             </ng-template>
+            <!-- <ng-template kendoGridCellTemplate let-dataItem>
+                <div *ngIf="dataItem.name">{{dataItem.packaging_type.text || null}}</div>
+            </ng-template> -->
         </kendo-grid-column>
         <kendo-grid-column field="quantity" title="Packaging Quantity" filter="numeric" width="180" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
@@ -65,16 +70,17 @@
                 <div *ngIf="dataItem.quantity">{{dataItem.quantity}}</div>
             </ng-template>
             <ng-template 
-                kendoGridFilterCellTemplate 
-                let-filter
+                kendoGridFilterMenuTemplate 
+                let-column="column"
+                let-filter="filter"
+                let-filterService="filterService"
             >
                 <multicheck-filter
-                    [filter]="filter"
-                    [data]="distinctCategories.quantity"
                     [isPrimitive]="true"
-                    filterField="quantity" 
-                >
-                </multicheck-filter>
+                    [field]="column.field"
+                    [filterService]="filterService"
+                    [currentFilter]="filter"
+                    [data]="distinctCategories.quantity"></multicheck-filter>
             </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="active" title="Active" width="135" filter="boolean" [headerStyle]="headerStyle">
