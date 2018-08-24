@@ -60,9 +60,10 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 
 // Kendo Grid
 import { GridModule } from '@progress/kendo-angular-grid';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { DropDownsModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 
 import { DropDownListFilterComponent } from './components/filter/multicheck_filter.component'
+import { MultiCheckFilterComponent } from './components/filter/multicheck-filter.component'
 
 @NgModule({
 	imports: [
@@ -98,7 +99,8 @@ import { DropDownListFilterComponent } from './components/filter/multicheck_filt
 		MatIconModule,
 		DpDatePickerModule,
 		GridModule,
-		DropDownsModule
+		DropDownsModule,
+		MultiSelectModule
 	],
 	declarations: [
 		AppComponent,
@@ -111,7 +113,8 @@ import { DropDownListFilterComponent } from './components/filter/multicheck_filt
 		SearchFilter,
 		SKUFilter,
 		Unique,
-		DropDownListFilterComponent
+		DropDownListFilterComponent,
+		MultiCheckFilterComponent
 	],
 	providers: [
 		AccountService,

@@ -6,55 +6,98 @@
 
 
 <div class="wrapper" *ngIf="!loading">
-    <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter" [sortable]="true"
-        [pageable]="true" [filterable]="true" (dataStateChange)="dataStateChange($event)">
-        <kendo-grid-column field="category_name" title="Category" width="180">
+    <kendo-grid 
+        [data]="gridData" 
+        [pageSize]="state.take" 
+        [skip]="state.skip" 
+        [sort]="state.sort" 
+        [filter]="state.filter" 
+        [sortable]="true"
+        [pageable]="true" 
+        [filterable]="true" 
+        (dataStateChange)="dataStateChange($event)"
+    >
+        <kendo-grid-column field="category_name" title="Category" width="180" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.category_name">null</div>
                 <div *ngIf="dataItem.category_name">{{dataItem.category_name}}</div>
             </ng-template>
+            <ng-template 
+                kendoGridFilterCellTemplate 
+                let-filter
+            >
+                <multicheck-filter
+                    [filter]="filter"
+                    [data]="distinctCategories.category_name"
+                    [isPrimitive]="true"
+                    filterField="category_name" 
+                >
+                </multicheck-filter>
+            </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="code" title="Code" width="150">
+        <kendo-grid-column field="code" title="Code" width="150" [headerStyle]="headerStyle">
         </kendo-grid-column>
-        <kendo-grid-column field="name" title="Name" width="200">
+        <kendo-grid-column field="name" title="Name" width="200" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.name">null</div>
                 <div *ngIf="dataItem.name">{{dataItem.name}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="packaging_type.text" title="Packaging type" width="160">
-            <ng-template kendoGridFilterCellTemplate let-filter>
-                <my-dropdown-filter [filter]="filter" [data]="distinctCategories" textField="text" valueField="value">
-                </my-dropdown-filter>
+        <kendo-grid-column field="packaging_type.text" title="Packaging type" width="160" [headerStyle]="headerStyle">
+            <ng-template 
+                kendoGridFilterCellTemplate 
+                let-filter
+            >
+                <multicheck-filter
+                    [filter]="filter"
+                    [data]="distinctCategories.packaging_type"
+                    [isPrimitive]="false"
+                    textField="text"
+                    valueField="value"  
+                    filterField="packaging_type.value" 
+                >
+                </multicheck-filter>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="quantity" title="Packaging Quantity" filter="numeric" width="180">
+        <kendo-grid-column field="quantity" title="Packaging Quantity" filter="numeric" width="180" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.quantity">null</div>
                 <div *ngIf="dataItem.quantity">{{dataItem.quantity}}</div>
             </ng-template>
+            <ng-template 
+                kendoGridFilterCellTemplate 
+                let-filter
+            >
+                <multicheck-filter
+                    [filter]="filter"
+                    [data]="distinctCategories.quantity"
+                    [isPrimitive]="true"
+                    filterField="quantity" 
+                >
+                </multicheck-filter>
+            </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="active" title="Active" width="135" filter="boolean">
+        <kendo-grid-column field="active" title="Active" width="135" filter="boolean" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.active" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="live" title="Live" width="135" filter="boolean">
+        <kendo-grid-column field="live" title="Live" width="135" filter="boolean" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.live" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="test" title="Test" width="135" filter="boolean">
+        <kendo-grid-column field="test" title="Test" width="135" filter="boolean" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <input type="checkbox" [checked]="dataItem.test" disabled/>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="price" title="Price" filter="numeric" width="170">
+        <kendo-grid-column field="price" title="Price" filter="numeric" width="170" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="dataItem.price!==-1">${{dataItem.price}}</div>
             </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="on_hand" title="On Hand" filter="numeric" width="165">
+        <kendo-grid-column field="on_hand" title="On Hand" filter="numeric" width="165" [headerStyle]="headerStyle">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.on_hand">null</div>
                 <div *ngIf="dataItem.on_hand">{{dataItem.on_hand}}</div>
