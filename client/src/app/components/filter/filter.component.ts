@@ -99,10 +99,7 @@ export class FilterComponent {
 
 		filter: {
 			logic: 'and',
-			filters: [
-				{ field: 'name', operator: 'contains', value: '' },
-				{ field: 'code', operator: 'contains', value: '' },
-			]
+			filters: []
 		}
 	};
 	
