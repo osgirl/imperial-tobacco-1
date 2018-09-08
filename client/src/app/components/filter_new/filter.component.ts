@@ -1,31 +1,34 @@
-import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { DataService } from '../../services/data.service';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { MatSnackBar } from '@angular/material';
-import { process, State } from '@progress/kendo-data-query';
-import {
-	GridComponent,
-	GridDataResult,
-	DataStateChangeEvent
-} from '@progress/kendo-angular-grid';
+import { process, State, distinct } from '@progress/kendo-data-query';
+import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 @Component({
 	selector: 'filter',
 	templateUrl: './filter.component.html',
+	encapsulation: ViewEncapsulation.None,
 	styleUrls: ['./filter.component.css']
 })
 
-export class FilterComponent {
+export class FilterComponentNew {
 	codes: any;
 
 	items: any = [];
 	loading: boolean = true;
 	gridData: any;
-	distinctCategories: any;
-
+	distinctCategories: any = {
+		"category_name": [],
+		"packaging_type": {
+			distField: "text"
+		},
+		"quantity": []
+	}
+	
+	headerStyle = {'background-color': '#456a76','color': '#fff'};
 
 	constructor(
 		private accountService: AccountService,
@@ -39,11 +42,22 @@ export class FilterComponent {
 		document.getElementById('loading').style.display = 'flex';
 		this.dataService.getAllItemsByFilter('jrcigars').subscribe(res => {
 			this.items = res;
+			console.log(this.items);
 			this.gridData = process(this.items, this.state);
-			this.distinctCategories = this.distinct(this.items);
+			this.setDistinct();
 			this.loading = false;
 			document.getElementById('loading').style.display = 'none';
 		});
+	}
+
+	setDistinct() {
+		for (let cat in this.distinctCategories) {
+			if (Array.isArray(this.distinctCategories[cat])) {
+				this.distinctCategories[cat] = this.distinctPrimitive(this.items, cat)
+			} else {
+				this.distinctCategories[cat] = this.distinct(this.items, cat, "text")
+			}
+		}
 	}
 
 	copyToClipboard() {
@@ -85,19 +99,22 @@ export class FilterComponent {
 
 		filter: {
 			logic: 'and',
-			filters: [
-				{ field: 'name', operator: 'contains', value: '' },
-				{ field: 'code', operator: 'contains', value: '' },
-			]
+			filters: []
 		}
 	};
 	
 
 
-	distinct(data: any) {
+	distinct(data: any, cat: string, distField: string) {
 		return data
-			.map((x: any, index: any) => x.packaging_type)
-			.filter((x: any, idx: any, xs: any) => xs.findIndex((y: any) => y.text === x.text) === idx);
+			.map((x: any) => x[cat])
+			.filter((x: any, idx: any, xs: any) => xs.findIndex((y: any) => y[distField] === x[distField]) === idx);
+	}
+
+	distinctPrimitive(data: any, cat: string): any {
+		return data
+			.map((x: any) => x[cat])
+			.filter((x: any, idx: any, xs: any) => xs.findIndex((y: any) => x === y) === idx);
 	}
 
 	dataStateChange(state?: DataStateChangeEvent): void {

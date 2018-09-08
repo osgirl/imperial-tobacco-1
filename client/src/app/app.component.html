@@ -21,9 +21,11 @@
 			<div class="user sku" [ngClass]="{'activated': router.isActive('sku', false)}" [routerLink]="['/sku']">
 				<span>SKU</span>
 			</div>
-
 			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker', false)}" [routerLink]="['/item-picker']">
 				<span>Item Picker</span>
+			</div>
+			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker_new', false)}" [routerLink]="['/item-picker_new']">
+				<span>Item Picker New</span>
 			</div>
 
 			<!-- <div class="menu">

@@ -15,7 +15,8 @@ import { AdminPickerComponent } from './components/picker/picker.component';
 import { SKUPickerComponent } from './components/sku-picker/sku-picker.component';
 import { BrandsTableComponent } from './components/brands-table/brands-table.component';
 import { SKUListComponent } from './components/sku-list/sku-list.component';
-import { FilterComponent} from './components/filter/filter.component'
+import { FilterComponent} from './components/filter/filter.component';
+import { FilterComponentNew} from './components/filter_new/filter.component';
 
 //guards
 import { AuthGuard } from './guards/auth.guard';
@@ -63,7 +64,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { DropDownsModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 
 import { DropDownListFilterComponent } from './components/filter/multicheck_filter.component'
-import { MultiCheckFilterComponent } from './components/filter/multicheck-filter.component'
+import { MultiCheckFilterComponent } from './components/filter_new/multicheck-filter.component'
 
 @NgModule({
 	imports: [
@@ -110,6 +111,7 @@ import { MultiCheckFilterComponent } from './components/filter/multicheck-filter
 		BrandsTableComponent,
 		SKUListComponent,
 		FilterComponent,
+		FilterComponentNew,
 		SearchFilter,
 		SKUFilter,
 		Unique,
