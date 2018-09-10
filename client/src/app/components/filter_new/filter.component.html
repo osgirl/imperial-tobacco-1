@@ -7,6 +7,7 @@
 
 <div class="wrapper" *ngIf="!loading">
     <kendo-grid 
+        class="item-picker-grid-new"
         [data]="gridData" 
         [pageSize]="state.take" 
         [skip]="state.skip" 

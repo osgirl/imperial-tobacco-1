@@ -14,22 +14,22 @@
     padding: 3px !important;
 }
 
-kendo-grid-filter-menu > a {
+.item-picker-grid-new kendo-grid-filter-menu > a {
     background: transparent !important;
     color: #fff !important;
 }
-kendo-grid-filter-menu > a.k-state-active {
+.item-picker-grid-new kendo-grid-filter-menu > a.k-state-active {
     color: #ff6358 !important;
 }
-kendo-grid-filter-menu-container .k-filter-menu-container {
+.item-picker-grid-new kendo-grid-filter-menu-container .k-filter-menu-container {
     padding: 0px !important;
     padding-bottom: 0.5em !important;
 }
-kendo-grid-filter-menu-container multicheck-filter ul {
+.item-picker-grid-new kendo-grid-filter-menu-container multicheck-filter ul {
     margin: 0 !important;
     padding: 0 !important;
 }
-kendo-pager {
+.item-picker-grid-new kendo-pager {
     background-color: rgb(69, 106, 118) !important;
     color: rgb(255, 255, 255) !important;
 }
