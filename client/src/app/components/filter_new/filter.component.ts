@@ -42,7 +42,6 @@ export class FilterComponentNew {
 		document.getElementById('loading').style.display = 'flex';
 		this.dataService.getAllItemsByFilter('jrcigars').subscribe(res => {
 			this.items = res;
-			console.log(this.items);
 			this.gridData = process(this.items, this.state);
 			this.setDistinct();
 			this.loading = false;

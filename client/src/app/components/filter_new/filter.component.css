@@ -33,6 +33,6 @@
     background-color: rgb(69, 106, 118) !important;
     color: rgb(255, 255, 255) !important;
 }
-.k-pager-nav:hover {
+.item-picker-grid-new .k-pager-nav:hover {
     color: #222;
 }
