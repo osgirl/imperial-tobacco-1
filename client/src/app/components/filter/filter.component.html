@@ -60,5 +60,17 @@
                 <div *ngIf="dataItem.on_hand">{{dataItem.on_hand}}</div>
             </ng-template>
         </kendo-grid-column>
+        <kendo-grid-column field="div" title="Division" filter="numeric" width="165" [headerStyle]="headerStyle">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <div *ngIf="!dataItem.div">null</div>
+                <div *ngIf="dataItem.div">{{dataItem.div}}</div>
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="cls" title="Class" filter="numeric" width="165" [headerStyle]="headerStyle">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <div *ngIf="!dataItem.cls">null</div>
+                <div *ngIf="dataItem.cls">{{dataItem.cls}}</div>
+            </ng-template>
+        </kendo-grid-column>
     </kendo-grid>
 </div>

@@ -33,6 +33,8 @@ module.exports = function (platform) {
 					"test": "$display.test",
 					"live": "$display.live",
 					"on_hand": "$quantity_on_hand",
+					"cls": "$cls",
+					"div": "$div"
 
 				},
 				"jr_price": { $first: "$prices.jr_price" },
@@ -114,7 +116,9 @@ module.exports = function (platform) {
 							},
 						],
 					}
-				}
+				},
+				"cls": "$_id.cls",
+				"div": "$_id.div"
 			}
 		},
 
@@ -137,7 +141,9 @@ module.exports = function (platform) {
 				"active": 1,
 				"test": 1,
 				"live": 1,
-				"on_hand": 1
+				"on_hand": 1,
+				"cls": 1,
+				"div": 1
 			}
 		},
 
@@ -161,7 +167,9 @@ module.exports = function (platform) {
 				"active": 1,
 				"test": 1,
 				"live": 1,
-				"on_hand": 1
+				"on_hand": 1,
+				"cls": 1,
+				"div": 1
 			}
 		},
 		{ $sort: { "name": 1, "quantity": 1, "length": 1 } },
