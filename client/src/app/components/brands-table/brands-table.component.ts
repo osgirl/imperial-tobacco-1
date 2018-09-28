@@ -205,7 +205,9 @@ export class BrandsTableComponent {
 		let codes: any[] = [];
 		let data = this.checkedRows.map((row) => {
 			row.items.forEach((item: any) => {
-				if(item.selected) codes.push(item.code);
+				if(item.selected) {
+					codes = [...codes, ...item.codes];
+				}
 			})
 
 			return row.name

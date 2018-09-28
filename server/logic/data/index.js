@@ -32,6 +32,9 @@ module.exports = class Data {
 		for (let j = 0; j < items.length; j++) {
 			let element = items[j];
 
+			// save copy of array to another field
+			element.codes = element.code.slice();
+
 			if (element.code.length > 1) {
 				element.code = element.code.sort((a, b) => a.length - b.length)[0];
 			} else {
@@ -50,7 +53,10 @@ module.exports = class Data {
 	async getEverythingByBrandnames(brandNames, codes, platform, month, year) {
 		let brands = await this.dataRep.getEverythingByBrandnames(brandNames, codes, platform, month, year);
 
+        let logged = false;
 		brands.forEach((brand) => {
+
+			console.log(brand.items[0]);
 
 			brand.items.forEach((element) => {
 				if (element.code.length > 1) {
