@@ -11,7 +11,7 @@ module.exports = function (platform, month, year) {
 		{
 			$project: {
 				name: 1,
-				brand_name: 1,
+				brand_name: { $trim: { input: "$brand_name" } },
 				category: 1
 			}
 		},
