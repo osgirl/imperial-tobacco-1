@@ -51,7 +51,7 @@ export class BrandsTableComponent {
 	ngOnInit() {
 		document.getElementById('loading').style.display = 'flex';
 
-		this.dataService.getBrandsByFilter(this.platform, this.month, this.year).then(res => {
+		this.dataService.getBrandsByFilter(this.platform, this.month, this.year).then((res: any) => {
 			this.allBrands = res;
 			this.rerenderTable(res);
 			document.getElementById('loading').style.display = 'none';

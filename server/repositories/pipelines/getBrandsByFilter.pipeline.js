@@ -44,7 +44,7 @@ module.exports = function (platform, month, year) {
 				"description": {$ifNull: ["$categories_docs.description", "Unspecified"]},
 				"selected": {$literal: false},
 			}
-		}
-
+		},
+		{ "$sort": { name: 1 } },
 	];
 };
