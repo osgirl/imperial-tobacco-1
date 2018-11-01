@@ -82,7 +82,7 @@ module.exports = class Data {
 		return brands;
 	}
 
-	async getAllItemsByFilter(platform) {
+	async getAllItemsByFilter(platform, selectedByDefault) {
 		let items = await this.dataRep.getAllItemsByFilter(platform);
 		items.map((item, index) => {
 			item.code = item.code[0];
@@ -90,6 +90,7 @@ module.exports = class Data {
 				text: `${item.packaging_type}`,
 				value: this.getIndex(item.packaging_type)
 			};
+			item.selected = selectedByDefault;
 		});
 		return items;
 	}

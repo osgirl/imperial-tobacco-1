@@ -8,6 +8,13 @@
 <div class="wrapper" *ngIf="!loading">
     <kendo-grid [data]="gridData" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [filter]="state.filter" [sortable]="true"
         [pageable]="true" [filterable]="true" (dataStateChange)="dataStateChange($event)">
+        <kendo-grid-column field="asd" title="" width="50" [filterable]="false">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <!--<div *ngIf="!dataItem.category_name">null</div>-->
+                <!--<div *ngIf="dataItem.category_name">{{dataItem.category_name}}</div>-->
+                <mat-checkbox [checked]="dataItem.selected" (click)="$event.preventDefault(); onChecked(dataItem)" disableRipple></mat-checkbox>
+            </ng-template>
+        </kendo-grid-column>
         <kendo-grid-column field="category_name" title="Category" width="180">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div *ngIf="!dataItem.category_name">null</div>

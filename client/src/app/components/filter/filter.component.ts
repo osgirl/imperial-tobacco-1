@@ -37,7 +37,7 @@ export class FilterComponent {
 	ngOnInit(){
 		this.loading = true;
 		document.getElementById('loading').style.display = 'flex';
-		this.dataService.getAllItemsByFilter('jrcigars').subscribe(res => {
+		this.dataService.getAllItemsByFilter('jrcigars', false).subscribe(res => {
 			this.items = res;
 			this.gridData = process(this.items, this.state);
 			this.distinctCategories = this.distinct(this.items);
@@ -46,12 +46,24 @@ export class FilterComponent {
 		});
 	}
 
+	onChecked(dataItem: any) {
+		dataItem.selected = !dataItem.selected;
+	}
+
 	copyToClipboard() {
 		this.dataStateChange();
-		let codesArray: any = [];
-		this.codes.data.map((item: any) => {
-			codesArray.push(item.code);
-		})
+
+		const filteredSelectedCodes = this.codes.data.filter((item: any) => item.selected);
+
+		console.log(filteredSelectedCodes);
+		let codesArray: any;
+		if (filteredSelectedCodes.length) {
+			codesArray = filteredSelectedCodes.map((item: any) => item.code);
+		} else {
+			codesArray = this.codes.data.map((item: any) => item.code);
+		}
+
+		// let codesArray: any = this.codes.data.map((item: any) => item.code);
 		codesArray = codesArray.join(', ');
 		if (window['clipboardData'] && window['clipboardData'].setData) {
 			return window['clipboardData'].setData("Text", codesArray);

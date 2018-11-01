@@ -82,10 +82,10 @@ export class DataService {
 			});
 	}
 
-	getAllItemsByFilter(platform: any) {
+	getAllItemsByFilter(platform: any, selectedByDefault: boolean = true) {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
-		return this.http.post('/getAllItemsByFilter', { platform: platform }, { headers: headers })
+		return this.http.post('/getAllItemsByFilter', { platform, selectedByDefault }, { headers: headers })
 			.map(res => res.json());
 	}
 }
