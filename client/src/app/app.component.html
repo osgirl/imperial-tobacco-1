@@ -33,7 +33,7 @@
 			</div> -->
 		</div>
 
-		<div class="center-wrapper">
+		<div class="center-wrapper" [ngClass]="{'loggedIn': isAuth$ | async}">
 			<router-outlet></router-outlet>
 		</div>
 	</div>
