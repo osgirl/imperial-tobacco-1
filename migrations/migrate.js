@@ -63,24 +63,6 @@ async function checkConnection() {
 	// });
 }
 
-async function createDBIfNotExist() {
-	const client = new Client({
-		user    : _config.user,
-		host    : _config.host,
-		database: 'postgres',
-		password: _config.password,
-		port    : _config.port
-	});
-
-	await client.connect();
-	let dbsResult = await client.query(`SELECT datname FROM pg_database where datname = $1`, [_config.database]);
-	if (dbsResult.rows.length === 0) {
-		await client.query(`CREATE DATABASE ${_config.database};`);
-	}
-
-	client.end();
-}
-
 async function createMigrationsTable() {
 	let collections = await db.collections();
 	
