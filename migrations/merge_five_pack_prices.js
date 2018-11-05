@@ -9,7 +9,6 @@ const pipeline = [
 	{
 		"$project" : {
 			"_id": 1,
-			"name": 1,
 			"code": 1
 		}
 	}
@@ -33,7 +32,7 @@ const DB = require('../server/db');
 				"prices.five_pack_wholesale_price": res.prices.wholesale_price,
 			}});
 
-			console.log(`${res.code} prices saved to five pack prices of ${item.name}`);
+			console.log(`${res.code} prices saved to five pack prices of ${item.code}`);
 			await db.collection('items').deleteOne({"_id": res._id});
 		}
 	}
