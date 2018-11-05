@@ -9,6 +9,7 @@ const pipeline = [
 	{
 		"$project" : {
 			"_id": 1,
+			"name": 1,
 			"code": 1
 		}
 	}
@@ -40,5 +41,5 @@ const DB = require('../server/db');
 		process.exit(1);
 	}
 
-    process.exit(0);
+	process.exit(0);
 })();
