@@ -32,7 +32,7 @@ const DB = require('../server/db');
 				"prices.five_pack_wholesale_price": res.prices.wholesale_price,
 			}});
 
-			console.log(res.code + " prices merged and deleted");
+			console.log(`${res.code} prices saved to five pack prices of ${item.name}`);
 			await db.collection('items').deleteOne({"_id": res._id});
 		}
 	}
