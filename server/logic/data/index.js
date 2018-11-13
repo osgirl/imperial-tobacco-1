@@ -82,8 +82,8 @@ module.exports = class Data {
 		return brands;
 	}
 
-	async getAllItemsByFilter(platform, selectedByDefault) {
-		let items = await this.dataRep.getAllItemsByFilter(platform);
+	async getAllItemsByFilter(platform, platformPrice, selectedByDefault) {
+		let items = await this.dataRep.getAllItemsByFilter(platform, platformPrice);
 		items.map((item, index) => {
 			item.code = item.code[0];
 			item.packaging_type = {

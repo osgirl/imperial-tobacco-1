@@ -40,7 +40,7 @@ export class FilterComponentNew {
 	ngOnInit(){
 		this.loading = true;
 		document.getElementById('loading').style.display = 'flex';
-		this.dataService.getAllItemsByFilter('jrcigars').subscribe(res => {
+		this.dataService.getAllItemsByFilter('jrcigars', 'jrcigars').subscribe(res => {
 			this.items = res;
 			this.gridData = process(this.items, this.state);
 			this.setDistinct();

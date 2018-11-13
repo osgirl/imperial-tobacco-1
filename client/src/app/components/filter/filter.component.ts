@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { DataService } from '../../services/data.service';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
@@ -37,7 +37,14 @@ export class FilterComponent {
 	ngOnInit(){
 		this.loading = true;
 		document.getElementById('loading').style.display = 'flex';
-		this.dataService.getAllItemsByFilter('jrcigars', false).subscribe(res => {
+
+		let platform;
+
+		if (this.router.isActive('item-picker-ciragscom', false)) platform = 'cigars.com';
+		else if (this.router.isActive('item-picker-serious-cirags', false)) platform = 'seriouscigars';
+		else if (this.router.isActive('item-picker-jr-cirags', false)) platform = 'jrcigars';
+
+		this.dataService.getAllItemsByFilter(platform, 'jrcigars', false).subscribe(res => {
 			this.items = res;
 			this.gridData = process(this.items, this.state);
 			this.distinctCategories = this.distinct(this.items);

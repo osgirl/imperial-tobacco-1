@@ -21,8 +21,14 @@
 			<div class="user sku" [ngClass]="{'activated': router.isActive('sku', false)}" [routerLink]="['/sku']">
 				<span>SKU</span>
 			</div>
-			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker', false)}" [routerLink]="['/item-picker']">
-				<span>Item Picker</span>
+			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker-ciragscom', false)}" [routerLink]="['/item-picker-ciragscom']">
+				<span style="text-align: center">Item Picker <br> Cigars.com</span>
+			</div>
+			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker-serious-cirags', false)}" [routerLink]="['/item-picker-serious-cirags']">
+				<span style="text-align: center">Item Picker <br> Serious cigars</span>
+			</div>
+			<div class="user filter" [ngClass]="{'activated': router.isActive('item-picker-jr-cirags', false)}" [routerLink]="['/item-picker-jr-cirags']">
+				<span style="text-align: center">Item Picker <br> JR cigars</span>
 			</div>
 			<!-- <div class="user filter" [ngClass]="{'activated': router.isActive('item-picker_new', false)}" [routerLink]="['/item-picker_new']">
 				<span>Item Picker New</span>

@@ -40,6 +40,12 @@ function round(valueExpression, decimals) {
 }
 
 
+const Platforms = {
+	CigarsCom: 'cigars.com',
+	SeriousCigars: 'seriouscigars',
+	JrCigars: 'jrcigars'
+};
+
 module.exports = class Data {
 	constructor(db) {
 		this.db = db;
@@ -59,9 +65,19 @@ module.exports = class Data {
 		const pipeline = require('./pipelines/getNamesByFilter.pipeline.js')(platform, month, year);
 		return await this.db.collection('items').aggregate(pipeline).toArray();
 	}
-	async getAllItemsByFilter(platform){
-		const pipeline = require('./pipelines/getAllItemsByFilter.pipeline.js')(platform);
-		return await this.db.collection('items').aggregate(pipeline).toArray();
+	async getAllItemsByFilter(platform, platformPrice) {
+		const pipeline = require('./pipelines/getAllItemsByFilter.pipeline.js')(platformPrice);
+
+		let items;
+		if (platform === Platforms.CigarsCom) {
+			items = await this.db.collection('cigars_items').aggregate(pipeline).toArray();
+		} else if (platform === Platforms.SeriousCigars) {
+			items = await this.db.collection('serious_items').aggregate(pipeline).toArray();
+		} else if (platform === Platforms.JrCigars) {
+			items = await this.db.collection('items').aggregate(pipeline).toArray();
+		}
+
+		return items;
 	}
 
 	async getEverythingByBrandnames(brandNames, platform, month, year) {

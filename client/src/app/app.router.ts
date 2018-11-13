@@ -17,7 +17,9 @@ export const appRoutes: Routes = [
 
 	{ path: 'admin', component: AdminPickerComponent, canActivate: [AuthGuard] },
 	{ path: 'sku', component: SKUPickerComponent, canActivate: [AuthGuard] },
-	{ path: 'item-picker', component: FilterComponent, canActivate: [AuthGuard] },
+	{ path: 'item-picker-ciragscom', component: FilterComponent, canActivate: [AuthGuard] },
+	{ path: 'item-picker-serious-cirags', component: FilterComponent, canActivate: [AuthGuard] },
+	{ path: 'item-picker-jr-cirags', component: FilterComponent, canActivate: [AuthGuard] },
 	{ path: 'item-picker_new', component: FilterComponentNew, canActivate: [AuthGuard] },
 
 	{ path: 'brands', component: BrandsTableComponent, canActivate: [AuthGuard] },

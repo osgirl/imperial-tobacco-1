@@ -53,7 +53,7 @@ module.exports = function (router) {
 	});
 
 	router.post('/getAllItemsByFilter', async function (req, res, next) {
-		let items = await new DataLogic(new DataRep(req.db)).getAllItemsByFilter(req.body.platform, req.body.selectedByDefault);
+		let items = await new DataLogic(new DataRep(req.db)).getAllItemsByFilter(req.body.platform, req.body.platformPrice, req.body.selectedByDefault);
 		res.json(items);
 	});
 
