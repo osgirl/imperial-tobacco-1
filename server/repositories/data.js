@@ -58,12 +58,39 @@ module.exports = class Data {
 
 	async getBrandsByFilter(platform, month, year) {
 		const pipeline = require('./pipelines/getBrandsByFilter.pipeline.js')(platform, month, year);
-		return await this.db.collection('items').aggregate(pipeline).toArray();
+
+		let collection;
+
+		if(platform == Platforms.CigarsCom) {
+			collection = this.db.collection('cigars_items');
+		} else if (platform == Platforms.JrCigars) {
+			collection = this.db.collection('items');
+		} else if (platform == Platforms.SeriousCigars || platform == "serious cigars") {
+			collection = this.db.collection('serious_items');
+		} else {
+			collection = this.db.collection('items');
+		}
+
+		return await collection.aggregate(pipeline).toArray();
 	}
 
 	async getNamesByFilter(platform, month, year) {
 		const pipeline = require('./pipelines/getNamesByFilter.pipeline.js')(platform, month, year);
-		return await this.db.collection('items').aggregate(pipeline).toArray();
+
+		let collection;
+
+		if(platform == Platforms.CigarsCom) {
+			collection = this.db.collection('cigars_items');
+		} else if (platform == Platforms.JrCigars) {
+			collection = this.db.collection('items');
+		} else if (platform == Platforms.SeriousCigars || platform == "serious cigars") {
+			collection = this.db.collection('serious_items');
+		} else {
+			collection = this.db.collection('items');
+		}
+
+
+		return await collection.aggregate(pipeline).toArray();
 	}
 	async getAllItemsByFilter(platform, platformPrice) {
 		const pipeline = require('./pipelines/getAllItemsByFilter.pipeline.js')(platformPrice);
