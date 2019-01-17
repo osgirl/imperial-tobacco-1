@@ -43,8 +43,7 @@ function round(valueExpression, decimals) {
 const Platforms = {
 	CigarsCom: 'cigars.com',
 	SeriousCigars: 'seriouscigars',
-	JrCigars: 'jrcigars',
-	SantaClaraCigars: 'Santaclaracigars.com'
+	JrCigars: 'jrcigars'
 };
 
 module.exports = class Data {
@@ -68,8 +67,6 @@ module.exports = class Data {
 			collection = this.db.collection('items');
 		} else if (platform == Platforms.SeriousCigars || platform == "serious cigars") {
 			collection = this.db.collection('serious_items');
-		} else if (platform == Platforms.SantaClaraCigars) {
-			collection = this.db.collection('santaclara_item');
 		} else {
 			collection = this.db.collection('items');
 		}
@@ -88,8 +85,6 @@ module.exports = class Data {
 			collection = this.db.collection('items');
 		} else if (platform == Platforms.SeriousCigars || platform == "serious cigars") {
 			collection = this.db.collection('serious_items');
-		} else if (platform == Platforms.SantaClaraCigars) {
-			collection = this.db.collection('santaclara_item');
 		} else {
 			collection = this.db.collection('items');
 		}
@@ -107,8 +102,6 @@ module.exports = class Data {
 			items = await this.db.collection('serious_items').aggregate(pipeline).toArray();
 		} else if (platform === Platforms.JrCigars) {
 			items = await this.db.collection('items').aggregate(pipeline).toArray();
-		} else if (platform === Platforms.SantaClaraCigars) {
-			items = await this.db.collection('santaclara_item').aggregate(pipeline).toArray();
 		}
 
 		return items;

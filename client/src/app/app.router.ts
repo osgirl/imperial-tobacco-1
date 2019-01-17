@@ -20,7 +20,6 @@ export const appRoutes: Routes = [
 	{ path: 'item-picker-ciragscom', component: FilterComponent, canActivate: [AuthGuard] },
 	{ path: 'item-picker-serious-cirags', component: FilterComponent, canActivate: [AuthGuard] },
 	{ path: 'item-picker-jr-cirags', component: FilterComponent, canActivate: [AuthGuard] },
-	{ path: 'item-picker-santaclara-cirags', component: FilterComponent, canActivate: [AuthGuard] },
 	{ path: 'item-picker_new', component: FilterComponentNew, canActivate: [AuthGuard] },
 
 	{ path: 'brands', component: BrandsTableComponent, canActivate: [AuthGuard] },
