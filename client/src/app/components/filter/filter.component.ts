@@ -43,6 +43,7 @@ export class FilterComponent {
 		if (this.router.isActive('item-picker-ciragscom', false)) platform = 'cigars.com';
 		else if (this.router.isActive('item-picker-serious-cirags', false)) platform = 'seriouscigars';
 		else if (this.router.isActive('item-picker-jr-cirags', false)) platform = 'jrcigars';
+		else if (this.router.isActive('item-picker-santaclara-cirags', false)) platform = 'Santaclaracigars.com';
 
 		this.dataService.getAllItemsByFilter(platform, 'jrcigars', false).subscribe(res => {
 			this.items = res;
